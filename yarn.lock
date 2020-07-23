@@ -6463,9 +6463,9 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
-"questionnaire-to-survey@file:localDependencies/questionnaire-to-survey-v1.0.0.tgz":
-  version "1.0.0"
-  resolved "file:localDependencies/questionnaire-to-survey-v1.0.0.tgz#e0ebd2da5f8c17eb9d2b0971039aa79708d1c256"
+"questionnaire-to-survey@file:localDependencies/questionnaire-to-survey-v1.0.1.tgz":
+  version "1.0.1"
+  resolved "file:localDependencies/questionnaire-to-survey-v1.0.1.tgz#019d5c4cd7b7e56d058011d6e631aed6ed1e4a0e"
   dependencies:
     survey-vue "^1.5.9"
 
@@ -7443,9 +7443,9 @@ supports-color@^7.0.0, supports-color@^7.1.0:
     has-flag "^4.0.0"
 
 survey-vue@^1.5.9:
-  version "1.7.17"
-  resolved "https://registry.yarnpkg.com/survey-vue/-/survey-vue-1.7.17.tgz#a39d95b948aad2781dd1e4dadaa3d08d7f51859e"
-  integrity sha512-/qGe2gftlJBAfUQiZ2aaM8OUfS+m106rHoc4KlEzQmJXNvAT+9YBmnwmLdcS23ikcYKjBNUpWJ0TVqkytozoJw==
+  version "1.7.23"
+  resolved "https://registry.yarnpkg.com/survey-vue/-/survey-vue-1.7.23.tgz#01b46b292d637edada890fff6dd07afcf8c68de6"
+  integrity sha512-fz2CxpjJ++YkMrDa6TaFMYeKZoX7fnCdAbVJJeczWXorzs6tcqRAR6H65sxKYPA69R/rCxNUoYnE/e6vsimk4w==
   dependencies:
     vue "^2.1.10"
 
