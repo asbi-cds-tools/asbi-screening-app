@@ -6,7 +6,9 @@ The *ASBI Screening App* currently supports the following alcohol screening inst
 2. United States AUDIT (USAUDIT)
 3. National Institute on Substance Abuse (NIDA) Quick Screen
 
-Each of the above have been represented as interoperable CDS and in the future will be published on the [CDS Connect Repository](https://cds.ahrq.gov).
+Each of the above have been represented as interoperable CDS and have been published on the [CDS Connect Repository](https://cds.ahrq.gov/cdsconnect/artifact_discovery).
+
+An online demo of this app is avaiable; please see the [Demo](#demo) section.
 
 ## Cautions and Limitations
 This software application has not been tested in a clinical environment with real patient data. Its purpose is to faciliate testing of the three alcohol screening CDS to be published on CDS Connect. Additional development work will be needed to integrate the *ASBI Screening App* into a real EHR.
@@ -86,6 +88,9 @@ Navigate to the public SMART<sup>&reg;</sup> App Launcher and choose the "Provid
 
 #### Standalone Launch
 Select the "Provider Standalone Launch" option in the public SMART<sup>&reg;</sup> App Launcher. Copy the "FHIR<sup>&reg;</sup> Server URL" shown at the bottom of the screen and paste it into the `iss` field in `public/launch_public_standalone.html`. Navigate to where `public/launch_public_standalone.html` is being served from and you should be redirected to the patient selector widget.
+
+##### Demo
+An online [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&patient=5c41cecf-cf81-434f-9da7-e24e5a99dbc2%2C417c9b95-6af1-4025-882a-32d8ccf05366&fhir_ver=4) of the *ASBI Screening App* is available, configured to use the NIDA Quick Screen and USAUDIT. The [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&patient=5c41cecf-cf81-434f-9da7-e24e5a99dbc2%2C417c9b95-6af1-4025-882a-32d8ccf05366&fhir_ver=4) utilizes the public SMART sandbox with standalone launch and the use of any recent version of the Chrome browser is recommended. Other browsers have not been extensively tested yet with the demo app.
 
 ## License
 (C) 2020 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.
