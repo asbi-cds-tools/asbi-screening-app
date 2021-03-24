@@ -49,6 +49,7 @@
     "not dead"
   ],
   "resolutions": {
-    "elliptic": "^6.5.4"
+    "elliptic": "^6.5.4",
+    "is-svg": "^4.2.2"
   }
 }
