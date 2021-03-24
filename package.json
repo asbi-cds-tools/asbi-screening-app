@@ -1,7 +1,6 @@
 {
   "name": "absi-screening-app",
   "version": "1.0.2",
-  "license": "Apache-2.0",
   "description": "A SMART on FHIR application that provides multiple alcohol screening instruments for assessing patient alcohol consumption behaviors",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -21,7 +20,7 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.2.0",
     "@vue/cli-plugin-eslint": "^4.2.0",
-    "@vue/cli-service": "^4.2.0",
+    "@vue/cli-service": "~4.5.12",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
@@ -48,8 +47,10 @@
     "> 0.2%",
     "not dead"
   ],
+  "license": "Apache-2.0",
   "resolutions": {
     "elliptic": "^6.5.4",
-    "is-svg": "^4.2.2"
+    "is-svg": "^4.2.2",
+    "ssri": "^8.0.1"
   }
 }
