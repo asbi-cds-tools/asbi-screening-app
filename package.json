@@ -47,5 +47,8 @@
   "browserslist": [
     "> 0.2%",
     "not dead"
-  ]
+  ],
+  "resolutions": {
+    "elliptic": "^6.5.4"
+  }
 }
