@@ -354,7 +354,7 @@
       ]
     },
     {
-      "linkId": "usauditc-score",
+      "linkId": "auditc-score",
       "extension": [
         {
           "url": "http://hl7.org/fhir/StructureDefinition/designNote",
