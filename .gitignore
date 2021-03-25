@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 /dist
+valueset-db.json
 
 # local env files
 .env.local

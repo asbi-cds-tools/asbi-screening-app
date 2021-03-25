@@ -5,7 +5,7 @@
 // ---
 // This script updates the valueset-db.json file with any changes from the CQL
 // library and/or changes in the value set definitions in VSAC.  It should be
-// called with the UMLS Username and Password as arguments.
+// called with the UMLS API Key as the argument.
 const fs = require('fs');
 const path = require('path');
 const temp = require('temp');
@@ -16,10 +16,15 @@ const usAuditLogicElm = require('../cql/UsAuditLogicLibrary.json');
 const niQs2UsAuditLogicElm = require('../cql/NidaQsToUsAuditLogicLibrary.json');
 const fhirHelpersElm = require('../cql/FHIRHelpers.json');
 
-// First ensure a username and password are provided
-const [user, password] = process.argv.slice(2);
-if (user == null || password == null) {
-  console.error('The UMLS username and password must be passed in as arguments');
+// First ensure an API key is provided
+let apiKey;
+if (process.argv.length === 3) {
+  apiKey = process.argv[2];
+} else if (process.argv.length === 4) {
+  console.error('UMLS username and password is no longer supported. Please pass in a UMLS API key instead.');
+  process.exit(1);
+} else {
+  console.error('The UMLS API key must be passed in as an argument');
   process.exit(1);
 }
 
@@ -43,13 +48,16 @@ const niQs2UsAuditLogicLibrary = new Library(niQs2UsAuditLogicElm, new Repositor
   FHIRHelpers: fhirHelpersElm
 }));
 
-// Then use the ensureValueSetsInLibrary function to analyze the CQL, request all 
-// the value sets from VSAC, and store their data in the temporary folder.  The 
-// second argument (true) indicates to also look at dependency libraries.
-console.log(`Loading value sets from VSAC using account: ${user}`);
-codeService.ensureValueSetsInLibrary(whoAudiLogicLibrary, true, user, password)
-  .then(() => codeService.ensureValueSetsInLibrary(usAudiLogicLibrary, true, user, password))
-  .then(() => codeService.ensureValueSetsInLibrary(niQs2UsAuditLogicLibrary, true, user, password))
+// Then use the ensureValueSetsInLibrary function to analyze the Pain
+// Management Summary CQL, request all the value sets from VSAC, and store
+// their data in the temporary folder.  The second argument (true)
+// indicates to also look at dependency libraries.  This has no affect
+// for the current CQL, but may be helpful for people who extend it.
+const maskedKey = apiKey.slice(0, 2) + apiKey.slice(2, -2).replace(/[^-]/g, '*') + apiKey.slice(-2);
+console.log(`Loading value sets from VSAC using API key: ${maskedKey}`);
+codeService.ensureValueSetsInLibraryWithAPIKey(whoAudiLogicLibrary, true, apiKey)
+  .then(() => codeService.ensureValueSetsInLibraryWithAPIKey(usAudiLogicLibrary, true, apiKey))
+  .then(() => codeService.ensureValueSetsInLibraryWithAPIKey(niQs2UsAuditLogicLibrary, true, apiKey))
   .then(() => {
     // The valueset-db.json that the codeService produces isn't exactly the
     // format that cql-execution wants, so now we must reformat it into the 
@@ -80,7 +88,7 @@ codeService.ensureValueSetsInLibrary(whoAudiLogicLibrary, true, user, password)
     let message = error.message;
     if (error.statusCode === 401) {
       // The default 401 message isn't helpful at all
-      message = 'invalid password or unauthorized access'
+      message = 'invalid API key or unauthorized access'
     }
     console.error('Error updating valueset-db.json:', message);
     process.exit(1);
