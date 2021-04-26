@@ -1,6 +1,6 @@
 import cql from 'cql-execution';
 import fhir from 'cql-exec-fhir';
-import fhirHelpersJson from './FHIRHelpers.json';
+import fhirHelpersJson from './FHIRHelpers-4.0.1.json';
 
 /**
  * Executes logical expression written in the Clinical Quality Language (CQL) against 
@@ -14,7 +14,7 @@ export default class CqlProcessor {
    * @param {object} parameters - Key:value pairs of parameters for the CQL library
    */
   constructor(elmJson, valueSetJson, parameters=null) {
-    this.patientSource = fhir.PatientSource.FHIRv400();
+    this.patientSource = fhir.PatientSource.FHIRv401();
     this.repository  = new cql.Repository({
       'FHIRHelpers': fhirHelpersJson
     });
