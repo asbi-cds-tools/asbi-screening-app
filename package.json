@@ -12,6 +12,7 @@
     "cql-exec-fhir": "^2.0.0",
     "cql-exec-vsac": "^1.2.0",
     "cql-execution": "^2.0.0",
+    "cql-worker": "file:localDependencies/cql-worker-1.0.0.tgz",
     "fhirclient": "^2.3.11",
     "questionnaire-to-survey": "file:localDependencies/questionnaire-to-survey-v1.0.1.tgz",
     "temp": "^0.9.1",

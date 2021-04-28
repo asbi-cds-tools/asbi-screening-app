@@ -10,7 +10,9 @@ module.exports = {
           enforce: "pre",
           exclude: [
             path.resolve(__dirname, 'node_modules/cql-execution/lib'),
-            path.resolve(__dirname, 'node_modules/fhirclient')
+            path.resolve(__dirname, 'node_modules/fhirclient'),
+            path.resolve(__dirname, 'node_modules/cql-worker'),
+            path.resolve(__dirname, 'node_modules/cql-exec-fhir')
           ]
         },
         {

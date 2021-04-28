@@ -10,7 +10,8 @@
 
 import questionnaireFromFHIR from 'questionnaire-to-survey';
 import { getScreeningInstrument } from '../util/screening-selector.js';
-import Worker from '../cql/cql.worker.js'; // https://github.com/webpack-contrib/worker-loader
+import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
+import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
 import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
 import 'survey-vue/modern.css';
@@ -30,74 +31,26 @@ let cqlParameters = {
   QuestionnaireURL: questionnaire.url
 };
 
+// Initialize the cql-worker
+let [setupExecution, sendPatientBundle, evaluateExpression] = initialzieCqlWorker(cqlWorker);
+
 // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
-cqlWorker.postMessage({elmJson: elmJson, valueSetJson: valueSetJson, parameters: cqlParameters});
+setupExecution(elmJson, valueSetJson, cqlParameters);
 
-// Define an array to keep track of the expression messages sent to the Web Worker
-var messageArray = [
-  {
-    expr: 'PLACEHOLDER', 
-    self: {},
-    result: ''
-  }
-];
+// evaluateExpression returns a Promise that evaluates to the results from running 
+// the CQL `expression`. SurveyJS expects to be provided with a function which will 
+// call `this.returnResult(result)` when it completes. Here we create a wrapper 
+// calls `returnResult()` when the promise resolves.
+// See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
+let wrappedExpression = function(expression) {
+  let self = this;
+  // For some reason SurveyJS wraps `expression` in an array
+  evaluateExpression(expression[0]).then(result => {
+    self.returnResult(result);
+  });
 
-// Define an event handler for when cqlWorker sends results back
-cqlWorker.onmessage = function(event) {
-  // Unpack the message in the event
-  let expression = event.data.expression;
-  let result = event.data.result;
-
-  if (result == 'WAITING_FOR_PATIENT_BUNDLE') {
-    cqlWorker.postMessage({expression: expression});
-  } else {
-    // Try to find this expression in the messageArray
-    let executingExpressionIndex = messageArray.map((msg,idx) => {
-      if (msg.expr == expression) return idx;
-      else return -1; 
-    }).reduce((a,b) => {
-      if (a != -1) return a;
-      else if (b != -1) return b;
-      else return -1});
-
-    // If the expression was found in the messageArray
-    if (executingExpressionIndex != -1) {
-      // Return the result to SurveyJS using the returnResult function
-      messageArray[executingExpressionIndex].self.returnResult(result);
-      // Remove the matching entry from the array
-      messageArray.splice(executingExpressionIndex,1);
-    }
-  }
-}
-
-/**
- * Sends an expression to the webworker for evaluation.
- * @param {string} expression - The name of a CQL expression.
- * @returns {boolean} - A dummy return value.
- */
-function evaluateExpression(expression) {
-  // If this expression is already on the message stack, return its index.
-  let executingExpressionIndex = messageArray.map((msg,idx) => {
-    if (msg.expression == expression) return idx;
-    else return -1;
-  }).reduce((a,b) => {
-    if (a != -1) return a;
-    else if (b != -1) return b;
-    else return -1});
-  
-  // If this expression was not found on the stack
-  if (executingExpressionIndex == -1) {
-    // Add an entry to the stack
-    messageArray.push({
-      expr: expression[0], // The name of the expression
-      self: this, // A reference to this so we can self.returnResult(result)
-      result: '' // The result (a string)
-    });
-    // Send the entry to the Web Worker
-    cqlWorker.postMessage({expression: expression});
-    return false; // The value here doesn't matter
-  }
-}
+  return false; // This value doesn't matter
+};
 
 // Define the QuestionnaireResponse which will contain the user responses.
 var questionnaireResponse = {
@@ -127,7 +80,7 @@ patientBundle.entry.push({resource: questionnaireResponse});
 export default {
   data() {
     // Create our SurveyJS object from the FHIR Questionnaire
-    var model = questionnaireFromFHIR(questionnaire, evaluateExpression, 'modern');
+    var model = questionnaireFromFHIR(questionnaire, wrappedExpression, 'modern');
     
     // SurveyJS settings
     model.showQuestionNumbers = 'off';
@@ -300,7 +253,7 @@ export default {
     }
 
     // Send the patient bundle to the CQL web worker
-    cqlWorker.postMessage({patientBundle: patientBundle});
+    sendPatientBundle(patientBundle);
 
     // We don't show this component until `ready=true`
     this.ready = true;
