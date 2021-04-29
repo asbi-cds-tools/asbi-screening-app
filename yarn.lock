@@ -3627,7 +3627,7 @@ cql-execution@^2.0.0, cql-execution@^2.2.0:
 
 "cql-worker@file:localDependencies/cql-worker-1.0.0.tgz":
   version "1.0.0"
-  resolved "file:localDependencies/cql-worker-1.0.0.tgz#f75a252ff5f3a8419ea53e10cdb46f27ebd9dc25"
+  resolved "file:localDependencies/cql-worker-1.0.0.tgz#40661a0d46f77fc5349640a272fde4cc01641072"
   dependencies:
     cql-exec-fhir "^2.0.0"
     cql-execution "^2.2.0"
