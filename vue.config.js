@@ -27,7 +27,8 @@ module.exports = {
     'xmldoc',
     'body-parser',
     'debug',
-    '@lhncbc/ucum-lhc'
+    '@lhncbc/ucum-lhc',
+    'luxon'
   ],
   configureWebpack: {
     module: {
