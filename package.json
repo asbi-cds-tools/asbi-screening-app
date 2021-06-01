@@ -1,6 +1,6 @@
 {
   "name": "absi-screening-app",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A SMART on FHIR application that provides multiple alcohol screening instruments for assessing patient alcohol consumption behaviors",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -12,7 +12,7 @@
     "cql-exec-fhir": "^2.0.0",
     "cql-exec-vsac": "^1.2.0",
     "cql-execution": "^2.0.0",
-    "cql-worker": "file:localDependencies/cql-worker-1.0.0.tgz",
+    "cql-worker": "file:localDependencies/cql-worker-1.0.1.tgz",
     "fhirclient": "^2.3.11",
     "questionnaire-to-survey": "file:localDependencies/questionnaire-to-survey-v1.0.3.tgz",
     "temp": "^0.9.1",
@@ -54,6 +54,8 @@
     "is-svg": "^4.2.2",
     "ssri": "^8.0.1",
     "hosted-git-info": "^3.0.8",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "dns-packet": "^1.3.2",
+    "browserslist": "^4.16.5"
   }
 }
