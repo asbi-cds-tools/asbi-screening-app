@@ -1,6 +1,5 @@
 <template>
   <div id="surveyElement">
-    <h1>DEMO: ALCOHOL SCREENING APP</h1>
     <survey v-if="ready" :survey="survey"></survey>
     <div v-if="ready" id="surveyResult"></div>
   </div>
@@ -87,6 +86,7 @@ export default {
     model.completeText = 'Submit';
     model.clearInvisibleValues = 'onHidden';
     model.requiredText = '';
+    model.completedHtml = '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>';
     // model.goNextPageAutomatic = 'autogonext';
     
     // Return model, but note that we're not ready yet
@@ -270,28 +270,48 @@ input:focus {
   border-color: orange;
   border-width: 3px;
 }
-/* #nida-introduction {
-  width:80%;
+.sv-question__content {
   display:inline-block;
-  margin-bottom: 20px;
-  text-align: left;
+  width:69%;
+  margin-left:0;
+  vertical-align: middle;
 }
-#audit-introduction {
-  width:80%;
+.sv-question__header {
   display:inline-block;
-  margin-bottom: 20px;
-  text-align: left;
+  width:30%;
+  margin-bottom:0;
+  vertical-align: middle;
 }
-#introduction {
-  width:80%;
+div.sv-question > div.sv-question__content > fieldset > div.sv-item {
   display:inline-block;
-  margin-bottom: 20px;
-  text-align: left;
+  width:auto;
+  margin-right:1em;
+  margin-bottom:0;
 }
-#instructions {
-  width:80%;
+div.sv-question > div.sv-question__content > fieldset {
+  margin-bottom: 0;
+  vertical-align: middle;
+}
+.sv-selectbase {
   display:inline-block;
-  margin-bottom: 20px;
-  text-align: left;
-} */
+}
+span.sv-radio__decorator {
+  display: none;
+}
+div.sv-item.sv-radio.sv-selectbase__item {
+  border: 1px solid black;
+  border-radius: 5%;
+  margin: 10px;
+}
+label.sv-selectbase__label {
+  padding: 10px 20px 10px 10px;
+}
+div.sv-item.sv-radio.sv-selectbase__item.sv-radio--checked {
+  background: lightgrey;
+  border-width: 2px;
+}
+.sv-root-modern .sv-selectbase .sv-item__control:focus ~ .sv-item__control-label {
+  font-weight: bold;
+  font-style: italic;
+}
 </style>
