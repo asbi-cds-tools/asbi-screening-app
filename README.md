@@ -101,10 +101,10 @@ Navigate to the public SMART<sup>&reg;</sup> App Launcher and choose the "Provid
 Select the "Provider Standalone Launch" option in the public SMART<sup>&reg;</sup> App Launcher. Copy the "FHIR<sup>&reg;</sup> Server URL" shown at the bottom of the screen and paste it into the `iss` field in `public/launch_public_standalone.html`. Navigate to where `public/launch_public_standalone.html` is being served from and you should be redirected to the patient selector widget.
 
 ##### Demo
-An online [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) of the *ASBI Screening App* is available, configured to use the NIDA Quick Screen and USAUDIT. The [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) utilizes the public SMART sandbox with standalone launch and the use of any recent version of the Chrome browser is recommended. Other browsers have not been extensively tested yet with the demo app.
+An online [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) of the *ASBI Screening App* is available, configured to use the WHO AUDIT. The [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) utilizes the public SMART sandbox with standalone launch and the use of any recent version of the Chrome browser is recommended. Other browsers have not yet been extensively tested with the demo app.
 
 ## License
-(C) 2020 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.
+(C) 2021 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.
 
 Unless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the National Center on Birth Defects and Developmental Disabilities, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30119F05691.
 
