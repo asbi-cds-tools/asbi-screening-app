@@ -14,7 +14,7 @@ const { CodeService } = require('cql-exec-vsac');
 const whoAudiLogicElm = require('../cql/WhoAuditLogicLibrary.json');
 const usAuditLogicElm = require('../cql/UsAuditLogicLibrary.json');
 const niQs2UsAuditLogicElm = require('../cql/NidaQsToUsAuditLogicLibrary.json');
-const fhirHelpersElm = require('../cql/FHIRHelpers.json');
+const fhirHelpersElm = require('../cql/FHIRHelpers-4.0.1.json');
 
 // First ensure an API key is provided
 let apiKey;
