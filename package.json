@@ -66,6 +66,8 @@
     "nth-check": "^2.0.1",
     "ansi-regex": "^5.0.1",
     "node-forge": "^1.0.0",
-    "postcss": "^8.2.13"
+    "postcss": "^8.2.10",
+    "autoprefixer": "^10.2.5",
+    "cssnano": "^5.0.2"
   }
 }
