@@ -14,7 +14,8 @@
     "cql-execution": "^2.2.0",
     "cql-worker": "^1.1.1",
     "fhirclient": "^2.3.11",
-    "questionnaire-to-survey": "file:localDependencies/questionnaire-to-survey-v1.1.1.tgz",
+    "questionnaire-to-survey": "file:localDependencies/questionnaire-to-survey-2.0.0-rc.3.tgz",
+    "survey-vue": "~1.8.79",
     "temp": "^0.9.1"
   },
   "devDependencies": {

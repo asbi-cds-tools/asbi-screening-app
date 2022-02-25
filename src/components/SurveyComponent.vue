@@ -7,13 +7,17 @@
 
 <script>
 
-import questionnaireFromFHIR from 'questionnaire-to-survey';
+import converter from 'questionnaire-to-survey';
 import { getScreeningInstrument } from '../util/screening-selector.js';
 import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
 import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
 import 'survey-vue/modern.css';
+
+import { FunctionFactory, Model, Serializer, StylesManager } from 'survey-vue';
+// const { FunctionFactory, Model, Serializer, StylesManager } = pkg;
+const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
 
 // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
 const [questionnaire, elmJson, valueSetJson] = getScreeningInstrument();
@@ -79,7 +83,7 @@ patientBundle.entry.push({resource: questionnaireResponse});
 export default {
   data() {
     // Create our SurveyJS object from the FHIR Questionnaire
-    var model = questionnaireFromFHIR(questionnaire, wrappedExpression, 'modern');
+    var model = vueConverter(questionnaire, wrappedExpression, 'modern');
     
     // SurveyJS settings
     model.showQuestionNumbers = 'off';
@@ -262,7 +266,7 @@ export default {
 </script>
 
 <style>
-@import '~survey-vue/modern.css';
+/* @import '~survey-vue/modern.css'; */
 input:focus {
   outline: 3px solid orange;
 }
@@ -285,8 +289,8 @@ input:focus {
 div.sv-question > div.sv-question__content > fieldset > div.sv-item {
   display:inline-block;
   width:auto;
-  margin-right:1em;
-  margin-bottom:0;
+  /* margin-right:1em;
+  margin-bottom:0; */
 }
 div.sv-question > div.sv-question__content > fieldset {
   margin-bottom: 0;
@@ -304,7 +308,8 @@ div.sv-item.sv-radio.sv-selectbase__item {
   margin: 10px;
 }
 label.sv-selectbase__label {
-  padding: 10px 20px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  margin: 0;
 }
 div.sv-item.sv-radio.sv-selectbase__item.sv-radio--checked {
   background: lightgrey;
@@ -313,5 +318,8 @@ div.sv-item.sv-radio.sv-selectbase__item.sv-radio--checked {
 .sv-root-modern .sv-selectbase .sv-item__control:focus ~ .sv-item__control-label {
   font-weight: bold;
   font-style: italic;
+}
+.sv-item__control-label {
+  top: 1px;
 }
 </style>
