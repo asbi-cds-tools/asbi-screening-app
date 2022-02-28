@@ -16,7 +16,6 @@ import {getCurrentISODate, getObservationCategories, getResponseValue} from '../
 import 'survey-vue/modern.css';
 
 import { FunctionFactory, Model, Serializer, StylesManager } from 'survey-vue';
-// const { FunctionFactory, Model, Serializer, StylesManager } = pkg;
 const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
 
 // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
