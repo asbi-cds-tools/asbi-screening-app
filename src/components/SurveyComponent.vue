@@ -257,9 +257,9 @@ export default {
           });
         }
         // TODO: REMOVE THIS DEVELOPMENT PLACEHOLDER
-        document.querySelector('#surveyResult').innerHTML = 
-          'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
-          JSON.stringify(this.questionnaireResponse, null, 2) + '</div></pre>';
+        // document.querySelector('#surveyResult').innerHTML = 
+        //   'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
+        //   JSON.stringify(this.questionnaireResponse, null, 2) + '</div></pre>';
       }.bind(this));
     },
   }
