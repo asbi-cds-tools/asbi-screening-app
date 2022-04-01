@@ -1,7 +1,13 @@
 <template>
-  <div id="surveyElement">
+  <div id="surveyElement" class="ma-4">
     <survey v-if="ready" :survey="survey"></survey>
     <div v-if="ready" id="surveyResult"></div>
+    <v-progress-circular :value="100" v-if="!error && !ready" indeterminate
+      color="primary"></v-progress-circular>
+    <v-alert color="error" v-if="error" dark>
+      Error loading the application. See console for detail.
+      <div v-html="error"></div>
+    </v-alert>
   </div>
 </template>
 
@@ -9,17 +15,13 @@
 
 import converter from 'questionnaire-to-survey';
 import { getScreeningInstrument } from '../util/screening-selector.js';
-import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
+import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; //https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
 import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
 import 'survey-vue/modern.css';
-
+import "../style/app.scss";
 import { FunctionFactory, Model, Serializer, StylesManager } from 'survey-vue';
-const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
-
-// Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
-const [questionnaire, elmJson, valueSetJson] = getScreeningInstrument();
 
 // Top level definition of our FHIR client
 var client;
@@ -27,298 +29,239 @@ var client;
 // Define a web worker for evaluating CQL expressions
 const cqlWorker = new Worker();
 
-// Assemble the parameters needed by the CQL
-let cqlParameters = {
-  DisplayScreeningScores: process.env.VUE_APP_DISPLAY_SCREENING_SCORES.toLowerCase() == "true" ? true : false,
-  QuestionnaireURL: questionnaire.url
-};
-
 // Initialize the cql-worker
 let [setupExecution, sendPatientBundle, evaluateExpression] = initialzieCqlWorker(cqlWorker);
-
-// Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
-setupExecution(elmJson, valueSetJson, cqlParameters);
-
-// evaluateExpression returns a Promise that evaluates to the results from running 
-// the CQL `expression`. SurveyJS expects to be provided with a function which will 
-// call `this.returnResult(result)` when it completes. Here we create a wrapper 
-// calls `returnResult()` when the promise resolves.
-// See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
-let wrappedExpression = function(expression) {
-  let self = this;
-  // For some reason SurveyJS wraps `expression` in an array
-  evaluateExpression(expression[0]).then(result => {
-    self.returnResult(result);
-  });
-
-  return false; // This value doesn't matter
-};
-
-// Define the QuestionnaireResponse which will contain the user responses.
-var questionnaireResponse = {
-  resourceType: 'QuestionnaireResponse',
-  questionnaire: questionnaire.url,
-  status: 'in-progress',
-  item: [],
-  authored: getCurrentISODate()
-};
-
-// Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
-// Note: Objects are pushed onto the array by reference (no copy), so we don't 
-//       need to do anything fancy when we update questionnaireResponse later on.
-var patientBundle = {
-  resourceType: 'Bundle',
-  id: 'survey-bundle',
-  type: 'collection',
-  entry: []
-};
-patientBundle.entry.push({resource: questionnaire});
-patientBundle.entry.push({resource: questionnaireResponse});
-
-// Extract the value[x] of each question and save for later reference.
-//var itemTypes = getItemTypes(questionnaire, {});
 
 // Define the survey component for Vue
 export default {
   data() {
-    // Create our SurveyJS object from the FHIR Questionnaire
-    var model = vueConverter(questionnaire, wrappedExpression, 'modern');
-    
-    // SurveyJS settings
-    model.showQuestionNumbers = 'off';
-    model.completeText = 'Submit';
-    model.clearInvisibleValues = 'onHidden';
-    model.requiredText = '';
-    model.completedHtml = '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>';
-    // model.goNextPageAutomatic = 'autogonext';
-    
-    // Return model, but note that we're not ready yet
     return {
-      survey: model,
-      ready: false
+      survey: null,
+      patientId: 0,
+      questionnaire: {},
+      patientBundle: {
+        resourceType: 'Bundle',
+        id: 'survey-bundle',
+        type: 'collection',
+        entry: []
+      },
+      questionnaireResponse: {
+        resourceType: 'QuestionnaireResponse',
+        status: 'in-progress',
+        item: [],
+        authored: getCurrentISODate()
+      },
+      ready: false,
+      error: false
     };
   },
-  created() {
-    // Add an event listener which updates questionnaireResponse based upon user responses
-    this.survey.onValueChanging.add(function(sender, options) {
-      // We don't want to modify anything if the survey has been submitted/completed.
-      if (sender.isCompleted == true) return;
-      
-      if (options.value != null) {
-        // Find the index of this item (may not exist)
-        // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
-        let answerItemIndex = questionnaireResponse.item.findIndex(itm => itm.linkId == options.name);
-        let responseValue = getResponseValue(questionnaire, options.name, options.value);
-        // If the index is undefined, add a new entry to questionnaireResponse.item
-        if (answerItemIndex == -1) {
-          questionnaireResponse.item.push({
-            linkId: options.name,
-            answer: [{
-              [responseValue.type]: responseValue.value
-            }]
-          });
-        } else { // Otherwise update the existing index with the new response
-          questionnaireResponse.item[answerItemIndex] = {
-            linkId: options.name,
-            answer: [{
-              [responseValue.type]: responseValue.value
-            }]
-          };
-        }
-      }
-      // Need to reload the patient bundle since the responses have been updated
-      cqlWorker.postMessage({patientBundle: patientBundle});
+  mounted() {
+    this.setAuthClient().then(() => {
+      this.setPatientId().then(() => {
+        this.initializeInstrument().then(() => {
+          this.initializeSurvey();
+          this.getFhirResources();
+          this.setQuestionnaireSubject();
+          // Send the patient bundle to the CQL web worker
+          sendPatientBundle(this.patientBundle);
+          // We don't show this component until `ready=true`
+          this.ready = true;
+        }).catch(e => {
+          this.error = e;
+          console.log("Questionnaire error ", e);
+        })
+      }).catch(e => {
+        this.error = e;
+        console.log("Set Patient Id error ", e);
+      });
+    }).catch(e => {
+      console.log("Auth Error ", e);
+      this.error = e;
+      this.ready = true;
     });
-    // Add a handler which will fire when the Questionnaire is submittedc
-    this.survey.onComplete.add(function() {
-      // Mark the QuestionnaireResponse as completed
-      questionnaireResponse.status = 'completed'
+  },
+  methods: {
+    initializeInstrument() {
+      var self = this;
+      return getScreeningInstrument().then(data => {
+        // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
+        const [questionnaire, elmJson, valueSetJson] = data;
+        self.questionnaire = questionnaire;
+        // Assemble the parameters needed by the CQL
+        let cqlParameters = {
+          DisplayScreeningScores: process.env.VUE_APP_DISPLAY_SCREENING_SCORES && process.env.VUE_APP_DISPLAY_SCREENING_SCORES.toLowerCase() == "true" ? true : false,
+          QuestionnaireURL: this.questionnaire.url
+        };
+        // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
+        setupExecution(elmJson, valueSetJson, cqlParameters);
 
-      // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
-      if (process.env.VUE_APP_WRITE_BACK_MODE.toLowerCase() == 'smart') {
-        client.create(questionnaireResponse, {
-          headers: {
-            'Content-Type': 'application/fhir+json'
-          }
+        // Define the QuestionnaireResponse which will contain the user responses.
+        this.questionnaireResponse.questionnaire = questionnaire.url;
+
+        // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
+        // Note: Objects are pushed onto the array by reference (no copy), so we don't 
+        //       need to do anything fancy when we update questionnaireResponse later on.
+        this.patientBundle.entry.push({resource: this.questionnaire});
+        this.patientBundle.entry.push({resource: this.questionnaireResponse});
+      }).catch(e => {
+        this.error = e;
+        console.log(e);
+      });
+    },
+    initializeSurvey() {
+      const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
+      // evaluateExpression returns a Promise that evaluates to the results from running 
+      // the CQL `expression`. SurveyJS expects to be provided with a function which will 
+      // call `this.returnResult(result)` when it completes. Here we create a wrapper 
+      // calls `returnResult()` when the promise resolves.
+      // See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
+      let wrappedExpression = function(expression) {
+        let self = this;
+        // For some reason SurveyJS wraps `expression` in an array
+        evaluateExpression(expression[0]).then(result => {
+          self.returnResult(result);
+        });
+
+        return false; // This value doesn't matter
+      };
+      // Create our SurveyJS object from the FHIR Questionnaire
+      var model = vueConverter(this.questionnaire, wrappedExpression, 'modern');
+      var defaultOptions = {
+        showQuestionNumbers: 'off',
+        completeText: 'Submit',
+        clearInvisibleValues: 'onHidden',
+        requiredText: '',
+        completedHtml: '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>'
+      };
+      //SurveyJS settings
+      Object.entries(defaultOptions).forEach(option => model[option[0]] = option[1]);
+      this.survey = model;
+      this.initSurveyEvents();
+    },
+    async setAuthClient() {
+       // Wait for authorization
+      try {
+        client = await FHIR.oauth2.ready();
+      } catch(e) {
+        this.error = e;
+        console.log("Auth error: ", e);
+      }
+    },
+    async setPatientId() {
+       // Get the Patient resource
+      this.patientId = await client.patient.read().then((pt) => {
+        if (pt) this.patientBundle.entry.unshift({resource: pt});
+        console.log(pt);
+        return pt.id;
+      });
+    },
+    async getFhirResources() {
+       // Get any Observation resources
+      let observationQueryString = `/Observation?patient=${this.patientId}`;
+      // Optionally request Observations using categories
+      if (
+        process.env.VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES &&
+        process.env.VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES.toLowerCase() == 'true') {
+        getObservationCategories().forEach(cat => {
+          observationQueryString = observationQueryString + '&category=' + cat;
         });
       }
-
-      // TODO: REMOVE THIS DEVELOPMENT PLACEHOLDER
-      // document.querySelector('#surveyResult').innerHTML = 
-      //   'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
-      //   JSON.stringify(questionnaireResponse, null, 2) + '</div></pre>';
-    });
-  },
-  async mounted() {
-    // Wait for authorization
-    client = await FHIR.oauth2.ready();
-
-    // Get the Patient resource
-    let pid = await client.patient.read().then(function(pt) {
-      if (pt) patientBundle.entry.unshift({resource: pt});
-      console.log(pt);
-      return pt.id;
-    });
-
-    // Get any Condition resources
-    await client.request('/Condition?patient=' + pid).then(function(cd) {
-      if (cd) {
-        if (cd.resourceType == 'Bundle' && cd.entry) {
-          cd.entry.forEach(c => {
-            if (c.resource) patientBundle.entry.push({resource: c.resource});
-          });
-        } else if (Array.isArray(cd)) {
-          cd.forEach(c => {
-            if (c.resourceType) patientBundle.entry.push({resource: c});
-          });
-        } else {
-          patientBundle.entry.push({resource: cd});
-        }
-      }
-    });
-    
-    // Get any Observation resources
-    let observationQueryString = `/Observation?patient=${pid}`;
-    // Optionally request Observations using categories
-    if (process.env.VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES.toLowerCase() == 'true') {
-      getObservationCategories().forEach(cat => {
-        observationQueryString = observationQueryString + '&category=' + cat;
+      const requests = [
+        client.request('/Condition?patient=' +  this.patientId),
+        client.request(observationQueryString),
+        client.request('/Procedure?patient=' +  this.patientId),
+        client.request('/QuestionnaireResponse?patient=' +  this.patientId)
+      ];
+      Promise.all(requests).then(results => {
+        results.forEach(result => {
+          if (!result) return true;
+          if (result.resourceType == 'Bundle' && result.entry) {
+            result.entry.forEach(o => {
+              if (o && o.resource) this.patientBundle.entry.push({resource: o.resource});
+            });
+          } else if (Array.isArray(result)) {
+            result.forEach(o => {
+              if (o.resourceType) this.patientBundle.entry.push({resource: o});
+            });
+          } else {
+            this.patientBundle.entry.push({resource: result});
+          }
+        });
       });
-    }
-    await client.request(observationQueryString).then(function(ob) {
-      if (ob) {
-        if (ob.resourceType == 'Bundle' && ob.entry) {
-          ob.entry.forEach(o => {
-            if (o.resource) patientBundle.entry.push({resource: o.resource});
-          });
-        } else if (Array.isArray(ob)) {
-          ob.forEach(o => {
-            if (o.resourceType) patientBundle.entry.push({resource: o});
-          });
-        } else {
-          patientBundle.entry.push({resource: ob});
+    }, //
+    setQuestionnaireSubject() {
+      // Add the `subject` element to the QuestionnaireResponse
+      this.questionnaireResponse.subject = {
+        reference: `Patient/${this.patientId}`
+      };
+
+      // Record who is entering and submitting the responses
+      // How do we know the author here?
+      let questionnaireAuthor = process.env.VUE_APP_QUESTIONNAIRE_AUTHOR && process.env.VUE_APP_QUESTIONNAIRE_AUTHOR.toLowerCase();
+      if (questionnaireAuthor == 'practitioner') {
+        // Only add the `author` element if we can get the user id from the client
+        if (client.user && client.user.fhirUser) {
+          this.questionnaireResponse.author = {
+            reference: client.user.fhirUser
+          };
+        }
+      } else if (questionnaireAuthor == 'patient') {
+        this.questionnaireResponse.author = {
+          reference: this.questionnaireResponse.subject.reference
         }
       }
-    });
-
-    // Get any Procedure resources
-    await client.request('/Procedure?patient=' + pid).then(function(pr) {
-      if (pr) {
-        if (pr.resourceType == 'Bundle' && pr.entry) {
-          pr.entry.forEach(p => {
-            if (p.resource) patientBundle.entry.push({resource: p.resource});
-          });
-        } else if (Array.isArray(pr)) {
-          pr.forEach(p => {
-            if (p.resourceType) patientBundle.entry.push({resource: p});
-          });
-        } else {
-          patientBundle.entry.push({resource: pr});
+    },
+    initSurveyEvents() {
+      // Add an event listener which updates questionnaireResponse based upon user responses
+      this.survey.onValueChanging.add(function(sender, options) {
+        // We don't want to modify anything if the survey has been submitted/completed.
+        if (sender.isCompleted == true) return;
+        
+        if (options.value != null) {
+          // Find the index of this item (may not exist)
+          // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
+          let answerItemIndex = this.questionnaireResponse.item.findIndex(itm => itm.linkId == options.name);
+          let responseValue = getResponseValue(this.questionnaire, options.name, options.value);
+          // If the index is undefined, add a new entry to questionnaireResponse.item
+          if (answerItemIndex == -1) {
+            this.questionnaireResponse.item.push({
+              linkId: options.name,
+              answer: [{
+                [responseValue.type]: responseValue.value
+              }]
+            });
+          } else { // Otherwise update the existing index with the new response
+            this.questionnaireResponse.item[answerItemIndex] = {
+              linkId: options.name,
+              answer: [{
+                [responseValue.type]: responseValue.value
+              }]
+            };
+          }
         }
-      }
-    });
+        // Need to reload the patient bundle since the responses have been updated
+        cqlWorker.postMessage({patientBundle: this.patientBundle});
+      }.bind(this));
+      // Add a handler which will fire when the Questionnaire is submittedc
+      this.survey.onComplete.add(function() {
+        // Mark the QuestionnaireResponse as completed
+        this.questionnaireResponse.status = 'completed'
 
-    // Get any QuestionnaireResponse resources
-    await client.request('/QuestionnaireResponse?patient=' + pid).then(function(qr) {
-      if (qr) {
-        if (qr.resourceType == 'Bundle' && qr.entry) {
-          qr.entry.forEach(q => {
-            if (q.resource) patientBundle.entry.push({resource: q.resource});
+        // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
+        if (process.env.VUE_APP_WRITE_BACK_MODE &&
+            process.env.VUE_APP_WRITE_BACK_MODE.toLowerCase() == 'smart') {
+          client.create(this.questionnaireResponse, {
+            headers: {
+              'Content-Type': 'application/fhir+json'
+            }
           });
-        } else if (Array.isArray(qr)) {
-          qr.forEach(q => {
-            if (q.resourceType) patientBundle.entry.push({resource: q});
-          });
-        } else {
-          patientBundle.entry.push({resource: qr});
         }
-      }
-    });
-
-    // Add the `subject` element to the QuestionnaireResponse
-    questionnaireResponse.subject = {
-      reference: `Patient/${pid}`
-    };
-
-    // Record who is entering and submitting the responses
-    let questionnaireAuthor = process.env.VUE_APP_QUESTIONNAIRE_AUTHOR.toLowerCase();
-    if (questionnaireAuthor == 'practitioner') {
-      // Only add the `author` element if we can get the user id from the client
-      if (client.user.fhirUser) {
-        questionnaireResponse.author = {
-          reference: client.user.fhirUser
-        };
-      }
-    } else if (questionnaireAuthor == 'patient') {
-      questionnaireResponse.author = {
-        reference: questionnaireResponse.subject.reference
-      }
-    }
-
-    // Send the patient bundle to the CQL web worker
-    sendPatientBundle(patientBundle);
-
-    // We don't show this component until `ready=true`
-    this.ready = true;
+        // TODO: REMOVE THIS DEVELOPMENT PLACEHOLDER
+        document.querySelector('#surveyResult').innerHTML = 
+          'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
+          JSON.stringify(this.questionnaireResponse, null, 2) + '</div></pre>';
+      }.bind(this));
+    },
   }
 };
 </script>
-
-<style>
-/* @import '~survey-vue/modern.css'; */
-input:focus {
-  outline: 3px solid orange;
-}
-.sv-root-modern .sv-selectbase .sv-item__control:focus + .sv-item__decorator {
-  border-color: orange;
-  border-width: 3px;
-}
-.sv-question__content {
-  display:inline-block;
-  width:69%;
-  margin-left:0;
-  vertical-align: middle;
-}
-.sv-question__header {
-  display:inline-block;
-  width:30%;
-  margin-bottom:0;
-  vertical-align: middle;
-}
-div.sv-question > div.sv-question__content > fieldset > div.sv-item {
-  display:inline-block;
-  width:auto;
-  /* margin-right:1em;
-  margin-bottom:0; */
-}
-div.sv-question > div.sv-question__content > fieldset {
-  margin-bottom: 0;
-  vertical-align: middle;
-}
-.sv-selectbase {
-  display:inline-block;
-}
-span.sv-radio__decorator {
-  display: none;
-}
-div.sv-item.sv-radio.sv-selectbase__item {
-  border: 1px solid black;
-  border-radius: 5%;
-  margin: 10px;
-}
-label.sv-selectbase__label {
-  padding: 10px 10px 10px 10px;
-  margin: 0;
-}
-div.sv-item.sv-radio.sv-selectbase__item.sv-radio--checked {
-  background: lightgrey;
-  border-width: 2px;
-}
-.sv-root-modern .sv-selectbase .sv-item__control:focus ~ .sv-item__control-label {
-  font-weight: bold;
-  font-style: italic;
-}
-.sv-item__control-label {
-  top: 1px;
-}
-</style>

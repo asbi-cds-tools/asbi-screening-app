@@ -32,9 +32,7 @@ module.exports = {
       ]
     }
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/asbi-screening-app/'
-    : '/',
+  publicPath: '/',
   pages: {
     index: './src/main.js',
     launch: './src/launch.js'
