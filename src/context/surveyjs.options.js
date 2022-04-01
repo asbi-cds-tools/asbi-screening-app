@@ -7,5 +7,10 @@ export default {
         requiredText: '',
         completedHtml: '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>'
     },
-    //"WHOAUDIT": {...}
+    "WHOAUDIT": {
+        title: "Alcohol Screening",
+        logo: "favicon.png",
+        logoWidth: 70,
+        logoHeight: 60
+    }
 };

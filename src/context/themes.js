@@ -17,6 +17,7 @@ export default {
     },
     survey: {
         "$main-color": colors.teal.darken2,
-        "$main-hover-color": colors.teal.darken3
+        "$main-hover-color": colors.teal.darken3,
+        "$header-color": colors.teal.darken3
     }
 };
