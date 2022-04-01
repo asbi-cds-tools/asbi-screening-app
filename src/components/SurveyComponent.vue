@@ -1,6 +1,6 @@
 <template>
   <div id="surveyElement" class="ma-4">
-    <survey v-if="ready" :survey="survey"></survey>
+    <survey v-if="ready" :survey="survey" :css="themes"></survey>
     <div v-if="ready" id="surveyResult"></div>
     <v-progress-circular :value="100" v-if="!error && !ready" indeterminate
       color="primary"></v-progress-circular>
@@ -12,23 +12,22 @@
 </template>
 
 <script>
-
 import converter from 'questionnaire-to-survey';
 import { getScreeningInstrument } from '../util/screening-selector.js';
 import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; //https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
 import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
+import surveyOptions from '../context/surveyjs.options.js';
+import themes from '../context/themes.js';
 import 'survey-vue/modern.css';
 import "../style/app.scss";
 import { FunctionFactory, Model, Serializer, StylesManager } from 'survey-vue';
 
 // Top level definition of our FHIR client
 var client;
-
 // Define a web worker for evaluating CQL expressions
 const cqlWorker = new Worker();
-
 // Initialize the cql-worker
 let [setupExecution, sendPatientBundle, evaluateExpression] = initialzieCqlWorker(cqlWorker);
 
@@ -51,28 +50,31 @@ export default {
         item: [],
         authored: getCurrentISODate()
       },
+      themes: themes.survey,
       ready: false,
       error: false
     };
   },
   mounted() {
     this.setAuthClient().then(() => {
+      if (this.error) return; // auth error, cannot continue
       this.setPatientId().then(() => {
+        if (this.error) return;
         this.initializeInstrument().then(() => {
-          this.initializeSurvey();
+          if (this.error) return; // error getting instrument, abort
+          this.initializeSurveyObj();
           this.getFhirResources();
-          this.setQuestionnaireSubject();
+          this.setQuestionnaireAuthor();
           // Send the patient bundle to the CQL web worker
           sendPatientBundle(this.patientBundle);
-          // We don't show this component until `ready=true`
-          this.ready = true;
+          this.ready = true; // We don't show this component until `ready=true`
         }).catch(e => {
           this.error = e;
           console.log("Questionnaire error ", e);
         })
       }).catch(e => {
         this.error = e;
-        console.log("Set Patient Id error ", e);
+        console.log("Patient resource error ", e);
       });
     }).catch(e => {
       console.log("Auth Error ", e);
@@ -86,6 +88,7 @@ export default {
       return getScreeningInstrument().then(data => {
         // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
         const [questionnaire, elmJson, valueSetJson] = data;
+        if (!questionnaire) throw Error("No questionnaire set");
         self.questionnaire = questionnaire;
         // Assemble the parameters needed by the CQL
         let cqlParameters = {
@@ -108,7 +111,7 @@ export default {
         console.log(e);
       });
     },
-    initializeSurvey() {
+    initializeSurveyObj() {
       const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
       // evaluateExpression returns a Promise that evaluates to the results from running 
       // the CQL `expression`. SurveyJS expects to be provided with a function which will 
@@ -121,22 +124,20 @@ export default {
         evaluateExpression(expression[0]).then(result => {
           self.returnResult(result);
         });
-
         return false; // This value doesn't matter
       };
+
+      //apply theme
+      var defaultThemeColors = StylesManager.ThemeColors["modern"];
+      Object.entries(themes.survey).forEach(option=>defaultThemeColors[option[0]] = option[1]);
+      
       // Create our SurveyJS object from the FHIR Questionnaire
       var model = vueConverter(this.questionnaire, wrappedExpression, 'modern');
-      var defaultOptions = {
-        showQuestionNumbers: 'off',
-        completeText: 'Submit',
-        clearInvisibleValues: 'onHidden',
-        requiredText: '',
-        completedHtml: '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>'
-      };
+      var options = surveyOptions[this.questionnaire.id] ? surveyOptions[this.questionnaire.id] : surveyOptions["default"];
       //SurveyJS settings
-      Object.entries(defaultOptions).forEach(option => model[option[0]] = option[1]);
+      Object.entries(options).forEach(option => model[option[0]] = option[1]);
       this.survey = model;
-      this.initSurveyEvents();
+      this.initializeSurveyObjEvents();
     },
     async setAuthClient() {
        // Wait for authorization
@@ -172,6 +173,7 @@ export default {
         client.request('/Procedure?patient=' +  this.patientId),
         client.request('/QuestionnaireResponse?patient=' +  this.patientId)
       ];
+      //get all resources
       Promise.all(requests).then(results => {
         results.forEach(result => {
           if (!result) return true;
@@ -189,7 +191,7 @@ export default {
         });
       });
     }, //
-    setQuestionnaireSubject() {
+    setQuestionnaireAuthor() {
       // Add the `subject` element to the QuestionnaireResponse
       this.questionnaireResponse.subject = {
         reference: `Patient/${this.patientId}`
@@ -211,7 +213,7 @@ export default {
         }
       }
     },
-    initSurveyEvents() {
+    initializeSurveyObjEvents() {
       // Add an event listener which updates questionnaireResponse based upon user responses
       this.survey.onValueChanging.add(function(sender, options) {
         // We don't want to modify anything if the survey has been submitted/completed.
