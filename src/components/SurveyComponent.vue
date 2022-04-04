@@ -93,13 +93,13 @@ export default {
         // Assemble the parameters needed by the CQL
         let cqlParameters = {
           DisplayScreeningScores: process.env.VUE_APP_DISPLAY_SCREENING_SCORES && process.env.VUE_APP_DISPLAY_SCREENING_SCORES.toLowerCase() == "true" ? true : false,
-          QuestionnaireURL: this.questionnaire.url
+          QuestionnaireURL: this.getQuestionnaireURL()
         };
         // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
         setupExecution(elmJson, valueSetJson, cqlParameters);
 
         // Define the QuestionnaireResponse which will contain the user responses.
-        this.questionnaireResponse.questionnaire = questionnaire.url;
+        this.questionnaireResponse.questionnaire = this.getQuestionnaireURL();
 
         // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
         // Note: Objects are pushed onto the array by reference (no copy), so we don't 
@@ -133,8 +133,11 @@ export default {
       
       // Create our SurveyJS object from the FHIR Questionnaire
       var model = vueConverter(this.questionnaire, wrappedExpression, 'modern');
-      var options = {...surveyOptions["default"], ...surveyOptions[this.questionnaire.id] ? surveyOptions[this.questionnaire.id]: {}};
+
       //SurveyJS settings
+      var options = {
+        ...surveyOptions["default"],
+        ...surveyOptions[this.questionnaire.id] ? surveyOptions[this.questionnaire.id]: {}};
       Object.entries(options).forEach(option => model[option[0]] = option[1]);
       this.survey = model;
       this.initializeSurveyObjEvents();
@@ -191,6 +194,11 @@ export default {
         });
       });
     }, //
+    getQuestionnaireURL() {
+      if (!this.questionnaire) return null;
+      //used to pair questionaire with responses
+      return this.questionnaire.url;
+    },
     setQuestionnaireAuthor() {
       // Add the `subject` element to the QuestionnaireResponse
       this.questionnaireResponse.subject = {
