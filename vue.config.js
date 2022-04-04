@@ -36,5 +36,8 @@ module.exports = {
   pages: {
     index: './src/main.js',
     launch: './src/launch.js'
-  }
+  },
+  transpileDependencies: [
+    'vuetify'
+  ]
 }
