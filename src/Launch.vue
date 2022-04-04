@@ -1,6 +1,13 @@
 <template>
   <v-app id="launch">
-    <div>Loading...</div>
+    <div class="pa-8">
+      <v-progress-circular
+      :value="100"
+      indeterminate
+      color="primary"
+      class="mr-1"></v-progress-circular>
+      Loading...
+    </div>
   </v-app>
 </template>
 
