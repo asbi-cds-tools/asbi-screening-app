@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+
+  # expose client to internet
+  client:
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.client-${COMPOSE_PROJECT_NAME}.rule=Host(`client.${BASE_DOMAIN:-asbi-test.cirg.uw.edu}`)"
+      - "traefik.http.routers.client-${COMPOSE_PROJECT_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.client-${COMPOSE_PROJECT_NAME}.tls=true"
+      - "traefik.http.routers.client-${COMPOSE_PROJECT_NAME}.tls.certresolver=letsencrypt"
+    networks:
+      - ingress
+
+networks:
+  # ingress network
+  ingress:
+    external: true
+    name: external_web
