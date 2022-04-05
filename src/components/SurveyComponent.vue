@@ -154,6 +154,7 @@ export default {
         console.log("Auth error: ", e);
         return null;
       }
+      if (!authClient) throw Error("No authorized FHIR client set");
       return authClient;
     },
     async setPatient() {
