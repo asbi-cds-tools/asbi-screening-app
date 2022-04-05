@@ -60,8 +60,15 @@ export default {
     this.setAuthClient().then((result) => {
       client = result;
       if (this.error) return; // auth error, cannot continue
-      this.setPatient().then(() => {
+      this.setPatient().then((patient) => {
+        if (!patient) {
+          this.error = "No valid patient set";
+          return;
+        }
         if (this.error) return;
+        this.patient = patient;
+        this.patientId = patient.id;
+        this.patientBundle.entry.unshift({resource: patient});
         this.initializeInstrument().then(() => {
           if (this.error) return; // error getting instrument, abort
           this.initializeSurveyObj();
@@ -160,11 +167,6 @@ export default {
     async setPatient() {
        // Get the Patient resource
       return await client.patient.read().then((pt) => {
-        if (pt) {
-          this.patient = pt;
-          this.patientId = pt.id;
-          this.patientBundle.entry.unshift({resource: pt});
-        }
         return pt;
       });
     },
