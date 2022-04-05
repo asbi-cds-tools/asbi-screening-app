@@ -37,6 +37,7 @@ export default {
     return {
       survey: null,
       patientId: 0,
+      patient: null,
       questionnaire: {},
       patientBundle: {
         resourceType: 'Bundle',
@@ -56,9 +57,10 @@ export default {
     };
   },
   mounted() {
-    this.setAuthClient().then(() => {
+    this.setAuthClient().then((result) => {
+      client = result;
       if (this.error) return; // auth error, cannot continue
-      this.setPatientId().then(() => {
+      this.setPatient().then(() => {
         if (this.error) return;
         this.initializeInstrument().then(() => {
           if (this.error) return; // error getting instrument, abort
@@ -143,20 +145,26 @@ export default {
       this.initializeSurveyObjEvents();
     },
     async setAuthClient() {
+      let authClient;
        // Wait for authorization
       try {
-        client = await FHIR.oauth2.ready();
+        authClient = await FHIR.oauth2.ready();
       } catch(e) {
         this.error = e;
         console.log("Auth error: ", e);
+        return null;
       }
+      return authClient;
     },
-    async setPatientId() {
+    async setPatient() {
        // Get the Patient resource
-      this.patientId = await client.patient.read().then((pt) => {
-        if (pt) this.patientBundle.entry.unshift({resource: pt});
-        console.log(pt);
-        return pt.id;
+      return await client.patient.read().then((pt) => {
+        if (pt) {
+          this.patient = pt;
+          this.patientId = pt.id;
+          this.patientBundle.entry.unshift({resource: pt});
+        }
+        return pt;
       });
     },
     async getFhirResources() {
@@ -177,7 +185,7 @@ export default {
         client.request('/QuestionnaireResponse?patient=' +  this.patientId)
       ];
       //get all resources
-      Promise.all(requests).then(results => {
+      return Promise.all(requests).then(results => {
         results.forEach(result => {
           if (!result) return true;
           if (result.resourceType == 'Bundle' && result.entry) {
@@ -214,7 +222,7 @@ export default {
           this.questionnaireResponse.author = {
             reference: client.user.fhirUser
           };
-        }
+        } else console.log("client fhirUser not set");
       } else if (questionnaireAuthor == 'patient') {
         this.questionnaireResponse.author = {
           reference: this.questionnaireResponse.subject.reference
