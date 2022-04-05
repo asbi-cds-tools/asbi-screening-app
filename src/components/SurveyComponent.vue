@@ -14,7 +14,7 @@
 <script>
 import converter from 'questionnaire-to-survey';
 import { getScreeningInstrument } from '../util/screening-selector.js';
-import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; //https://github.com/webpack-contrib/worker-loader
+import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
 import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
