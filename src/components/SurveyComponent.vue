@@ -265,7 +265,7 @@ export default {
 </script>
 
 <style>
-/* @import '~survey-vue/modern.css'; */
+@import '~survey-vue/modern.css';
 input:focus {
   outline: 3px solid orange;
 }
@@ -288,8 +288,8 @@ input:focus {
 div.sv-question > div.sv-question__content > fieldset > div.sv-item {
   display:inline-block;
   width:auto;
-  /* margin-right:1em;
-  margin-bottom:0; */
+  margin-right:1em;
+  margin-bottom:0;
 }
 div.sv-question > div.sv-question__content > fieldset {
   margin-bottom: 0;
@@ -320,5 +320,22 @@ div.sv-item.sv-radio.sv-selectbase__item.sv-radio--checked {
 }
 .sv-item__control-label {
   top: 1px;
+}
+h5.sv-title.sv-question__title.sv-question__title--answer {
+  background-color: rgba(68, 70, 69, 0.2);
+}
+div[name="auditc-score"] > div.sv-question__content > div {
+  font-size: 30px;
+  color: black;
+  padding-left: 25px;
+}
+div[name="audit-score"] > div.sv-question__content > div {
+  font-size: 30px;
+  color: black;
+  padding-left: 25px;
+}
+input.sv-btn.sv-footer__complete-btn {
+ float: left;
+ font-size: larger;
 }
 </style>
