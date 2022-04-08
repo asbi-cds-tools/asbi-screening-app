@@ -15,17 +15,22 @@
     "fhirclient": "^2.3.11",
     "questionnaire-to-survey": "^2.0.0",
     "survey-vue": "~1.8.79",
-    "temp": "^0.9.1"
+    "temp": "^0.9.1",
+    "vuetify": "^2.6.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-eslint": "^4.5.15",
     "@vue/cli-service": "^4.5.15",
     "babel-eslint": "^10.1.0",
+    "deepmerge": "^4.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
     "ignore-loader": "^0.1.2",
+    "sass": "^1.49.9",
+    "sass-loader": "^10",
     "source-map-loader": "^0.2.4",
+    "vue-cli-plugin-vuetify": "^2.4.8",
     "vue-template-compiler": "^2.6.11",
     "worker-loader": "^2.0.0"
   },

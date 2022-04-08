@@ -32,11 +32,12 @@ module.exports = {
       ]
     }
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/'
-    : '/',
+  publicPath: '/',
   pages: {
     index: './src/main.js',
     launch: './src/launch.js'
-  }
+  },
+  transpileDependencies: [
+    'vuetify'
+  ]
 }
