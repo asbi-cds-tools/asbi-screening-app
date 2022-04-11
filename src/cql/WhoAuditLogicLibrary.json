@@ -6,7 +6,7 @@
       } ],
       "identifier" : {
          "id" : "WhoAuditLogicLibrary",
-         "version" : "1.1.0"
+         "version" : "2.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -584,40 +584,11 @@
                         }
                      },
                      "else" : {
-                        "type" : "If",
-                        "condition" : {
-                           "type" : "Not",
-                           "operand" : {
-                              "type" : "IsNull",
-                              "operand" : {
-                                 "path" : "gender",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "name" : "Patient",
-                                    "type" : "ExpressionRef"
-                                 }
-                              }
-                           }
-                        },
-                        "then" : {
-                           "path" : "value",
-                           "type" : "Property",
-                           "source" : {
-                              "path" : "gender",
-                              "type" : "Property",
-                              "source" : {
-                                 "name" : "Patient",
-                                 "type" : "ExpressionRef"
-                              }
-                           }
-                        },
-                        "else" : {
-                           "path" : "code",
-                           "type" : "Property",
-                           "source" : {
-                              "name" : "Unknown value code",
-                              "type" : "CodeRef"
-                           }
+                        "path" : "code",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Unknown value code",
+                           "type" : "CodeRef"
                         }
                      }
                   },

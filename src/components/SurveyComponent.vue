@@ -12,7 +12,13 @@ import { getScreeningInstrument } from '../util/screening-selector.js';
 import Worker from "../../node_modules/cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from 'cql-worker';
 import FHIR from 'fhirclient';
-import {getCurrentISODate, getObservationCategories, getResponseValue} from '../util/util.js';
+import {
+  getCurrentISODate, 
+  getObservationCategories, 
+  getResponseValue,
+  qrToObservation,
+  observationToQr
+} from '../util/util.js';
 import 'survey-vue/modern.css';
 
 import { FunctionFactory, Model, Serializer, StylesManager } from 'survey-vue';
@@ -41,7 +47,7 @@ setupExecution(elmJson, valueSetJson, cqlParameters);
 
 // evaluateExpression returns a Promise that evaluates to the results from running 
 // the CQL `expression`. SurveyJS expects to be provided with a function which will 
-// call `this.returnResult(result)` when it completes. Here we create a wrapper 
+// call `this.returnResult(result)` when it completes. Here we create a wrapper that 
 // calls `returnResult()` when the promise resolves.
 // See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
 let wrappedExpression = function(expression) {
@@ -75,9 +81,6 @@ var patientBundle = {
 patientBundle.entry.push({resource: questionnaire});
 patientBundle.entry.push({resource: questionnaireResponse});
 
-// Extract the value[x] of each question and save for later reference.
-//var itemTypes = getItemTypes(questionnaire, {});
-
 // Define the survey component for Vue
 export default {
   data() {
@@ -90,7 +93,6 @@ export default {
     model.clearInvisibleValues = 'onHidden';
     model.requiredText = '';
     model.completedHtml = '<h3>The screening is complete.</h3><h3>You may now close the window.</h3>';
-    // model.goNextPageAutomatic = 'autogonext';
     
     // Return model, but note that we're not ready yet
     return {
@@ -129,24 +131,23 @@ export default {
       // Need to reload the patient bundle since the responses have been updated
       cqlWorker.postMessage({patientBundle: patientBundle});
     });
-    // Add a handler which will fire when the Questionnaire is submittedc
+    // Add a handler which will fire when the Questionnaire is submitted
     this.survey.onComplete.add(function() {
       // Mark the QuestionnaireResponse as completed
       questionnaireResponse.status = 'completed'
 
+      const resourceResponses = process.env.VUE_APP_RESPONSE_OBSERVATION.toLowerCase() == true
+        ? qrToObservation(questionnaireResponse)
+        : questionnaireResponse;
+
       // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
       if (process.env.VUE_APP_WRITE_BACK_MODE.toLowerCase() == 'smart') {
-        client.create(questionnaireResponse, {
+        client.create(resourceResponses, {
           headers: {
             'Content-Type': 'application/fhir+json'
           }
         });
       }
-
-      // TODO: REMOVE THIS DEVELOPMENT PLACEHOLDER
-      // document.querySelector('#surveyResult').innerHTML = 
-      //   'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
-      //   JSON.stringify(questionnaireResponse, null, 2) + '</div></pre>';
     });
   },
   async mounted() {
@@ -189,14 +190,14 @@ export default {
       if (ob) {
         if (ob.resourceType == 'Bundle' && ob.entry) {
           ob.entry.forEach(o => {
-            if (o.resource) patientBundle.entry.push({resource: o.resource});
+            if (o.resource) patientBundle.entry.push({resource: observationToQr(o.resource)});
           });
         } else if (Array.isArray(ob)) {
           ob.forEach(o => {
-            if (o.resourceType) patientBundle.entry.push({resource: o});
+            if (o.resourceType) patientBundle.entry.push({resource: observationToQr(o)});
           });
         } else {
-          patientBundle.entry.push({resource: ob});
+          patientBundle.entry.push({resource: observationToQr(ob)});
         }
       }
     });
