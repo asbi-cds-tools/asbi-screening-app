@@ -11,7 +11,7 @@ Each of the above have been represented as interoperable CDS and have been publi
 An online demo of this app is avaiable; please see the [Demo](#demo) section.
 
 ## Cautions and Limitations
-TODO: Link to pilot report.
+TODO: Update and link to pilot report.
 This software application has not been tested in a clinical environment with real patient data. Its purpose is to faciliate testing of the three alcohol screening CDS to be published on CDS Connect. Additional development work will be needed to integrate the *ASBI Screening App* into a real EHR.
 
 ## Utilized Standards
