@@ -1,0 +1,47 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "AlcoholScreeningUsAudit",
+  "url": "http://www.cdc.gov/ncbddd/fasd/usaudit-plandefinition",
+  "version": "1.0.0",
+  "name": "UsAuditPlanDefinition",
+  "copyright": "(C) 2020 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.\\n\\nUnless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the National Center on Birth Defects and Developmental Disabilities, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30119F05691.\\n\\nReferences to and reproductions of the AUDIT alcohol screening instrument are made by permission from the World Health Organization (WHO). The WHO does not endorse this project, does not provide any warranty, and does not assume any liability for its use. For further information, please see:\\n\\nAlcohol Use Disorders Identification Test - Guidelines for Use in Primary Care, Second Edition. Geneva, World Health Organization, 2001.\\n\\nAUDIT (C) World Health Organization 2001\\n\\nhttps://www.who.int/substance_abuse/activities/sbi/en/\\n\\n",
+  "title": "USAUDIT PlanDefinition",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "display": "ECA Rule"
+      }
+    ]
+  },
+  "status": "draft",
+  "experimental": true,
+  "publisher": "The Health FFRDC, operated by The MITRE Corporation, in support of the National Center on Birth Defects and Developmental Disabilities, Centers for Disease Control and Prevention.",
+  "description": "Alcohol Use Disorders Identification Test, U.S. Version (USAUDIT). The USAUDIT is an adaptation of the AUDIT developed by the World Health Organization (WHO).",
+  "date": "2020-05-04",
+  "library": [
+    "Library/UsAuditLogicLibrary|1.0"
+  ],
+  "action": [
+    {
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "encounter-start"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "ApplyScreeningInstrument",
+            "reference": "Library/UsAuditLogicLibrary|1.0"
+          }
+        }
+      ],
+      "definitionCanonical": "Questionnaire/USAUDIT"
+    }
+  ]
+}
