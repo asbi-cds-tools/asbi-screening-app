@@ -92,6 +92,13 @@ export default {
     });
   },
   methods: {
+    isDevelopment() {
+      return String(process.env.VUE_APP_SYSTEM_TYPE).toLowerCase() === "development";
+    },
+    setDocumentTitle() {
+      if (!this.questionnaire || !this.questionnaire.title) return;
+      document.title = this.questionnaire.title;
+    },
     initializeInstrument() {
       var self = this;
       return getScreeningInstrument().then(data => {
@@ -110,6 +117,9 @@ export default {
         // Define the QuestionnaireResponse which will contain the user responses.
         this.questionnaireResponse.questionnaire = this.getQuestionnaireURL();
 
+        // set document title to questionnaire title
+        this.setDocumentTitle();
+
         // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
         // Note: Objects are pushed onto the array by reference (no copy), so we don't 
         //       need to do anything fancy when we update questionnaireResponse later on.
@@ -122,6 +132,7 @@ export default {
     },
     initializeSurveyObj() {
       const vueConverter = converter(FunctionFactory, Model, Serializer, StylesManager);
+      const parentThis = this;
       // evaluateExpression returns a Promise that evaluates to the results from running 
       // the CQL `expression`. SurveyJS expects to be provided with a function which will 
       // call `this.returnResult(result)` when it completes. Here we create a wrapper 
@@ -131,6 +142,9 @@ export default {
         let self = this;
         // For some reason SurveyJS wraps `expression` in an array
         evaluateExpression(expression[0]).then(result => {
+          if (parentThis.isDevelopment()) {
+            console.log('CQL expression ', expression[0], ' result ', result);
+          }
           self.returnResult(result);
         });
         return false; // This value doesn't matter
@@ -277,10 +291,9 @@ export default {
             }
           });
         }
-        // TODO: REMOVE THIS DEVELOPMENT PLACEHOLDER
-        // document.querySelector('#surveyResult').innerHTML = 
-        //   'QuestionnaireResponse:\n' + '<pre><div style="text-align:left">' +
-        //   JSON.stringify(this.questionnaireResponse, null, 2) + '</div></pre>';
+        if (this.isDevelopment()) {
+          console.log("questionnaire responses ", JSON.stringify(this.questionnaireResponse, null, 2));
+        }
       }.bind(this));
     },
   }

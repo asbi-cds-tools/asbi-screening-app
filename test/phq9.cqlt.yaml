@@ -1,0 +1,8 @@
+library:
+  name: Phq9LogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/phq9
+options:
+  dumpFiles:
+    enabled: true

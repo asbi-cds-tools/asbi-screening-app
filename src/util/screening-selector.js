@@ -17,6 +17,11 @@ export async function getScreeningInstrument() {
     let questionnaireNidaQs = await import("../fhir/Questionnaire-NIDAQS2USAUDIT.json").then(module=>module.default);
     let elmJsonNidaQs = await import("../cql/NidaQsToUsAuditLogicLibrary.json").then(module=>module.default);
     return [questionnaireNidaQs, elmJsonNidaQs, valueSetJsonUsAudit];
+  } else if (screeningInstrument == 'phq9') {
+    let valueSetJsonPhq9 = await import("../cql/valueset-db.json").then(module=>module.default);
+    let questionnairePhq9 = await import("../fhir/Questionnaire-PHQ9.json").then(module=>module.default);
+    let elmJsonPhq9 = await import("../cql/Phq9LogicLibrary.json").then(module=>module.default);
+    return [questionnairePhq9, elmJsonPhq9, valueSetJsonPhq9];
   } else {
     throw new Error('Unsupported alcohol screening instrument has been specified');
   }

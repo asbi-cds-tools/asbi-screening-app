@@ -80,7 +80,7 @@ Parameters for the app are stored in [environmental variables](http://man7.org/l
 | `VUE_APP_WRITE_BACK_MODE` | Sets the mode for writing out a `QuestionnaireResponse` resource after the completion of screening. If set to `smart` then the resource is sent back via the SMART on FHIR<sup>&reg;</sup> interface to be created in the EHR. If set to `none` then no write back is made | `['smart', 'none']` |
 | `VUE_APP_QUESTIONNAIRE_AUTHOR` | Used for indicating who is actually filling out and submitting the `QuestionnaireResponse` resource. This is used to determine how to fill out the `QuestionnaireResponse.author` element. | `['practitioner', 'patient']` |
 | `VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES` | Some FHIR<sup>&reg;</sup> APIs require `Observation` resource queries to specify an [observation category](https://www.hl7.org/fhir/codesystem-observation-category.html). Setting this parameter to `true` causes the query of a patient's `Observation` resources to be made specified using categories. | `['true', 'false']` |
-| `VUE_APP_ALCOHOL_SCREENING_INSTRUMENT` | For selecting which alcohol screening instrument is presented to the user. | `['usaudit', 'whoaudit', 'nidaqs2usaudit']` |
+| `VUE_APP_ALCOHOL_SCREENING_INSTRUMENT` | For selecting which alcohol screening instrument is presented to the user. | `['usaudit', 'whoaudit', 'nidaqs2usaudit', 'phq9']` |
 
 ### Using with ASBI Testing Server
 This option requires installing the [ASBI Testing Server](https://github.com/asbi-cds-tools/asbi-testing-server):

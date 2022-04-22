@@ -1,0 +1,169 @@
+phq9_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name: Luke Skywalker
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  url: http://www.cdc.gov/ncbddd/fasd/phq9
+  code: LOINC#44249-1 PHQ-9 quick depression assessment panel
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: http://www.cdc.gov/ncbddd/fasd/phq9
+  status: in-progress
+  authored: 2030-04-18
+
+# value code for each answer option (for question 1 ~ question 9, question 10 has a different answer option set)
+# answer option 1 value code
+- &answerOption1ValueCode
+  code: LA6568-5
+  display: Not at all
+# answer option 2 value code
+- &answerOption2ValueCode
+  code: LA6569-3
+  display: Several Days
+# answer option 3 value code
+- &answerOption3ValueCode
+  code: LA6570-1
+  display: More than half the days
+# answer option 4 value code
+- &answerOption4ValueCode
+  code: LA6571-9
+  display: Nearly every day
+
+# answer option 1
+- &answerOption1
+  extension:
+  -
+    url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+    valueDecimal: 0
+  valueCoding: *answerOption1ValueCode
+# answer option 2
+- &answerOption2
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 1
+  valueCoding: *answerOption2ValueCode
+# answer option 3
+- &answerOption3
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 2
+  valueCoding: *answerOption3ValueCode
+- &answerOption4
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 3
+  valueCoding: *answerOption4ValueCode
+
+# answer options, apply to question 1 ~ 9, question 10 has a different set of answer options
+- &questionnaireAnswerOptions
+  - *answerOption1
+  - *answerOption2
+  - *answerOption3
+  - *answerOption4
+
+# anchor for each question link Id
+- PhqQuestion1LinkId: &q1LinkId /44250-9
+- PhqQuestion2LinkId: &q2LinkId /44255-8
+- PhqQuestion3LinkId: &q3LinkId /44259-0
+- PhqQuestion4LinkId: &q4LinkId /44254-1
+- PhqQuestion5LinkId: &q5LinkId /44251-7
+- PhqQuestion6LinkId: &q6LinkId /44258-2
+- PhqQuestion7LinkId: &q7LinkId /44252-5
+- PhqQuestion8LinkId: &q8LinkId /44253-3
+- PhqQuestion9LinkId: &q9LinkId /44260-8
+- PhqQuestion10LinkId: &q10LinkId /69722-7
+
+# questions
+- &Phq9Question1
+  linkId: *q1LinkId
+  type: choices
+  text: Little interest or pleasure in doing things
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question2
+  linkId: *q2LinkId
+  type: choices
+  text: Feeling down, depressed, or hopeless
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question3
+  linkId: *q3LinkId
+  type: choices
+  text: Trouble falling or staying asleep, or sleeping too much
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question4
+  linkId: *q4LinkId
+  type: choices
+  text: Feeling tired or having little energy
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question5
+  linkId: *q5LinkId
+  type: choices
+  text: Poor appetite or overeating
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question6
+  linkId: *q6LinkId
+  type: choices
+  text: Feeling bad about yourself-or that you are a failure or have let yourself or your family down
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question7
+  linkId: *q7LinkId
+  type: choices
+  text: Trouble concentrating on things, such as reading the newspaper or watching television
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question8
+  linkId: *q8LinkId
+  type: choices
+  text: Moving or speaking so slowly that other people could have noticed. Or the opposite-being so fidgety or restless that you have been moving around a lot more than usual
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question9
+  linkId: *q9LinkId
+  type: choices
+  text: Thoughts that you would be better off dead, or of hurting yourself in some way
+  answerOption: *questionnaireAnswerOptions
+- &Phq9Question10 # Note: question 10 has different answer option set
+  linkId: *q10LinkId
+  type: choices
+  text: How difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?
+  answerOption: 
+  -
+    extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 0
+    valueCoding:
+      code: LA6572-7
+      display: Not difficult at all
+  -
+    extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 1
+    valueCoding:
+      code: LA6573-5
+      display: Somewhat difficult
+  -
+    extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 2
+    valueCoding:
+      code: LA6575-0
+      display: Very difficult
+  -
+    extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 3
+    valueCoding:
+      code: LA6574-3
+      display: Extremely difficult

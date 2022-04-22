@@ -20,3 +20,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# test directory dump_files directory is just for debugging
+test/dump_files
+

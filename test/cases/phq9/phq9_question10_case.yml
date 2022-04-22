@@ -1,0 +1,22 @@
+---
+name: Ph1-9 Question 10 Score
+externalData:
+- phq9_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Phq9Question10
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q10LinkId
+    answer:
+    -
+      valueCoding:
+        code: LA6574-3
+        display: Extremely difficult  # Note can change to different answer option to test
+results:
+  Phq9Questionnaire: $should exist # make sure questionnaire is returned
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  Phq9ScoreQuestion10: 3

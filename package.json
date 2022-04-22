@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "./node_modules/.bin/mocha --reporter spec --recursive; exit 0;"
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -23,10 +24,13 @@
     "@vue/cli-plugin-eslint": "^4.5.15",
     "@vue/cli-service": "^4.5.15",
     "babel-eslint": "^10.1.0",
+    "cql-execution": "^2.4.0",
+    "cql-testing": "^2.5.1",
     "deepmerge": "^4.2.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
     "ignore-loader": "^0.1.2",
+    "mocha": "^9.2.2",
     "sass": "^1.49.9",
     "sass-loader": "^10",
     "source-map-loader": "^0.2.4",

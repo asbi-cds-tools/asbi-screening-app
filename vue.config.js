@@ -1,7 +1,8 @@
 const path = require('path');
-
+const systemType = String(process.env.VUE_APP_SYSTEM_TYPE).toLowerCase();
 module.exports = {
   configureWebpack: {
+    devtool:  (systemType === 'develoment' ? 'source-map' : ''),
     module: {
       rules: [
         {
