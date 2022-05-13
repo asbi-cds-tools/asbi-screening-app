@@ -6,7 +6,7 @@
       } ],
       "identifier" : {
          "id" : "WhoAuditLogicLibrary",
-         "version" : "1.1.0"
+         "version" : "2.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -207,14 +207,6 @@
             "name" : "WHO AUDIT Total Score code",
             "id" : "75624-7",
             "display" : "WHO AUDIT Total Score",
-            "accessLevel" : "Public",
-            "codeSystem" : {
-               "name" : "LOINC"
-            }
-         }, {
-            "name" : "Delivery date Estimated",
-            "id" : "11778-8",
-            "display" : "Delivery date Estimated",
             "accessLevel" : "Public",
             "codeSystem" : {
                "name" : "LOINC"
@@ -584,40 +576,11 @@
                         }
                      },
                      "else" : {
-                        "type" : "If",
-                        "condition" : {
-                           "type" : "Not",
-                           "operand" : {
-                              "type" : "IsNull",
-                              "operand" : {
-                                 "path" : "gender",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "name" : "Patient",
-                                    "type" : "ExpressionRef"
-                                 }
-                              }
-                           }
-                        },
-                        "then" : {
-                           "path" : "value",
-                           "type" : "Property",
-                           "source" : {
-                              "path" : "gender",
-                              "type" : "Property",
-                              "source" : {
-                                 "name" : "Patient",
-                                 "type" : "ExpressionRef"
-                              }
-                           }
-                        },
-                        "else" : {
-                           "path" : "code",
-                           "type" : "Property",
-                           "source" : {
-                              "name" : "Unknown value code",
-                              "type" : "CodeRef"
-                           }
+                        "path" : "code",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Unknown value code",
+                           "type" : "CodeRef"
                         }
                      }
                   },
@@ -1204,153 +1167,21 @@
                }
             }
          }, {
-            "name" : "EstimatedDeliveryDates",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "E",
-                  "expression" : {
-                     "dataType" : "{http://hl7.org/fhir}Observation",
-                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
-                     "codeProperty" : "code",
-                     "codeComparator" : "~",
-                     "type" : "Retrieve",
-                     "codes" : {
-                        "type" : "ToList",
-                        "operand" : {
-                           "name" : "Delivery date Estimated",
-                           "type" : "CodeRef"
-                        }
-                     }
-                  }
-               } ],
-               "let" : [ {
-                  "identifier" : "lookahead",
-                  "expression" : {
-                     "lowClosed" : true,
-                     "highClosed" : true,
-                     "type" : "Interval",
-                     "low" : {
-                        "type" : "Now"
-                     },
-                     "high" : {
-                        "type" : "Add",
-                        "operand" : [ {
-                           "type" : "Now"
-                        }, {
-                           "value" : 10,
-                           "unit" : "months",
-                           "type" : "Quantity"
-                        } ]
-                     }
-                  }
-               } ],
-               "relationship" : [ ],
-               "where" : {
-                  "type" : "And",
-                  "operand" : [ {
-                     "type" : "Or",
-                     "operand" : [ {
-                        "type" : "In",
-                        "operand" : [ {
-                           "path" : "value",
-                           "type" : "Property",
-                           "source" : {
-                              "strict" : false,
-                              "type" : "As",
-                              "operand" : {
-                                 "path" : "value",
-                                 "scope" : "E",
-                                 "type" : "Property"
-                              },
-                              "asTypeSpecifier" : {
-                                 "name" : "{http://hl7.org/fhir}dateTime",
-                                 "type" : "NamedTypeSpecifier"
-                              }
-                           }
-                        }, {
-                           "name" : "lookahead",
-                           "type" : "QueryLetRef"
-                        } ]
-                     }, {
-                        "type" : "Overlaps",
-                        "operand" : [ {
-                           "name" : "PeriodToInterval",
-                           "type" : "FunctionRef",
-                           "operand" : [ {
-                              "strict" : false,
-                              "type" : "As",
-                              "operand" : {
-                                 "path" : "value",
-                                 "scope" : "E",
-                                 "type" : "Property"
-                              },
-                              "asTypeSpecifier" : {
-                                 "name" : "{http://hl7.org/fhir}Period",
-                                 "type" : "NamedTypeSpecifier"
-                              }
-                           } ]
-                        }, {
-                           "name" : "lookahead",
-                           "type" : "QueryLetRef"
-                        } ]
-                     } ]
-                  }, {
-                     "type" : "In",
-                     "operand" : [ {
-                        "path" : "value",
-                        "type" : "Property",
-                        "source" : {
-                           "path" : "status",
-                           "scope" : "E",
-                           "type" : "Property"
-                        }
-                     }, {
-                        "type" : "List",
-                        "element" : [ {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "final",
-                           "type" : "Literal"
-                        }, {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "corrected",
-                           "type" : "Literal"
-                        }, {
-                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                           "value" : "amended",
-                           "type" : "Literal"
-                        } ]
-                     } ]
-                  } ]
-               }
-            }
-         }, {
             "name" : "IsPregnant",
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
                "type" : "Or",
                "operand" : [ {
-                  "type" : "Or",
-                  "operand" : [ {
-                     "type" : "Exists",
-                     "operand" : {
-                        "name" : "PregnancyObservations",
-                        "type" : "ExpressionRef"
-                     }
-                  }, {
-                     "type" : "Exists",
-                     "operand" : {
-                        "name" : "PregnancyConditions",
-                        "type" : "ExpressionRef"
-                     }
-                  } ]
+                  "type" : "Exists",
+                  "operand" : {
+                     "name" : "PregnancyObservations",
+                     "type" : "ExpressionRef"
+                  }
                }, {
                   "type" : "Exists",
                   "operand" : {
-                     "name" : "EstimatedDeliveryDates",
+                     "name" : "PregnancyConditions",
                      "type" : "ExpressionRef"
                   }
                } ]
@@ -1568,96 +1399,6 @@
                }
             }
          }, {
-            "name" : "SortedEstimatedDeliveryDates",
-            "context" : "Patient",
-            "accessLevel" : "Public",
-            "expression" : {
-               "type" : "Query",
-               "source" : [ {
-                  "alias" : "P",
-                  "expression" : {
-                     "name" : "EstimatedDeliveryDates",
-                     "type" : "ExpressionRef"
-                  }
-               } ],
-               "relationship" : [ ],
-               "return" : {
-                  "expression" : {
-                     "type" : "Tuple",
-                     "element" : [ {
-                        "name" : "date",
-                        "value" : {
-                           "type" : "Coalesce",
-                           "operand" : [ {
-                              "path" : "value",
-                              "type" : "Property",
-                              "source" : {
-                                 "strict" : false,
-                                 "type" : "As",
-                                 "operand" : {
-                                    "path" : "value",
-                                    "scope" : "P",
-                                    "type" : "Property"
-                                 },
-                                 "asTypeSpecifier" : {
-                                    "name" : "{http://hl7.org/fhir}dateTime",
-                                    "type" : "NamedTypeSpecifier"
-                                 }
-                              }
-                           }, {
-                              "path" : "value",
-                              "type" : "Property",
-                              "source" : {
-                                 "path" : "end",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "strict" : false,
-                                    "type" : "As",
-                                    "operand" : {
-                                       "path" : "value",
-                                       "scope" : "P",
-                                       "type" : "Property"
-                                    },
-                                    "asTypeSpecifier" : {
-                                       "name" : "{http://hl7.org/fhir}Period",
-                                       "type" : "NamedTypeSpecifier"
-                                    }
-                                 }
-                              }
-                           }, {
-                              "path" : "value",
-                              "type" : "Property",
-                              "source" : {
-                                 "path" : "start",
-                                 "type" : "Property",
-                                 "source" : {
-                                    "strict" : false,
-                                    "type" : "As",
-                                    "operand" : {
-                                       "path" : "value",
-                                       "scope" : "P",
-                                       "type" : "Property"
-                                    },
-                                    "asTypeSpecifier" : {
-                                       "name" : "{http://hl7.org/fhir}Period",
-                                       "type" : "NamedTypeSpecifier"
-                                    }
-                                 }
-                              }
-                           } ]
-                        }
-                     } ]
-                  }
-               },
-               "sort" : {
-                  "by" : [ {
-                     "direction" : "desc",
-                     "path" : "date",
-                     "type" : "ByColumn"
-                  } ]
-               }
-            }
-         }, {
             "name" : "SortedPregnacyDates",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -1668,16 +1409,10 @@
                   "expression" : {
                      "type" : "Union",
                      "operand" : [ {
-                        "type" : "Union",
-                        "operand" : [ {
-                           "name" : "SortedPregnancyObservationDates",
-                           "type" : "ExpressionRef"
-                        }, {
-                           "name" : "SortedPregnancyConditionDates",
-                           "type" : "ExpressionRef"
-                        } ]
+                        "name" : "SortedPregnancyObservationDates",
+                        "type" : "ExpressionRef"
                      }, {
-                        "name" : "SortedEstimatedDeliveryDates",
+                        "name" : "SortedPregnancyConditionDates",
                         "type" : "ExpressionRef"
                      } ]
                   }

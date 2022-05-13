@@ -6,7 +6,7 @@
       } ],
       "identifier" : {
          "id" : "UsAuditLogicLibrary",
-         "version" : "1.1.0"
+         "version" : "2.0.0"
       },
       "schemaIdentifier" : {
          "id" : "urn:hl7-org:elm",
@@ -212,6 +212,14 @@
                "name" : "LOINC"
             }
          }, {
+            "name" : "Sex assigned at birth",
+            "id" : "76689-9",
+            "display" : "Sex assigned at birth",
+            "accessLevel" : "Public",
+            "codeSystem" : {
+               "name" : "LOINC"
+            }
+         }, {
             "name" : "USAUDIT-C Total Score code",
             "id" : "UACS",
             "display" : "USAUDIT-C Total Score",
@@ -397,6 +405,58 @@
                }
             }
          }, {
+            "name" : "SexAtBirthObservation",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "S",
+                  "expression" : {
+                     "dataType" : "{http://hl7.org/fhir}Observation",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/Observation",
+                     "codeProperty" : "code",
+                     "codeComparator" : "~",
+                     "type" : "Retrieve",
+                     "codes" : {
+                        "type" : "ToList",
+                        "operand" : {
+                           "name" : "Sex assigned at birth",
+                           "type" : "CodeRef"
+                        }
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "type" : "In",
+                  "operand" : [ {
+                     "path" : "value",
+                     "type" : "Property",
+                     "source" : {
+                        "path" : "status",
+                        "scope" : "S",
+                        "type" : "Property"
+                     }
+                  }, {
+                     "type" : "List",
+                     "element" : [ {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "final",
+                        "type" : "Literal"
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "corrected",
+                        "type" : "Literal"
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                        "value" : "amended",
+                        "type" : "Literal"
+                     } ]
+                  } ]
+               }
+            }
+         }, {
             "name" : "SexAtBirth",
             "context" : "Patient",
             "accessLevel" : "Public",
@@ -427,11 +487,101 @@
                "else" : {
                   "type" : "As",
                   "operand" : {
-                     "path" : "code",
-                     "type" : "Property",
-                     "source" : {
-                        "name" : "Unknown value code",
-                        "type" : "CodeRef"
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Exists",
+                        "operand" : {
+                           "name" : "SexAtBirthObservation",
+                           "type" : "ExpressionRef"
+                        }
+                     },
+                     "then" : {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "path" : "code",
+                           "type" : "Property",
+                           "source" : {
+                              "type" : "Coalesce",
+                              "operand" : [ {
+                                 "type" : "Flatten",
+                                 "operand" : {
+                                    "type" : "Query",
+                                    "source" : [ {
+                                       "alias" : "$this",
+                                       "expression" : {
+                                          "type" : "Query",
+                                          "source" : [ {
+                                             "alias" : "$this",
+                                             "expression" : {
+                                                "name" : "SexAtBirthObservation",
+                                                "type" : "ExpressionRef"
+                                             }
+                                          } ],
+                                          "where" : {
+                                             "type" : "Not",
+                                             "operand" : {
+                                                "type" : "IsNull",
+                                                "operand" : {
+                                                   "path" : "value",
+                                                   "type" : "Property",
+                                                   "source" : {
+                                                      "name" : "$this",
+                                                      "type" : "AliasRef"
+                                                   }
+                                                }
+                                             }
+                                          },
+                                          "return" : {
+                                             "distinct" : false,
+                                             "expression" : {
+                                                "path" : "value",
+                                                "type" : "Property",
+                                                "source" : {
+                                                   "name" : "$this",
+                                                   "type" : "AliasRef"
+                                                }
+                                             }
+                                          }
+                                       }
+                                    } ],
+                                    "where" : {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "path" : "coding",
+                                             "type" : "Property",
+                                             "source" : {
+                                                "name" : "$this",
+                                                "type" : "AliasRef"
+                                             }
+                                          }
+                                       }
+                                    },
+                                    "return" : {
+                                       "distinct" : false,
+                                       "expression" : {
+                                          "path" : "coding",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "$this",
+                                             "type" : "AliasRef"
+                                          }
+                                       }
+                                    }
+                                 }
+                              } ]
+                           }
+                        }
+                     },
+                     "else" : {
+                        "path" : "code",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "Unknown value code",
+                           "type" : "CodeRef"
+                        }
                      }
                   },
                   "asTypeSpecifier" : {
@@ -528,21 +678,47 @@
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "Equal",
+               "type" : "Or",
                "operand" : [ {
-                  "asType" : "{urn:hl7-org:elm-types:r1}String",
-                  "type" : "As",
-                  "operand" : {
-                     "name" : "SexAtBirth",
-                     "type" : "ExpressionRef"
-                  }
+                  "type" : "Equal",
+                  "operand" : [ {
+                     "asType" : "{urn:hl7-org:elm-types:r1}String",
+                     "type" : "As",
+                     "operand" : {
+                        "name" : "SexAtBirth",
+                        "type" : "ExpressionRef"
+                     }
+                  }, {
+                     "path" : "code",
+                     "type" : "Property",
+                     "source" : {
+                        "name" : "Unknown value code",
+                        "type" : "CodeRef"
+                     }
+                  } ]
                }, {
-                  "path" : "code",
-                  "type" : "Property",
-                  "source" : {
-                     "name" : "Unknown value code",
-                     "type" : "CodeRef"
-                  }
+                  "type" : "And",
+                  "operand" : [ {
+                     "type" : "Equal",
+                     "operand" : [ {
+                        "name" : "MaleAtBirth",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                        "value" : "false",
+                        "type" : "Literal"
+                     } ]
+                  }, {
+                     "type" : "Equal",
+                     "operand" : [ {
+                        "name" : "FemaleAtBirth",
+                        "type" : "ExpressionRef"
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+                        "value" : "false",
+                        "type" : "Literal"
+                     } ]
+                  } ]
                } ]
             }
          }, {
@@ -2590,41 +2766,116 @@
             "context" : "Patient",
             "accessLevel" : "Public",
             "expression" : {
-               "type" : "Exists",
-               "operand" : {
-                  "type" : "Query",
-                  "source" : [ {
-                     "alias" : "P",
-                     "expression" : {
-                        "dataType" : "{http://hl7.org/fhir}Procedure",
-                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
-                        "codeProperty" : "code",
-                        "codeComparator" : "in",
-                        "type" : "Retrieve",
-                        "codes" : {
-                           "name" : "Hysterectomy",
-                           "type" : "ValueSetRef"
+               "type" : "Or",
+               "operand" : [ {
+                  "type" : "Exists",
+                  "operand" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "P",
+                        "expression" : {
+                           "dataType" : "{http://hl7.org/fhir}Procedure",
+                           "templateId" : "http://hl7.org/fhir/StructureDefinition/Procedure",
+                           "codeProperty" : "code",
+                           "codeComparator" : "in",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "name" : "Hysterectomy",
+                              "type" : "ValueSetRef"
+                           }
                         }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "P",
+                              "type" : "Property"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "completed",
+                           "type" : "Literal"
+                        } ]
                      }
-                  } ],
-                  "relationship" : [ ],
-                  "where" : {
-                     "type" : "Equal",
-                     "operand" : [ {
-                        "path" : "value",
-                        "type" : "Property",
-                        "source" : {
-                           "path" : "status",
-                           "scope" : "P",
-                           "type" : "Property"
-                        }
-                     }, {
-                        "valueType" : "{urn:hl7-org:elm-types:r1}String",
-                        "value" : "completed",
-                        "type" : "Literal"
-                     } ]
                   }
-               }
+               }, {
+                  "type" : "Exists",
+                  "operand" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "C",
+                        "expression" : {
+                           "dataType" : "{http://hl7.org/fhir}Condition",
+                           "templateId" : "http://hl7.org/fhir/StructureDefinition/Condition",
+                           "codeProperty" : "code",
+                           "codeComparator" : "in",
+                           "type" : "Retrieve",
+                           "codes" : {
+                              "name" : "Hysterectomy",
+                              "type" : "ValueSetRef"
+                           }
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "Or",
+                           "operand" : [ {
+                              "type" : "Equivalent",
+                              "operand" : [ {
+                                 "name" : "ToConcept",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "clinicalStatus",
+                                    "scope" : "C",
+                                    "type" : "Property"
+                                 } ]
+                              }, {
+                                 "name" : "Condition Active",
+                                 "type" : "ConceptRef"
+                              } ]
+                           }, {
+                              "type" : "Equivalent",
+                              "operand" : [ {
+                                 "name" : "ToConcept",
+                                 "libraryName" : "FHIRHelpers",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "path" : "clinicalStatus",
+                                    "scope" : "C",
+                                    "type" : "Property"
+                                 } ]
+                              }, {
+                                 "name" : "Condition Recurrence",
+                                 "type" : "ConceptRef"
+                              } ]
+                           } ]
+                        }, {
+                           "type" : "Equivalent",
+                           "operand" : [ {
+                              "name" : "ToConcept",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "verificationStatus",
+                                 "scope" : "C",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "name" : "Condition Confirmed",
+                              "type" : "ConceptRef"
+                           } ]
+                        } ]
+                     }
+                  }
+               } ]
             }
          }, {
             "name" : "UsAuditQuestion3Text",
@@ -6154,86 +6405,95 @@
                      "operand" : [ {
                         "type" : "And",
                         "operand" : [ {
-                           "type" : "And",
+                           "type" : "Less",
                            "operand" : [ {
-                              "type" : "And",
+                              "name" : "ScoreUsAuditC",
+                              "type" : "ExpressionRef"
+                           }, {
+                              "name" : "ThresholdUsAuditC",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "type" : "Equivalent",
+                           "operand" : [ {
+                              "name" : "ToCode",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
                               "operand" : [ {
-                                 "type" : "Less",
-                                 "operand" : [ {
-                                    "name" : "ScoreUsAuditC",
-                                    "type" : "ExpressionRef"
-                                 }, {
-                                    "name" : "ThresholdUsAuditC",
-                                    "type" : "ExpressionRef"
-                                 } ]
-                              }, {
-                                 "type" : "Not",
+                                 "asType" : "{http://hl7.org/fhir}Coding",
+                                 "type" : "As",
                                  "operand" : {
-                                    "type" : "Equivalent",
-                                    "operand" : [ {
-                                       "name" : "ToCode",
-                                       "libraryName" : "FHIRHelpers",
-                                       "type" : "FunctionRef",
-                                       "operand" : [ {
-                                          "asType" : "{http://hl7.org/fhir}Coding",
-                                          "type" : "As",
-                                          "operand" : {
-                                             "type" : "SingletonFrom",
-                                             "operand" : {
-                                                "name" : "CurrentResponse1",
-                                                "type" : "ExpressionRef"
-                                             }
-                                          }
-                                       } ]
-                                    }, {
-                                       "name" : "Never",
-                                       "type" : "CodeRef"
-                                    } ]
+                                    "type" : "SingletonFrom",
+                                    "operand" : {
+                                       "name" : "CurrentResponsePrescreen",
+                                       "type" : "ExpressionRef"
+                                    }
                                  }
                               } ]
                            }, {
-                              "type" : "Equivalent",
-                              "operand" : [ {
-                                 "name" : "ToCode",
-                                 "libraryName" : "FHIRHelpers",
-                                 "type" : "FunctionRef",
+                              "name" : "Yes",
+                              "type" : "CodeRef"
+                           } ]
+                        } ]
+                     }, {
+                        "type" : "And",
+                        "operand" : [ {
+                           "type" : "And",
+                           "operand" : [ {
+                              "type" : "Not",
+                              "operand" : {
+                                 "type" : "Equivalent",
                                  "operand" : [ {
-                                    "asType" : "{http://hl7.org/fhir}Coding",
-                                    "type" : "As",
-                                    "operand" : {
-                                       "type" : "SingletonFrom",
+                                    "name" : "ToCode",
+                                    "libraryName" : "FHIRHelpers",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "asType" : "{http://hl7.org/fhir}Coding",
+                                       "type" : "As",
                                        "operand" : {
-                                          "name" : "CurrentResponsePrescreen",
-                                          "type" : "ExpressionRef"
+                                          "type" : "SingletonFrom",
+                                          "operand" : {
+                                             "name" : "CurrentResponse1",
+                                             "type" : "ExpressionRef"
+                                          }
                                        }
-                                    }
+                                    } ]
+                                 }, {
+                                    "name" : "Never",
+                                    "type" : "CodeRef"
                                  } ]
-                              }, {
-                                 "name" : "Yes",
-                                 "type" : "CodeRef"
-                              } ]
+                              }
+                           }, {
+                              "type" : "Exists",
+                              "operand" : {
+                                 "name" : "CurrentResponse2",
+                                 "type" : "ExpressionRef"
+                              }
                            } ]
                         }, {
                            "type" : "Exists",
                            "operand" : {
-                              "name" : "CurrentResponse2",
+                              "name" : "CurrentResponse3",
                               "type" : "ExpressionRef"
                            }
                         } ]
-                     }, {
-                        "type" : "Exists",
-                        "operand" : {
-                           "name" : "CurrentResponse3",
-                           "type" : "ExpressionRef"
-                        }
                      } ]
                   }, {
                      "name" : "HadButDoesNotCurrentlyHaveAlcoholUseDisorder",
                      "type" : "ExpressionRef"
                   } ]
                }, {
-                  "name" : "DisplayUsAuditQuestions4to8",
-                  "type" : "ExpressionRef"
+                  "type" : "And",
+                  "operand" : [ {
+                     "name" : "DisplayUsAuditQuestions4to8",
+                     "type" : "ExpressionRef"
+                  }, {
+                     "type" : "Exists",
+                     "operand" : {
+                        "name" : "CurrentResponse8",
+                        "type" : "ExpressionRef"
+                     }
+                  } ]
                } ]
             }
          }, {

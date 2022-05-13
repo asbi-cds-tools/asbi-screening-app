@@ -11,6 +11,7 @@ Each of the above have been represented as interoperable CDS and have been publi
 An online demo of this app is avaiable; please see the [Demo](#demo) section.
 
 ## Cautions and Limitations
+TODO: Update and link to pilot report.
 This software application has not been tested in a clinical environment with real patient data. Its purpose is to faciliate testing of the three alcohol screening CDS to be published on CDS Connect. Additional development work will be needed to integrate the *ASBI Screening App* into a real EHR.
 
 ## Utilized Standards
@@ -37,26 +38,20 @@ The base FHIR<sup>&reg;</sup> specification is meant to be an [80% solution](htt
 [SurveyJS](https://github.com/surveyjs/survey-library) is a JavaScript library for rendering surveys and forms in a web browser and capturing user responses. The *ASBI Screening App* uses SurveyJS to mechanize the alcohol screening instruments.
 
 ### Questionnaire to Survey
-While SurveyJS provides many capabilities which are similiar to those described by FHIR<sup>&reg;</sup> and SDC, it is not currently able to ingest FHIR<sup>&reg;</sup> Questionnaires. The *Questionnaire to Survey* library allows surveys defined as FHIR<sup>&reg;</sup> Questionnaires to be used with SurveyJS.
+While SurveyJS provides many capabilities which are similiar to those described by FHIR<sup>&reg;</sup> and SDC, it is not currently able to ingest FHIR<sup>&reg;</sup> Questionnaires. The [Questionnaire to Survey](https://github.com/asbi-cds-tools/questionnaire-to-survey) library allows surveys defined as FHIR<sup>&reg;</sup> Questionnaires to be used with SurveyJS.
 
-### CQL Execution Engine
-All CQL calculations are executed using the [CQL Execution Engine](https://github.com/cqframework/cql-execution), an open source library that implements the CQL standard.
+### CQL Worker
+All CQL calculations are executed within the context of a [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers), thereby offloading them to a separate thread. This greatly improves the responsiveness of the application. This is implemented via the [CQL Worker](https://github.com/asbi-cds-tools/cql-worker) library, which uses the the [CQL Execution Engine](https://github.com/cqframework/cql-execution) behind the scenes.
 
-### Web Workers
-All CQL calculations are executed within the context of a [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers), thereby offloading them to a separate thread. This greatly improves the responsiveness of the application.
-
-## Usage
-While the *ASBI Screening App* is meant to interface with an actual EHR, a number of options are available for local testing with synthetic data.
-
-### Setup
+## Setup
 This project manages dependencies using the [Yarn package manager](https://yarnpkg.com/). The dependencies for the *ASBI Screening App* can be installed locally by typing `yarn` at the command line. A local version of the app can be launched by typing `yarn serve` at the command line. A copy suitable for distribution can be built using the `yarn build` command.
 
 ### Download Value Sets from VSAC
-The value set content used by the CQL is cached in a file named valueset-db.json, which has been checked into this project in an empty state. In order for the CDS to operate as intended, implementers must populate valueset-db.json with the value sets which have been published on the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/). In order to access VSAC, you must sign up for a [UMLS Terminology Services account](https://uts.nlm.nih.gov//license.html).
+The value set content used by the CQL is cached in a file named `valueset-db.json`, which has been checked into this project in an empty state. In order for the CDS to operate as intended, implementers must populate `valueset-db.json` with the value sets which have been published on the [Value Set Authority Center (VSAC)](https://vsac.nlm.nih.gov/). In order to access VSAC, you must sign up for a [UMLS Terminology Services account](https://uts.nlm.nih.gov//license.html).
 
 Once a UMLS Terminology Services account has been obtained, the valueset-db.json file can be updated by running the following:
 
-1. Run `node src/util/updateValueSetDB.js UMLS_API_KEY` _(replacing UMLS\_API\_KEY with your actual UMLS API key)_
+- Run `node src/util/updateValueSetDB.js UMLS_API_KEY` _(replacing UMLS\_API\_KEY with your actual UMLS API key)_
 
 To get you UMLS API Key:
 
@@ -72,7 +67,7 @@ To get you UMLS API Key:
 ### Configuration
 Parameters for the app are stored in [environmental variables](http://man7.org/linux/man-pages/man7/environ.7.html) that are stored in an `.env` file. The [dotenv package](https://www.npmjs.com/package/dotenv) is used to store the default variable values, which can be overwritten by defining a more specific env (e.g., `.env.local`) file or by setting the variables in the deployment system. For more information, see the [Vue documentation](https://cli.vuejs.org/guide/mode-and-env.html#environment-variables).
 
-#### Parameters
+### Parameters
 
 | Parameter | Description | Allowed Values |
 | --- | --- | --- |
@@ -80,7 +75,39 @@ Parameters for the app are stored in [environmental variables](http://man7.org/l
 | `VUE_APP_WRITE_BACK_MODE` | Sets the mode for writing out a `QuestionnaireResponse` resource after the completion of screening. If set to `smart` then the resource is sent back via the SMART on FHIR<sup>&reg;</sup> interface to be created in the EHR. If set to `none` then no write back is made | `['smart', 'none']` |
 | `VUE_APP_QUESTIONNAIRE_AUTHOR` | Used for indicating who is actually filling out and submitting the `QuestionnaireResponse` resource. This is used to determine how to fill out the `QuestionnaireResponse.author` element. | `['practitioner', 'patient']` |
 | `VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES` | Some FHIR<sup>&reg;</sup> APIs require `Observation` resource queries to specify an [observation category](https://www.hl7.org/fhir/codesystem-observation-category.html). Setting this parameter to `true` causes the query of a patient's `Observation` resources to be made specified using categories. | `['true', 'false']` |
+| `VUE_APP_RESPONSE_OBSERVATION` | Option for saving alcohol screening results as a FHIR Observation. If set to `true` the alcohol screening responses are saved as a FHIR Observation. If set to `false` the responses are saved as a FHIR QuestionnaireResponse resource. | `['true', 'false']` |
 | `VUE_APP_ALCOHOL_SCREENING_INSTRUMENT` | For selecting which alcohol screening instrument is presented to the user. | `['usaudit', 'whoaudit', 'nidaqs2usaudit']` |
+
+### Secure HTTP (HTTPS)
+
+Most modern browsers are going to require HTTPS by default. To run the development server with HTTPS you will need to add the following to your `yarn.config.js` file (in addition to generating valid `key` and `crt` files):
+
+```js
+module.exports = {
+  configureWebpack: {
+     ...
+  },
+  devServer: {
+    https: {
+      key: fs.readFileSync("certificate.key"),
+      cert: fs.readFileSync("certificate.crt")
+    },
+    disableHostCheck: true,
+    public: 'https://localhost:8080',
+    port: 8080,
+    headers: { "Access-Control-Allow-Origin": "*" }
+  }
+};
+```
+
+To serve built files over HTTPS:
+- `yarn build`
+- `npm install -g http-server`
+- `http-server dist -p 8080 -S -C certificate.crt -K certificate.key`
+- Point your browser to `https://localhost:8080/launch.html`
+
+## Usage
+While the *ASBI Screening App* is meant to interface with an actual EHR, a number of options are available for local testing with synthetic data.
 
 ### Using with ASBI Testing Server
 This option requires installing the [ASBI Testing Server](https://github.com/asbi-cds-tools/asbi-testing-server):
@@ -100,15 +127,15 @@ Navigate to the public SMART<sup>&reg;</sup> App Launcher and choose the "Provid
 #### Standalone Launch
 Select the "Provider Standalone Launch" option in the public SMART<sup>&reg;</sup> App Launcher. Copy the "FHIR<sup>&reg;</sup> Server URL" shown at the bottom of the screen and paste it into the `iss` field in `public/launch_public_standalone.html`. Navigate to where `public/launch_public_standalone.html` is being served from and you should be redirected to the patient selector widget.
 
-##### Demo
-An online [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) of the *ASBI Screening App* is available, configured to use the WHO AUDIT. The [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) utilizes the public SMART sandbox with standalone launch and the use of any recent version of the Chrome browser is recommended. Other browsers have not yet been extensively tested with the demo app.
+## Demo
+An online [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) of the *ASBI Screening App* is available, configured to use the WHO AUDIT. The [demo](https://launch.smarthealthit.org/launcher?launch_uri=https%3A%2F%2Fasbi-cds-tools.github.io%2Fasbi-screening-app%2Flaunch.html&fhir_ver=4) utilizes the public SMART sandbox with standalone launch and the use of any recent version of the Chrome browser is recommended. Other modern browsers should work but have not been extensively tested.
 
 ## License
-(C) 2021 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.
+(C) 2022 The MITRE Corporation. All Rights Reserved. Approved for Public Release: 20-0458. Distribution Unlimited.
 
 Unless otherwise noted, this work is available under an Apache 2.0 license. It was produced by the MITRE Corporation for the National Center on Birth Defects and Developmental Disabilities, Centers for Disease Control and Prevention in accordance with the Statement of Work, contract number 75FCMC18D0047, task order number 75D30119F05691.
 
-Any LOINC (http://loinc.org) content is copyright &copy; 1995-2020, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC<sup>&reg;</sup> is a registered United States trademark of Regenstrief Institute, Inc.
+Any LOINC (http://loinc.org) content is copyright &copy; 1995-2022, Regenstrief Institute, Inc. and the Logical Observation Identifiers Names and Codes (LOINC) Committee and is available at no cost under the license at http://loinc.org/license. LOINC<sup>&reg;</sup> is a registered United States trademark of Regenstrief Institute, Inc.
 
 References to and reproductions of the AUDIT alcohol screening instrument are made by permission from the World Health Organization (WHO). The WHO does not endorse this project, does not provide any warranty, and does not assume any liability for its use. For further information, please see:
 

@@ -15,8 +15,11 @@
   ],
   "extension": [
     {
+      "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
+      "valueCanonical": "#AuditLogicLibrary|1.0"
+    },
+    {
       "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-entryMode/",
-      "valueCanonical": "#AuditLogicLibrary|1.0",
       "valueCode": "random"
     }
   ],
@@ -528,7 +531,7 @@
           "valueCoding": {
             "code": "dailyoralmostdaily",
             "system": "http://www.cdc.gov/ncbddd/fasd",
-            "display": "Daily or almost daily or almost daily"
+            "display": "Daily or almost daily"
           },
           "extension": [
             {
@@ -620,7 +623,7 @@
           "valueCoding": {
             "code": "dailyoralmostdaily",
             "system": "http://www.cdc.gov/ncbddd/fasd",
-            "display": "Daily or almost daily or almost daily"
+            "display": "Daily or almost daily"
           },
           "extension": [
             {
@@ -712,7 +715,7 @@
           "valueCoding": {
             "code": "dailyoralmostdaily",
             "system": "http://www.cdc.gov/ncbddd/fasd",
-            "display": "Daily or almost daily or almost daily"
+            "display": "Daily or almost daily"
           },
           "extension": [
             {
@@ -804,7 +807,7 @@
           "valueCoding": {
             "code": "dailyoralmostdaily",
             "system": "http://www.cdc.gov/ncbddd/fasd",
-            "display": "Daily or almost daily or almost daily"
+            "display": "Daily or almost daily"
           },
           "extension": [
             {
@@ -896,7 +899,7 @@
           "valueCoding": {
             "code": "dailyoralmostdaily",
             "system": "http://www.cdc.gov/ncbddd/fasd",
-            "display": "Daily or almost daily or almost daily"
+            "display": "Daily or almost daily"
           },
           "extension": [
             {
@@ -1117,7 +1120,7 @@
         }
       ],
       "type": "choice",
-      "text": "Are you pregnant or trying to be become pregnant?",
+      "text": "Are you pregnant or trying to become pregnant?",
       "answerOption": [
         {
           "valueCoding": {
