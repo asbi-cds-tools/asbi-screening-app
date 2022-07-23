@@ -1,0 +1,36 @@
+$border-color: #aca8a8;
+$question-bg-color: #b4e8d733;
+$secondary-color: #585757;
+$input-border-color: #b5b8b7;
+
+.sv-row:not(:last-child) {
+    padding-bottom: 1em;
+}
+.instruction {
+    font-size: 0.925em;
+    color: $secondary-color;
+}
+input[type=text] {
+    width: 120px;
+    border-bottom-color: $input-border-color;
+}
+.sv-container-modern__title {
+    padding-bottom: 0;
+}
+.sv-question__title {
+    background-color: $question-bg-color;
+}
+.sv-question[name=minicog-total-score] {
+    .sv-question__content {
+        font-weight: 600;
+    }
+}
+.sv-container-modern__close {
+    margin-top: 32px;
+}
+.sv-body__footer {
+    margin-top: 0;
+}
+.sv-footer {
+    padding: 1.5em 0 1.5em 0;
+}

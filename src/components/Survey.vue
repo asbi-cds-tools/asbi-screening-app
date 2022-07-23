@@ -1,0 +1,387 @@
+<template>
+  <div id="surveyElement">
+    <v-alert color="error" v-if="error" class="ma-4 pa-4" dark>
+      Error loading the screener application. See console for detail.
+      <div v-html="error"></div>
+    </v-alert>
+    <survey v-if="!error && ready" :survey="survey" :css="themes"></survey>
+    <div v-if="!error && !ready" class="ma-4 pa-4">
+      <v-progress-circular
+        :value="100"
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
+  </div>
+</template>
+
+<script>
+import converter from "questionnaire-to-survey";
+import { getInstrumentCSS } from "../util/css-selector.js";
+import { getScreeningInstrument } from "../util/screening-selector.js";
+import Worker from "cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
+import { initialzieCqlWorker } from "cql-worker";
+import {
+  getCurrentISODate,
+  getEnv,
+  getEnvs,
+  getFHIRResourcePaths,
+  getResponseValue,
+} from "../util/util.js";
+import surveyOptions from "../context/surveyjs.options.js";
+import themes from "../context/themes.js";
+import { FunctionFactory, Model, Serializer, StylesManager } from "survey-vue";
+
+// Define a web worker for evaluating CQL expressions
+const cqlWorker = new Worker();
+// Initialize the cql-worker
+let [
+  setupExecution,
+  sendPatientBundle,
+  evaluateExpression,
+] = initialzieCqlWorker(cqlWorker);
+
+// Define the survey component for Vue
+export default {
+  props: {
+    client: Object,
+    patient: Object,
+    authError: [String, Object, Error],
+  },
+  watch: {
+    patient(newVal, oldVal) {
+      if (this.error) return;
+      if (newVal || newVal !== oldVal) {
+        this.patient = newVal;
+        this.init();
+      }
+    },
+    authError(newVal, oldVal) {
+      if (newVal || newVal !== oldVal) {
+        this.error = newVal;
+        this.ready = true;
+      }
+    },
+  },
+  data() {
+    return {
+      survey: null,
+      surveyOptions: {},
+      patientId: 0,
+      questionnaire: {},
+      patientBundle: {
+        resourceType: "Bundle",
+        id: "survey-bundle",
+        type: "collection",
+        entry: [],
+      },
+      questionnaireResponse: {
+        resourceType: "QuestionnaireResponse",
+        status: "in-progress",
+        item: [],
+        authored: getCurrentISODate(),
+      },
+      themes: themes.survey,
+      ready: false,
+      error: false,
+    };
+  },
+  created() {
+    getInstrumentCSS();
+  },
+  methods: {
+    init() {
+      if (this.error || !this.patient) false;
+      //console.log("state ", this.client.getState("tokenResponse.id_token"));
+      console.log("environment variables ", getEnvs());
+      this.patientId = this.patient.id;
+      this.patientBundle.entry.unshift({ resource: this.patient });
+      this.initializeInstrument()
+        .then(() => {
+          if (this.error) return; // error getting instrument, abort
+          this.initializeSurveyObj();
+          this.initializeSurveyObjEvents();
+          this.setQuestionnaireSubject();
+          this.setQuestionnaireAuthor();
+          this.setFirstInputFocus();
+          this.getFhirResources()
+            .then(() => {
+              console.log("patient bundle ", this.patientBundle);
+              // Send the patient bundle to the CQL web worker WITH FHIR resources
+              sendPatientBundle(this.patientBundle);
+            })
+            .catch((e) => {
+              console.log("Error retrieving FHIR resources ", e);
+              // Send the patient bundle to the CQL web worker WITHOUT FHIR resources
+              sendPatientBundle(this.patientBundle);
+            });
+          this.done();
+          this.ready = true; // We don't show this component until `ready=true`
+        })
+        .catch((e) => {
+          this.error = e;
+          console.log("Error loading Questionnaire ", e);
+        });
+    },
+    isDevelopment() {
+      return (
+        String(getEnv("NODE_ENV")).toLowerCase() === "development" ||
+        String(getEnv("VUE_APP_SYSTEM_TYPE")).toLowerCase() === "development"
+      );
+    },
+    getTheme() {
+      return themes.survey;
+    },
+    setDocumentTitle() {
+      if (!this.questionnaire || !this.questionnaire.title) return;
+      document.title = this.questionnaire.title;
+    },
+    setFirstInputFocus() {
+      if (!this.surveyOptions.focusFirstQuestionAutomatic) return;
+      setTimeout(() => {
+        document.querySelector("input[type=text]").focus();
+      }, 350);
+    },
+    initializeInstrument() {
+      var self = this;
+      return getScreeningInstrument()
+        .then((data) => {
+          // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
+          const [questionnaire, elmJson, valueSetJson] = data;
+          if (!questionnaire) throw Error("No questionnaire set");
+          self.questionnaire = questionnaire;
+          // Assemble the parameters needed by the CQL
+          let cqlParameters = {
+            DisplayScreeningScores:
+              getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() == "true"
+                ? true
+                : false,
+            QuestionnaireURL: this.getQuestionnaireURL(),
+          };
+          // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
+          setupExecution(elmJson, valueSetJson, cqlParameters);
+
+          // Define the QuestionnaireResponse which will contain the user responses.
+          if (this.questionnaire.identifier) {
+            this.questionnaireResponse.identifier = this.questionnaire.identifier;
+          } else {
+            this.questionnaireResponse.questionnaire = this.getQuestionnaireURL();
+          }
+
+          // set document title to questionnaire title
+          this.setDocumentTitle();
+
+          // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
+          // Note: Objects are pushed onto the array by reference (no copy), so we don't
+          //       need to do anything fancy when we update questionnaireResponse later on.
+          this.patientBundle.entry.push({ resource: this.questionnaire });
+          this.patientBundle.entry.push({
+            resource: this.questionnaireResponse,
+          });
+        })
+        .catch((e) => {
+          this.error = e;
+          console.log(e);
+        });
+    },
+    initializeSurveyObj() {
+      const vueConverter = converter(
+        FunctionFactory,
+        Model,
+        Serializer,
+        StylesManager
+      );
+      const parentThis = this;
+      // evaluateExpression returns a Promise that evaluates to the results from running
+      // the CQL `expression`. SurveyJS expects to be provided with a function which will
+      // call `this.returnResult(result)` when it completes. Here we create a wrapper
+      // calls `returnResult()` when the promise resolves.
+      // See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
+      let wrappedExpression = function(expression) {
+        let self = this;
+        // For some reason SurveyJS wraps `expression` in an array
+        evaluateExpression(expression[0]).then((result) => {
+          if (parentThis.isDevelopment()) {
+            console.log("CQL expression ", expression[0], " result ", result);
+          }
+          self.returnResult(result);
+        });
+        return false; // This value doesn't matter
+      };
+
+      //apply theme
+      var defaultThemeColors = StylesManager.ThemeColors["modern"];
+      Object.entries(themes.survey).forEach(
+        (option) => (defaultThemeColors[option[0]] = option[1])
+      );
+
+      // Create our SurveyJS object from the FHIR Questionnaire
+      var model = vueConverter(this.questionnaire, wrappedExpression, "modern");
+
+      //SurveyJS settings
+      var options = {
+        ...surveyOptions["default"],
+        ...(surveyOptions[this.questionnaire.name]
+          ? surveyOptions[this.questionnaire.name]
+          : {}),
+      };
+      Object.entries(options).forEach(
+        (option) => (model[option[0]] = option[1])
+      );
+      //if (this.questionnaire.title) model["title"] = this.questionnaire.title;
+      this.surveyOptions = options;
+      this.survey = model;
+    },
+    async getFhirResources() {
+      const requests = getFHIRResourcePaths(this.patientId).map((resource) =>
+        this.client.request(resource)
+      );
+      //get all resources
+      return Promise.allSettled(requests)
+        .then((results) => {
+          results.forEach((o) => {
+            let result = o.value;
+            if (o.status === "rejected") {
+              console.log("Error retrieving FHIR resource ", o.reason);
+              return true;
+            }
+            if (!result) return true;
+
+            if (result.resourceType == "Bundle" && result.entry) {
+              result.entry.forEach((o) => {
+                if (o && o.resource)
+                  this.patientBundle.entry.push({ resource: o.resource });
+              });
+            } else if (Array.isArray(result)) {
+              result.forEach((o) => {
+                if (o.resourceType)
+                  this.patientBundle.entry.push({ resource: o });
+              });
+            } else {
+              this.patientBundle.entry.push({ resource: result });
+            }
+          });
+        })
+        .catch((e) => console.log(`Error retrieving FHIR resources ${e}`));
+    }, //
+    getQuestionnaireURL() {
+      if (!this.questionnaire) return null;
+      //used to pair questionnaire with responses
+      return this.questionnaire.url;
+    },
+    setQuestionnaireSubject() {
+      // Add the `subject` element to the QuestionnaireResponse
+      this.questionnaireResponse.subject = {
+        reference: `Patient/${this.patientId}`,
+      };
+    },
+    setQuestionnaireAuthor() {
+      // Record who is entering and submitting the responses
+      // How do we know the author here?
+      let questionnaireAuthor = getEnv(
+        "VUE_APP_QUESTIONNAIRE_AUTHOR"
+      ).toLowerCase();
+      if (questionnaireAuthor == "practitioner") {
+        // Only add the `author` element if we can get the user id from the client
+        if (this.client.user && this.client.user.fhirUser) {
+          this.questionnaireResponse.author = {
+            reference: this.client.user.fhirUser,
+          };
+        } else console.log("client fhirUser not set");
+      } else if (questionnaireAuthor == "patient") {
+        this.questionnaireResponse.author = {
+          reference: this.questionnaireResponse.subject.reference,
+        };
+      }
+    },
+    getSurveyQuestionValidator() {
+      if (!this.surveyOptions || !this.surveyOptions.questionValidator)
+        return function() {};
+      return this.surveyOptions.questionValidator;
+    },
+    initializeSurveyObjEvents() {
+      //add validation to question
+      this.survey.onValidateQuestion.add(this.getSurveyQuestionValidator());
+      // Add an event listener which updates questionnaireResponse based upon user responses
+      this.survey.onValueChanging.add(
+        function(sender, options) {
+          // We don't want to modify anything if the survey has been submitted/completed.
+          if (sender.isCompleted == true) return;
+
+          if (options.value != null) {
+            // Find the index of this item (may not exist)
+            // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
+            let answerItemIndex = this.questionnaireResponse.item.findIndex(
+              (itm) => itm.linkId == options.name
+            );
+            let responseValue = getResponseValue(
+              this.questionnaire,
+              options.name,
+              options.value
+            );
+
+            let question = this.questionnaire.item.filter(
+              (item) => item.linkId === options.name
+            )[0];
+            let questionText = question && question.text ? question.text : "";
+
+            // If the index is undefined, add a new entry to questionnaireResponse.item
+            if (answerItemIndex == -1) {
+              this.questionnaireResponse.item.push({
+                linkId: options.name,
+                text: questionText,
+                answer: [
+                  {
+                    [responseValue.type]: responseValue.value,
+                  },
+                ],
+              });
+            } else {
+              // Otherwise update the existing index with the new response
+              this.questionnaireResponse.item[answerItemIndex] = {
+                linkId: options.name,
+                text: questionText,
+                answer: [
+                  {
+                    [responseValue.type]: responseValue.value,
+                  },
+                ],
+              };
+            }
+          }
+
+          // Need to reload the patient bundle since the responses have been updated
+          cqlWorker.postMessage({ patientBundle: this.patientBundle });
+        }.bind(this)
+      );
+      // Add a handler which will fire when the Questionnaire is submittedc
+      this.survey.onComplete.add(
+        function() {
+          // Mark the QuestionnaireResponse as completed
+          this.questionnaireResponse.status = "completed";
+
+          // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
+          if (getEnv("VUE_APP_WRITE_BACK_MODE").toLowerCase() == "smart") {
+            this.client.create(this.questionnaireResponse, {
+              headers: {
+                "Content-Type": "application/fhir+json",
+              },
+            });
+          }
+          if (this.isDevelopment()) {
+            console.log(
+              "questionnaire responses ",
+              JSON.stringify(this.questionnaireResponse, null, 2)
+            );
+          }
+        }.bind(this)
+      );
+    },
+    done() {
+      this.$emit("finished", {
+        title: this.questionnaire.title,
+      });
+    },
+  },
+};
+</script>

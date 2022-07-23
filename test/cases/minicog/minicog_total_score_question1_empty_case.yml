@@ -1,0 +1,21 @@
+---
+name: MiniCog Total Score (answer for question 1 not provided)
+externalData:
+- minicog_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+  - *question2
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q2LinkId
+    answer:
+    -
+      valueDecimal: 1  # NOTE: can change to a different answer option to test
+results:
+  MiniCogQuestionnaire: $should exist # make sure questionnaire is returned
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  ScoreFullMiniCog: 1

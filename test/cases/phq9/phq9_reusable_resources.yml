@@ -2,7 +2,12 @@ phq9_reusable_resources:
 # patient resource
 - &patientResource
   resourceType: Patient
-  name: Luke Skywalker
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
   gender: male
   birthDate: 1978-07-16
 

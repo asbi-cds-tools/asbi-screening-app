@@ -1,0 +1,5 @@
+{
+    "clientId": "screener_openid_client",
+    "scope": "profile roles email patient/*.read"
+}
+

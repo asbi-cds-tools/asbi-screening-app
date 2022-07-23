@@ -1,0 +1,131 @@
+{
+  "resourceType": "Questionnaire",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-render"
+    ]
+  },
+  "url": "http://www.cdc.gov/ncbddd/fasd/minicog",
+  "name": "MINICOG",
+  "identifier": {
+    "system": "http://hl7.org/fhir/uv/sdc/NamingSystem/questionnaire-ids",
+    "value": "MINICOG"
+  },
+  "status": "draft",
+  "title": "Mini Cognitive Assessment",
+  "subjectType": [
+    "Patient"
+  ],
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-entryMode/",
+      "valueCanonical": "#MiniCogLogicLibrary|1.0",
+      "valueCode": "random"
+    }
+  ],
+  "item": [
+    {
+      "linkId": "minicog-question1",
+      "type": "decimal",
+      "text": "Word Recall (0-3 points)",
+      "required": true
+    },
+    {
+      "linkId": "minicog-question1-instruction",
+      "type": "display",
+      "text": "",
+      "readOnly": true,
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div class=\"instruction\">1 point for each word spontaneously recalled without cueing.</div><br/>"
+          }
+        ]
+      }
+    },
+    {
+      "linkId": "minicog-question2",
+      "type": "decimal",
+      "text": "Clock Draw (0 or 2 points)",
+      "required": true
+    },
+    {
+      "linkId": "minicog-question2-instruction",
+      "type": "display",
+      "text": "",
+      "readOnly": true,
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div class=\"instruction\">Normal clock = 2 points. A normal clock has all numbers placed in the correct sequence and approximately correct position (e.g., 12, 3, 6 and 9 are in anchor positions) with no missing or duplicate numbers. Hands are pointing to the 11 and 2 (11:10). Hand length is not scored. Inability or refusal to draw a clock (abnormal) = 0 points.</div><br/>"
+          }
+        ]
+      }
+    },
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "DisplayScoreFullMiniCog",
+            "reference": "#MinicogLogicLibrary|1.0"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "ScoreFullMiniCog",
+            "reference": "#MinicogLogicLibrary|1.0"
+          }
+        }
+      ],
+      "linkId": "minicog-total-score",
+      "text": "Total Score (0 - 5 points)",
+      "type": "decimal",
+      "required": false,
+      "readOnly": true
+    },
+    {
+      "linkId": "minicog-total-score-explanation",
+      "type": "display",
+      "text": "",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "DisplayScoreFullMiniCog",
+            "reference": "#MinicogLogicLibrary|1.0"
+          }
+        }
+      ],
+      "readOnly": true,
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div class=\"instruction\">Word Recall score + Clock Draw score</div>"
+          }
+        ]
+      }
+    },
+    {
+      "linkId": "minicog-questionnaire-footnote",
+      "type": "display",
+      "text": "",
+      "readOnly":true,
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<div class=\"info\">A cut point of <3 on the Mini-Cog™ has been validated for dementia screening, but many individuals with clinically meaningful cognitive impairment will score higher. When greater sensitivity is desired, a cut point of <4 is recommended as it may indicate a need for further evaluation of cognitive status.</div>"
+          }
+        ]
+      }
+    }
+  ]
+}

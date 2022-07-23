@@ -1,0 +1,38 @@
+minicog_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  url: http://www.cdc.gov/ncbddd/fasd/minicog
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: http://www.cdc.gov/ncbddd/fasd/minicog
+  status: in-progress
+  authored: 2030-04-18
+
+# anchor for each question link Id
+- question1LinkId: &q1LinkId minicog-question1
+- question2LinkId: &q2LinkId minicog-question2
+
+# questions
+- &question1
+  linkId: *q1LinkId
+  type: decimal
+  text: Word Recall
+- &question2
+  linkId: *q2LinkId
+  type: decimal
+  text: Clock Draw

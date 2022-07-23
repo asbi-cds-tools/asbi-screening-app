@@ -1,3 +1,4 @@
+$info-color: #2196f3;
 body {
     padding: 0;
     margin: 0;
@@ -5,6 +6,20 @@ body {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-size: 18px;
     line-height: 1.45;
+}
+#surveyElement {
+    margin-top: 64px;
+}
+#surveyElement:empty {
+    margin-top: 0;
+}
+.v-toolbar__title {
+    max-width: 60%;
+}
+@media (min-width: 501px) {
+    .v-toolbar__title {
+        max-width: 100%;
+    }
 }
 .sv-container-modern__title {
     padding-top: 1em;
@@ -30,4 +45,34 @@ body {
 }
 .sv-string-viewer {
     line-height: 1.45;
+}
+.sv-body__footer {
+    margin-top: 1em;
+}
+.sv-footer__next-btn,
+.sv-footer__prev-btn,
+.sv-footer__complete-btn {
+    padding: 8px 24px;
+    font-size: 0.95em;
+}
+.sv-footer__complete-btn {
+    float: left;
+    margin-left: 8px;
+}
+.info {
+    position: relative;
+    padding: 8px 32px;
+    background: $info-color;
+    color: #FFF;
+    border-radius: 4px;
+    &:after {
+        content: '\24D8';
+        display: block;
+        position: absolute;
+        top: 8px;
+        left: 8px;
+    }
+}
+.sv-completedpage {
+    margin-top: 24px;
 }

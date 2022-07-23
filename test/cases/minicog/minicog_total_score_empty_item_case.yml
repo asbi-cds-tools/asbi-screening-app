@@ -1,0 +1,16 @@
+---
+name: MiniCog Total Score (no answers provided)
+externalData:
+- minicog_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+  - *question2
+- <<: *questionnaireResponses
+  item: []
+results:
+  MiniCogQuestionnaire: $should exist # make sure questionnaire is returned
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  ScoreFullMiniCog: 0

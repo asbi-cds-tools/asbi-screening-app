@@ -1,0 +1,20 @@
+---
+name: MiniCog Question 1 Score
+externalData:
+- minicog_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 2  # NOTE: can change to a different answer option to test
+results:
+  MiniCogQuestionnaire: $should exist # make sure questionnaire is returned
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  miniCogScoreQuestion1: 2
