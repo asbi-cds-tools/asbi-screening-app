@@ -157,23 +157,42 @@
                         "type" : "ExpressionRef"
                      } ]
                   }, {
-                     "type" : "Equivalent",
-                     "operand" : [ {
-                        "path" : "value",
-                        "type" : "Property",
-                        "source" : {
-                           "path" : "identifier",
-                           "scope" : "QR",
-                           "type" : "Property"
-                        }
-                     }, {
-                        "path" : "name",
-                        "type" : "Property",
-                        "source" : {
-                           "name" : "MiniCogQuestionnaire",
-                           "type" : "ExpressionRef"
-                        }
-                     } ]
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "type" : "PositionOf",
+                           "pattern" : {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "id",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "MiniCogQuestionnaire",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           },
+                           "string" : {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "questionnaire",
+                                 "scope" : "QR",
+                                 "type" : "Property"
+                              }
+                           }
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
                   } ]
                },
                "sort" : {

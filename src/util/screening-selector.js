@@ -2,7 +2,7 @@ import valueSetJson from "../cql/valueset-db.json";
 import { getEnv } from "./util.js";
 
 //dynamically load questionnaire and cql JSON
-export async function getScreeningInstrument() {
+export async function getScreeningInstrument(client) {
   const envScreeningInstrument = getEnv("VUE_APP_SCREENING_INSTRUMENT");
   let screeningInstrument = envScreeningInstrument
     ? envScreeningInstrument.toLowerCase()
@@ -36,20 +36,44 @@ export async function getScreeningInstrument() {
     ).then((module) => module.default);
     return [questionnaireNidaQs, elmJsonNidaQs, valueSetJson];
   } else {
-    try {
-      let libId = screeningInstrument.toUpperCase();
-      let questionnaireJson = await import(
+    if (!client) throw new Error("invalid FHIR client provided");
+    let libId = screeningInstrument.toUpperCase();
+    // load questionnaire from FHIR server
+    const qSearch = await client
+      .request("/Questionnaire?name="+screeningInstrument)
+      .catch((e) => {
+        throw new Error(`Error retrieving questionnaire: ${e}`);
+      });
+    let questionnaireJson;
+    if (qSearch && qSearch.entry && qSearch.entry.length > 0) {
+      questionnaireJson = qSearch.entry[0].resource;
+    } else {
+      // load from file and post it
+      const fileJson = await import(
         `../fhir/Questionnaire-${screeningInstrument.toUpperCase()}.json`
-      ).then((module) => module.default);
-      let elmJson = await import(`../cql/${libId}_LogicLibrary.json`).then(
+      ).then((module) => module.default).catch(e => console.log("Error retrieving matching questionnaire JSON from filesystem ", e));
+      if (fileJson) {
+        questionnaireJson = await client.create(fileJson, {
+          headers: {
+            "Content-Type": "application/fhir+json",
+          },
+        }).catch(e => console.log("Error storing questionnaire ", e));
+      }
+    }
+    if (!questionnaireJson) {
+      throw new Error("No matching questionnaire found.");
+    }
+    let elmJson;
+    try {
+      elmJson = await import(`../cql/${libId}_LogicLibrary.json`).then(
         (module) => module.default
       );
-      return [questionnaireJson, elmJson, valueSetJson];
     } catch (e) {
       console.log("error ", e);
       throw new Error(
-        "Unsupported instrument and/or ELM library has been specified " + e
+        "Error loading ELM library. Unsupported ELM library may have been specified " + e
       );
     }
+    return [questionnaireJson, elmJson, valueSetJson];
   }
 }

@@ -12,7 +12,7 @@
     <div class="pa-8" v-if="error">
       <v-alert color="error" v-if="error" dark>
         Error launching the application.
-        <div v-html="error"></div>
+        <div v-html="getError()"></div>
       </v-alert>
     </div>
   </v-app>
@@ -20,7 +20,12 @@
 
 <script>
 import FHIR from "fhirclient";
-import { fetchEnvData, getEnv, queryPatientIdKey } from "./util/util.js";
+import {
+  fetchEnvData,
+  getEnv,
+  getErrorText,
+  queryPatientIdKey,
+} from "./util/util.js";
 
 const urlParams = new URLSearchParams(window.location.search);
 const patientId = urlParams.get("patient");
@@ -51,11 +56,10 @@ export default {
     })
       .then((result) => {
         if (!result.ok) {
-          throw Error(result.status);
+          throw new Error(result.status.toString());
         }
         return result.json();
       })
-      .catch((e) => (self.error = e))
       .then((json) => {
         if (patientId) {
           //only do this IF patient id comes from url queryString
@@ -76,6 +80,11 @@ export default {
         self.error = e;
         console.log("launch error ", e);
       });
+  },
+  methods: {
+    getError() {
+      return getErrorText(this.error);
+    },
   },
 };
 </script>

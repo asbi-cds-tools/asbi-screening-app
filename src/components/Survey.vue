@@ -2,7 +2,7 @@
   <div id="surveyElement">
     <v-alert color="error" v-if="error" class="ma-4 pa-4" dark>
       Error loading the screener application. See console for detail.
-      <div v-html="error"></div>
+      <div v-html="getError()"></div>
     </v-alert>
     <survey v-if="!error && ready" :survey="survey" :css="themes"></survey>
     <div v-if="!error && !ready" class="ma-4 pa-4">
@@ -25,6 +25,7 @@ import {
   getCurrentISODate,
   getEnv,
   getEnvs,
+  getErrorText,
   getFHIRResourcePaths,
   getResponseValue,
 } from "../util/util.js";
@@ -87,26 +88,40 @@ export default {
     };
   },
   created() {
-    getInstrumentCSS();
+    getInstrumentCSS().catch((e) =>
+      console.log(`loading instrument css error: ${e}`)
+    );
   },
   methods: {
     init() {
       if (this.error || !this.patient) false;
       //console.log("state ", this.client.getState("tokenResponse.id_token"));
+      console.log("client state ", this.client.getState());
       console.log("environment variables ", getEnvs());
       this.patientId = this.patient.id;
       this.patientBundle.entry.unshift({ resource: this.patient });
       this.initializeInstrument()
         .then(() => {
           if (this.error) return; // error getting instrument, abort
+          // set response identifier
+          this.setUniqueQuestionnaireResponseIdentifier();
+          // set document title to questionnaire title
+          this.setDocumentTitle();
           this.initializeSurveyObj();
           this.initializeSurveyObjEvents();
           this.setQuestionnaireSubject();
           this.setQuestionnaireAuthor();
           this.setFirstInputFocus();
+
+          // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
+          // Note: Objects are pushed onto the array by reference (no copy), so we don't
+          //       need to do anything fancy when we update questionnaireResponse later on.
+          this.patientBundle.entry.push({ resource: this.questionnaire });
+          this.patientBundle.entry.push({
+            resource: this.questionnaireResponse,
+          });
           this.getFhirResources()
             .then(() => {
-              console.log("patient bundle ", this.patientBundle);
               // Send the patient bundle to the CQL web worker WITH FHIR resources
               sendPatientBundle(this.patientBundle);
             })
@@ -143,46 +158,29 @@ export default {
       }, 350);
     },
     initializeInstrument() {
-      var self = this;
-      return getScreeningInstrument()
+      return getScreeningInstrument(this.client)
         .then((data) => {
           // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
           const [questionnaire, elmJson, valueSetJson] = data;
           if (!questionnaire) throw Error("No questionnaire set");
-          self.questionnaire = questionnaire;
+          this.questionnaire = questionnaire;
           // Assemble the parameters needed by the CQL
           let cqlParameters = {
-            DisplayScreeningScores:
-              getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() == "true"
-                ? true
-                : false,
+            //DisplayScreeningScores: getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() === "true",
             QuestionnaireURL: this.getQuestionnaireURL(),
           };
           // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
           setupExecution(elmJson, valueSetJson, cqlParameters);
-
-          // Define the QuestionnaireResponse which will contain the user responses.
-          if (this.questionnaire.identifier) {
-            this.questionnaireResponse.identifier = this.questionnaire.identifier;
-          } else {
-            this.questionnaireResponse.questionnaire = this.getQuestionnaireURL();
-          }
-
-          // set document title to questionnaire title
-          this.setDocumentTitle();
-
-          // Add both the Questionnaire and QuestionnaireResponses to the patient bundle.
-          // Note: Objects are pushed onto the array by reference (no copy), so we don't
-          //       need to do anything fancy when we update questionnaireResponse later on.
-          this.patientBundle.entry.push({ resource: this.questionnaire });
-          this.patientBundle.entry.push({
-            resource: this.questionnaireResponse,
-          });
         })
         .catch((e) => {
           this.error = e;
           console.log(e);
         });
+    },
+    // pair questionnaire with questionnaire response with unique identifier
+    setUniqueQuestionnaireResponseIdentifier() {
+      if (!this.questionnaire) return;
+      this.questionnaireResponse.questionnaire = `Questionnaire/${this.questionnaire.id}`;
     },
     initializeSurveyObj() {
       const vueConverter = converter(
@@ -218,12 +216,14 @@ export default {
       // Create our SurveyJS object from the FHIR Questionnaire
       var model = vueConverter(this.questionnaire, wrappedExpression, "modern");
 
+      var optionsKeys = this.questionnaire.name
+        ? this.questionnaire.name.toUpperCase()
+        : "default";
+
       //SurveyJS settings
       var options = {
         ...surveyOptions["default"],
-        ...(surveyOptions[this.questionnaire.name]
-          ? surveyOptions[this.questionnaire.name]
-          : {}),
+        ...(surveyOptions[optionsKeys] || {}),
       };
       Object.entries(options).forEach(
         (option) => (model[option[0]] = option[1])
@@ -302,12 +302,12 @@ export default {
     initializeSurveyObjEvents() {
       //add validation to question
       this.survey.onValidateQuestion.add(this.getSurveyQuestionValidator());
+
       // Add an event listener which updates questionnaireResponse based upon user responses
       this.survey.onValueChanging.add(
         function(sender, options) {
           // We don't want to modify anything if the survey has been submitted/completed.
           if (sender.isCompleted == true) return;
-
           if (options.value != null) {
             // Find the index of this item (may not exist)
             // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
@@ -376,6 +376,9 @@ export default {
           }
         }.bind(this)
       );
+    },
+    getError() {
+      return getErrorText(this.error);
     },
     done() {
       this.$emit("finished", {

@@ -1,10 +1,10 @@
 <template>
   <v-app id="app">
-    <Header :title="title" :patient="patient" v-if="ready"> </Header>
+    <Header :title="title" :patient="patient" v-if="ready"></Header>
     <Survey
       :client="client"
       :patient="patient"
-      :authError="error"
+      :authError="getError()"
       @finished="finished"
     />
   </v-app>
@@ -15,9 +15,14 @@ import "survey-vue/modern.css";
 import "./style/app.scss";
 import Header from "./components/Header";
 import Survey from "./components/Survey";
-import { fetchEnvData, getEnv, queryPatientIdKey } from "./util/util";
+import {
+  fetchEnvData,
+  getEnv,
+  getErrorText,
+  queryPatientIdKey,
+} from "./util/util";
 
-const DEFAULT_TITLE = "Screening Instrument";
+const DEFAULT_TITLE = "Specify Screening Instrument";
 const ENV_TITLE = getEnv("VUE_APP_TITLE");
 
 export default {
@@ -28,9 +33,7 @@ export default {
   },
   data() {
     return {
-      title: ENV_TITLE
-        ? ENV_TITLE
-        : DEFAULT_TITLE,
+      title: ENV_TITLE ? ENV_TITLE : DEFAULT_TITLE,
       client: null,
       patient: null,
       error: "",
@@ -65,7 +68,7 @@ export default {
       try {
         authClient = await FHIR.oauth2.ready();
       } catch (e) {
-        throw new Error("Auth error: " + e);
+        throw new Error(e);
       }
       return authClient;
     },
@@ -86,9 +89,12 @@ export default {
           return pt;
         });
       } catch (e) {
-        throw new Error("Unable to read patient info: " + e);
+        throw new Error(e);
       }
       return pt;
+    },
+    getError() {
+      return getErrorText(this.error);
     },
     finished(data) {
       if (!data) return;

@@ -81,9 +81,14 @@ export function getFHIRResourcePaths(patientId) {
   if (!patientId) return [];
   const envFHIRResources = getEnv("VUE_APP_FHIR_RESOURCES");
   const envObCategories = getEnv("VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES");
-  let resources = envFHIRResources
-    ? envFHIRResources.split(",")
-    : ["QuestionnaireResponse"];
+  let resources = envFHIRResources ? envFHIRResources.split(",") : [];
+  const hasQuestionnaireResponses = resources.filter(
+    (item) => item.toLowerCase() === "questionnaireresponse"
+  ).length > 0;
+  if (!hasQuestionnaireResponses) {
+    // load questionnaire response(s) by default
+    resources.push("QuestionnaireResponse");
+  }
   return resources.map((resource) => {
     let path = `/${resource}?patient=${patientId}`;
     if (
@@ -167,6 +172,15 @@ export function getEnvs() {
     ...appConfig,
     ...processEnvs,
   };
+}
+
+export function getErrorText(error) {
+  if (!error) return "";
+  if (typeof error === "object") {
+    if (error.message) return error.message;
+    return error.toString();
+  }
+  return error;
 }
 
 export const queryPatientIdKey = "launch_queryPatientId";
