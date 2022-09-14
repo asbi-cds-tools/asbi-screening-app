@@ -4,7 +4,7 @@
       Error loading the screener application. See console for detail.
       <div v-html="getError()"></div>
     </v-alert>
-    <survey v-if="!error && ready" :survey="survey" :css="themes"></survey>
+    <survey v-if="!error && ready" :survey="survey" :css="getTheme()"></survey>
     <div v-if="!error && !ready" class="ma-4 pa-4">
       <v-progress-circular
         :value="100"
@@ -28,6 +28,7 @@ import {
   getErrorText,
   getFHIRResourcePaths,
   getResponseValue,
+  setFavicon,
 } from "../util/util.js";
 import surveyOptions from "../context/surveyjs.options.js";
 import themes from "../context/themes.js";
@@ -66,6 +67,7 @@ export default {
   },
   data() {
     return {
+      projectID: getEnv("VUE_APP_PROJECT_ID"),
       survey: null,
       surveyOptions: {},
       patientId: 0,
@@ -82,7 +84,6 @@ export default {
         item: [],
         authored: getCurrentISODate(),
       },
-      themes: themes.survey,
       ready: false,
       error: false,
     };
@@ -105,6 +106,7 @@ export default {
           if (this.error) return; // error getting instrument, abort
           // set response identifier
           this.setUniqueQuestionnaireResponseIdentifier();
+          this.setAppFavicon();
           // set document title to questionnaire title
           this.setDocumentTitle();
           this.initializeSurveyObj();
@@ -145,11 +147,16 @@ export default {
       );
     },
     getTheme() {
-      return themes.survey;
+      if (themes[this.projectID] && themes[this.projectID].survey)
+        return themes[this.projectID].survey;
+      return themes["default"].survey;
     },
     setDocumentTitle() {
       if (!this.questionnaire || !this.questionnaire.title) return;
       document.title = this.questionnaire.title;
+    },
+    setAppFavicon() {
+      setFavicon(`/${this.projectID}/img/favicon.ico`);
     },
     setFirstInputFocus() {
       if (!this.surveyOptions.focusFirstQuestionAutomatic) return;
@@ -166,7 +173,9 @@ export default {
           this.questionnaire = questionnaire;
           // Assemble the parameters needed by the CQL
           let cqlParameters = {
-            //DisplayScreeningScores: getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() === "true",
+            DisplayScreeningScores:
+              getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() ===
+              "true",
             QuestionnaireURL: this.getQuestionnaireURL(),
           };
           // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
@@ -209,7 +218,7 @@ export default {
 
       //apply theme
       var defaultThemeColors = StylesManager.ThemeColors["modern"];
-      Object.entries(themes.survey).forEach(
+      Object.entries(this.getTheme()).forEach(
         (option) => (defaultThemeColors[option[0]] = option[1])
       );
 

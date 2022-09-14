@@ -22,7 +22,6 @@ import {
   queryPatientIdKey,
 } from "./util/util";
 
-const DEFAULT_TITLE = "Specify Screening Instrument";
 const ENV_TITLE = getEnv("VUE_APP_TITLE");
 
 export default {
@@ -33,7 +32,7 @@ export default {
   },
   data() {
     return {
-      title: ENV_TITLE ? ENV_TITLE : DEFAULT_TITLE,
+      title: ENV_TITLE ? ENV_TITLE : "",
       client: null,
       patient: null,
       error: "",
@@ -98,7 +97,7 @@ export default {
     },
     finished(data) {
       if (!data) return;
-      if ((!this.title || this.title === DEFAULT_TITLE) && data.title)
+      if (data.title)
         this.title = data.title;
     },
   },

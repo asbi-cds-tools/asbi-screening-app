@@ -1,14 +1,24 @@
 <template>
-  <v-app-bar dark color="primary" elevation="2" app>
-    <v-toolbar-title class="text-h5" v-text="title"></v-toolbar-title>
+  <v-app-bar header color="background" elevation="1" app>
+    <div class="logo-container mr-1">
+      <img
+        :src="getLogoSrc()"
+        @load="handleImageLoaded"
+        @error="handleImageLoaded"
+      />
+    </div>
+    <v-toolbar-title
+      class="text-h5 secondary--text font-weight-bold"
+      v-text="title"
+    ></v-toolbar-title>
     <div class="ml-6">
       <div
-        class="text-subtitle-2 grey--text text--lighten-5"
+        class="text-subtitle-2 secondary--text text-overflow"
         v-if="hasPatientName()"
         v-text="getPatientName()"
       ></div>
       <div
-        class="text-subtitle-2 grey--text text--lighten-5"
+        class="text-subtitle-2 secondary--text text-overflow"
         v-text="getPatientDob()"
       ></div>
     </div>
@@ -16,6 +26,7 @@
 </template>
 
 <script>
+import { getEnv, imageOK } from "../util/util.js";
 export default {
   props: {
     patient: Object,
@@ -25,6 +36,20 @@ export default {
     },
   },
   methods: {
+    getLogoSrc() {
+      return `/${getEnv("VUE_APP_PROJECT_ID")}/img/logo.png`;
+    },
+    handleImageLoaded(e) {
+      if (!e.target) {
+        return false;
+      }
+      let imageLoaded = imageOK(e.target);
+      if (!imageLoaded) {
+        e.target.classList.add("ghost");
+        return;
+      }
+      e.target.classList.remove("ghost");
+    },
     hasPatientName() {
       return this.patient && this.patient.name && this.patient.name.length;
     },

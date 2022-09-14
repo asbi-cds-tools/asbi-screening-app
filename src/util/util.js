@@ -183,4 +183,27 @@ export function getErrorText(error) {
   return error;
 }
 
+export function imageOK(img) {
+  if (!img) {
+    return false;
+  }
+  if (!img.getAttribute("src")) {
+    return false;
+  }
+  if (!img.complete) {
+    return false;
+  }
+  if (typeof img.naturalWidth !== "undefined" && img.naturalWidth === 0) {
+    return false;
+  }
+  return true;
+}
+
+export function setFavicon(href) {
+  if (!href) return;
+  let faviconEl = document.querySelector("link[rel*='icon']");
+  if (!faviconEl) return;
+  faviconEl.href = href;
+}
+
 export const queryPatientIdKey = "launch_queryPatientId";

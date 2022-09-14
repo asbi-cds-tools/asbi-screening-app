@@ -84,6 +84,7 @@ Parameters for the app are stored in [environment variables](http://man7.org/lin
 | `VUE_APP_FHIR_RESOURCES` | For specifying which FHIR resource(s) to load for the selected patient. | `Condition,Procedure,Observation,QuestionnaireResponse` |
 | `VUE_APP_AUTH_SCOPES` | For allowing the app to specify the delegation of a specific set of access rights via launch context. see [App Launch: Scopes and Launch Context](https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html) | `profile roles email patient/*.read openid fhirUser patient/QuestionnaireResponse.write` |
 | `VUE_APP_CONF_API_URL` | URL from which the app can retrieve launch context, i.e. launching as a confidential client | ''
+| `VUE_APP_PROJECT_ID` | Project ID that uniquely identifies the project.  The app will display project specific logo and theme based on the ID | 'DCW'
 
 ### Using with ASBI Testing Server
 This option requires installing the [ASBI Testing Server](https://github.com/asbi-cds-tools/asbi-testing-server):

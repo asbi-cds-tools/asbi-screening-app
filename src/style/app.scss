@@ -7,6 +7,20 @@ body {
     font-size: 18px;
     line-height: 1.45;
 }
+.logo-container {
+    img {
+        width: 160px;
+    }
+}
+.ghost {
+    display: none;
+    z-index: -1;
+}
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 #surveyElement {
     margin-top: 64px;
 }
