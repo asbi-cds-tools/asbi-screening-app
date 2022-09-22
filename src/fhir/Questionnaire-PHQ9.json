@@ -1,6 +1,6 @@
 {
   "resourceType": "Questionnaire",
-  "id": "loinc-44249-1",
+  "id": "CIRG_PHQ9",
   "name": "phq9",
   "url": "http://www.cdc.gov/ncbddd/fasd/phq9",
   "identifier": {
