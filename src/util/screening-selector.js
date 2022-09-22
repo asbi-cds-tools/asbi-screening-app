@@ -13,7 +13,7 @@ export async function getScreeningInstrument(client) {
   }
   if (screeningInstrument == "usaudit") {
     let questionnaireUsAudit = await import(
-      "../fhir/Questionnaire-USAUDIT.json"
+      "../fhir/1_Questionnaire-USAUDIT.json"
     ).then((module) => module.default);
     let elmJsonUsAudit = await import("../cql/UsAuditLogicLibrary.json").then(
       (module) => module.default
@@ -21,7 +21,7 @@ export async function getScreeningInstrument(client) {
     return [questionnaireUsAudit, elmJsonUsAudit, valueSetJson];
   } else if (screeningInstrument == "whoaudit") {
     let questionnaireWhoAudit = await import(
-      "../fhir/Questionnaire-WHOAUDIT.json"
+      "../fhir/1_Questionnaire-WHOAUDIT.json"
     ).then((module) => module.default);
     let elmJsonWhoAudit = await import("../cql/WhoAuditLogicLibrary.json").then(
       (module) => module.default
@@ -29,7 +29,7 @@ export async function getScreeningInstrument(client) {
     return [questionnaireWhoAudit, elmJsonWhoAudit, valueSetJson];
   } else if (screeningInstrument == "nidaqs2usaudit") {
     let questionnaireNidaQs = await import(
-      "../fhir/Questionnaire-NIDAQS2USAUDIT.json"
+      "../fhir/1_Questionnaire-NIDAQS2USAUDIT.json"
     ).then((module) => module.default);
     let elmJsonNidaQs = await import(
       "../cql/NidaQsToUsAuditLogicLibrary.json"
@@ -50,7 +50,7 @@ export async function getScreeningInstrument(client) {
     } else {
       // load from file and post it
       const fileJson = await import(
-        `../fhir/Questionnaire-${screeningInstrument.toUpperCase()}.json`
+        `../fhir/1_Questionnaire-${screeningInstrument.toUpperCase()}.json`
       ).then((module) => module.default).catch(e => console.log("Error retrieving matching questionnaire JSON from filesystem ", e));
       if (fileJson) {
         questionnaireJson = await client.create(fileJson, {
