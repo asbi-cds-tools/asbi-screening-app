@@ -17,7 +17,7 @@
         }
     ],
     "subject": {
-        "reference": "Patient/TBD",
+        "reference": "Patient/test-patient-1",
         "display": "Doe, John TBD"
     },
     "activity": [

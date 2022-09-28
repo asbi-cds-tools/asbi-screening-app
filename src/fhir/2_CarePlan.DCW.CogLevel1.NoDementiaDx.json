@@ -1,6 +1,6 @@
 {
     "resourceType": "CarePlan",
-    "id": "CarePlan_DCW_CogLevel1_NoDementiaDx",
+    "id": "CarePlan-DCW-CogLevel1-NoDementiaDx",
     "description": "DCW cognition domain, level 1 (which is only for patients who don't have a dementia Dx)",
     "status": "active",
     "intent": "order",
@@ -17,7 +17,7 @@
         }
     ],
     "subject": {
-        "reference": "Patient/TBD",
+        "reference": "Patient/test-patient-1",
         "display": "Doe, John TBD"
     },
     "activity": [

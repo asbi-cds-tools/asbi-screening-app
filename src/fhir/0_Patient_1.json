@@ -1,6 +1,6 @@
 {
-	"resourceType": "Patient"
-	"id": "1",
+	"resourceType": "Patient",
+	"id": "test-patient-1",
 	"birthDate": "1976-07-04",
 	"gender": "male",
 	"name": [
