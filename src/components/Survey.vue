@@ -165,7 +165,7 @@ export default {
       }, 350);
     },
     initializeInstrument() {
-      return getScreeningInstrument(this.client)
+      return getScreeningInstrument(this.client, this.patientId)
         .then((data) => {
           // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
           const [questionnaire, elmJson, valueSetJson] = data;

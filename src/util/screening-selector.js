@@ -2,14 +2,33 @@ import valueSetJson from "../cql/valueset-db.json";
 import { getEnv } from "./util.js";
 
 //dynamically load questionnaire and cql JSON
-export async function getScreeningInstrument(client) {
-  const envScreeningInstrument = getEnv("VUE_APP_SCREENING_INSTRUMENT");
-  let screeningInstrument = envScreeningInstrument
-    ? envScreeningInstrument.toLowerCase()
-    : "";
-  console.log("screening instrument to be loaded", screeningInstrument);
+export async function getScreeningInstrument(client, patientId) {
+  if (!client) throw new Error("invalid FHIR client provided");
+  let screeningInstrument = "";
+  if (patientId) {
+    const carePlan = await client.request(`CarePlan?subject=Patient/${patientId}&_sort=-_lastUpdated`);
+    if (carePlan && carePlan.entry && carePlan.entry.length) {
+      const resources = carePlan.entry;
+      // TODO: need to figure out which one is the next questionnaire to do
+      // For now, assumming the first one in the activity array is the next questionnaire to do?
+      if (resources.length) {
+        const activities = resources[0].resource? resources[0].resource.activity: null;
+        if (activities) {
+          const canonicalIdentifier = activities[0].detail && activities[0].detail.instantiatesCanonical ? activities[0].detail.instantiatesCanonical[0]: null;
+          if (canonicalIdentifier) {
+            //assuming instantiatesCanonical references questionnaire in format like this:  Questionnaire/[Questionnaire ID]
+            screeningInstrument = canonicalIdentifier.split("/")[1];
+          }
+          console.log("Screening instrument specified in careplan ", screeningInstrument);
+        }
+      }
+    }
+  }
+  // if we don't find a specified questionnaire from a patient's careplan,
+  // we look to see if it is specifed in the environment variable
+  if (!screeningInstrument) screeningInstrument = getEnv("VUE_APP_SCREENING_INSTRUMENT");
   if (!screeningInstrument) {
-    throw new Error("No screening instrument specified");
+    throw new Error("No screening instrument specified.");
   }
   if (screeningInstrument == "usaudit") {
     let questionnaireUsAudit = await import(
@@ -36,18 +55,21 @@ export async function getScreeningInstrument(client) {
     ).then((module) => module.default);
     return [questionnaireNidaQs, elmJsonNidaQs, valueSetJson];
   } else {
-    if (!client) throw new Error("invalid FHIR client provided");
     let libId = screeningInstrument.toUpperCase();
-    // load questionnaire from FHIR server
-    const qSearch = await client
-      .request("/Questionnaire?name="+screeningInstrument)
-      .catch((e) => {
-        throw new Error(`Error retrieving questionnaire: ${e}`);
-      });
+    const searchData = await Promise.all([
+      // look up the questionnaire based on whether the id or the name attribute matches the specified instrument id?
+      client.request("/Questionnaire/?_id=" + screeningInstrument),
+      client.request("/Questionnaire?name:contains=" + screeningInstrument),
+    ])
+    .catch((e) => {
+      throw new Error(`Error retrieving questionnaire from SoF host server: ${e}`);
+    });
     let questionnaireJson;
-    if (qSearch && qSearch.entry && qSearch.entry.length > 0) {
-      questionnaireJson = qSearch.entry[0].resource;
-    } else {
+    const qResults = searchData.filter((q) => q.entry && q.entry.length > 0);
+    if (qResults.length) {
+      questionnaireJson = qResults[0].entry[0].resource;
+    }
+    if (!questionnaireJson) {
       // load from file and post it
       const fileJson = await import(
         `../fhir/1_Questionnaire-${screeningInstrument.toUpperCase()}.json`
