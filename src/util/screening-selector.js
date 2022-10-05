@@ -6,27 +6,51 @@ export async function getScreeningInstrument(client, patientId) {
   if (!client) throw new Error("invalid FHIR client provided");
   let screeningInstrument = "";
   if (patientId) {
-    const carePlan = await client.request(`CarePlan?subject=Patient/${patientId}&_sort=-_lastUpdated`);
+    const carePlan = await client.request(
+      `CarePlan?subject=Patient/${patientId}&_sort=-_lastUpdated`
+    );
     if (carePlan && carePlan.entry && carePlan.entry.length) {
       const resources = carePlan.entry;
       // TODO: need to figure out which one is the next questionnaire to do
       // For now, assumming the first one in the activity array is the next questionnaire to do?
       if (resources.length) {
-        const activities = resources[0].resource? resources[0].resource.activity: null;
-        if (activities) {
-          const canonicalIdentifier = activities[0].detail && activities[0].detail.instantiatesCanonical ? activities[0].detail.instantiatesCanonical[0]: null;
-          if (canonicalIdentifier) {
-            //assuming instantiatesCanonical references questionnaire in format like this:  Questionnaire/[Questionnaire ID]
-            screeningInstrument = canonicalIdentifier.split("/")[1];
+        let activities = [];
+        // gather activities from careplan(s)
+        resources.forEach((item) => {
+          if (item.resource.activity) {
+            activities = [...activities, ...item.resource.activity];
           }
-          console.log("Screening instrument specified in careplan ", screeningInstrument);
+        });
+        // loop through activities that contains instantiatesCanonical
+        if (activities.length) {
+          let qList = [];
+          activities.forEach((a) => {
+            if (
+              a.detail &&
+              a.detail.instantiatesCanonical &&
+              a.detail.instantiatesCanonical.length
+            ) {
+                // instantiatesCanonical is in the form of Questionnaire/[questionnaire id]
+                const qId = a.detail.instantiatesCanonical[0].split("/")[1];
+                if (qId && qList.indexOf(qId) === -1) qList.push(qId);
+              }
+          });
+          //get the first questionnaire from the list, if any
+          if (qList.length) {
+            screeningInstrument = qList[0];
+          }
+          console.log(
+            "Screening instrument specified in careplan ",
+            screeningInstrument
+          );
         }
       }
     }
   }
   // if we don't find a specified questionnaire from a patient's careplan,
   // we look to see if it is specifed in the environment variable
-  if (!screeningInstrument) screeningInstrument = getEnv("VUE_APP_SCREENING_INSTRUMENT");
+  if (!screeningInstrument)
+    screeningInstrument = getEnv("VUE_APP_SCREENING_INSTRUMENT");
   if (!screeningInstrument) {
     throw new Error("No screening instrument specified.");
   }
@@ -60,9 +84,10 @@ export async function getScreeningInstrument(client, patientId) {
       // look up the questionnaire based on whether the id or the name attribute matches the specified instrument id?
       client.request("/Questionnaire/?_id=" + screeningInstrument),
       client.request("/Questionnaire?name:contains=" + screeningInstrument),
-    ])
-    .catch((e) => {
-      throw new Error(`Error retrieving questionnaire from SoF host server: ${e}`);
+    ]).catch((e) => {
+      throw new Error(
+        `Error retrieving questionnaire from SoF host server: ${e}`
+      );
     });
     let questionnaireJson;
     const qResults = searchData.filter((q) => q.entry && q.entry.length > 0);
@@ -73,17 +98,30 @@ export async function getScreeningInstrument(client, patientId) {
       // load from file and post it
       const fileJson = await import(
         `../fhir/1_Questionnaire-${screeningInstrument.toUpperCase()}.json`
-      ).then((module) => module.default).catch(e => console.log("Error retrieving matching questionnaire JSON from filesystem ", e));
+      )
+        .then((module) => module.default)
+        .catch((e) =>
+          console.log(
+            "Error retrieving matching questionnaire JSON from filesystem ",
+            e
+          )
+        );
       if (fileJson) {
-        questionnaireJson = await client.create(fileJson, {
-          headers: {
-            "Content-Type": "application/fhir+json",
-          },
-        }).catch(e => console.log("Error storing questionnaire ", e));
+        questionnaireJson = await client
+          .create(fileJson, {
+            headers: {
+              "Content-Type": "application/fhir+json",
+            },
+          })
+          .catch((e) => console.log("Error storing questionnaire ", e));
       }
     }
     if (!questionnaireJson) {
-      throw new Error("No matching questionnaire found.");
+      throw new Error(
+        `No matching ${
+          screeningInstrument || ""
+        } questionnaire found.`
+      );
     }
     let elmJson;
     try {
@@ -93,7 +131,8 @@ export async function getScreeningInstrument(client, patientId) {
     } catch (e) {
       console.log("error ", e);
       throw new Error(
-        "Error loading ELM library. Unsupported ELM library may have been specified " + e
+        "Error loading ELM library. Unsupported ELM library may have been specified " +
+          e
       );
     }
     return [questionnaireJson, elmJson, valueSetJson];
