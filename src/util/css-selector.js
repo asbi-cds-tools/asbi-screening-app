@@ -1,6 +1,5 @@
 //dynamically load css for a questionnaire
-export function getInstrumentCSS() {
-  let screeningInstrument = process.env.VUE_APP_SCREENING_INSTRUMENT ? 
-  process.env.VUE_APP_SCREENING_INSTRUMENT.toLowerCase() : "";
+export function getInstrumentCSS(screeningInstrument) {
+  if (!screeningInstrument) throw new Error("No screening instrument specified for stylesheet.");
   return import(`../style/instruments/${screeningInstrument}.scss`);
 }

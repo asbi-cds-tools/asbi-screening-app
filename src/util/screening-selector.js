@@ -112,7 +112,6 @@ export async function getScreeningInstrument(client, patientId) {
     ).then((module) => module.default);
     return [questionnaireNidaQs, elmJsonNidaQs, valueSetJson];
   } else {
-    let libId = screeningInstrument.toUpperCase();
     const nameSearchString = screeningInstrument.split("-").join(",");
     const searchData = await Promise.all([
       // look up the questionnaire based on whether the id or the name attribute matches the specified instrument id?
@@ -129,33 +128,14 @@ export async function getScreeningInstrument(client, patientId) {
       questionnaireJson = qResults[0].entry[0].resource;
     }
     if (!questionnaireJson) {
-      // load from file and post it
-      const fileJson = await import(
-        `../fhir/1_Questionnaire-${screeningInstrument.toUpperCase()}.json`
-      )
-        .then((module) => module.default)
-        .catch((e) =>
-          console.log(
-            "Error retrieving matching questionnaire JSON from filesystem ",
-            e
-          )
-        );
-      if (fileJson) {
-        questionnaireJson = await client
-          .create(fileJson, {
-            headers: {
-              "Content-Type": "application/fhir+json",
-            },
-          })
-          .catch((e) => console.log("Error storing questionnaire ", e));
-      }
-    }
-    if (!questionnaireJson) {
       throw new Error(
         `No matching ${screeningInstrument || ""} questionnaire found.`
       );
     }
     let elmJson;
+    let libId = questionnaireJson.name
+      ? questionnaireJson.name.toUpperCase()
+      : screeningInstrument.toUpperCase();
     try {
       elmJson = await import(`../cql/${libId}_LogicLibrary.json`).then(
         (module) => module.default

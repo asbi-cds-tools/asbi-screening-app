@@ -105,11 +105,6 @@ export default {
       dialogMessage: "Saving in progress ..."
     };
   },
-  created() {
-    getInstrumentCSS().catch((e) =>
-      console.log(`loading instrument css error: ${e}`)
-    );
-  },
   methods: {
     init() {
       if (this.error || !this.patient) false;
@@ -122,6 +117,10 @@ export default {
       this.initializeInstrument()
         .then(() => {
           if (this.error) return; // error getting instrument, abort
+
+          getInstrumentCSS(this.currentQuestionnaireId).catch((e) =>
+            console.log(`loading instrument css error: ${e}`)
+          );
           // set response identifier
           this.setUniqueQuestionnaireResponseIdentifier();
           this.setAppFavicon();
