@@ -1,8 +1,7 @@
 <template>
   <div id="surveyElement">
     <v-alert color="error" v-if="error" class="ma-4 pa-4" dark>
-      Error loading the screener application. See console for detail.
-      <div v-html="getError()"></div>
+      <div v-html="getError()" class="font-weight-bold"></div>
     </v-alert>
     <survey v-if="!error && ready" :survey="survey" :css="getTheme()"></survey>
     <div v-if="!error && !ready" class="ma-4 pa-4">
@@ -12,13 +11,25 @@
         color="primary"
       ></v-progress-circular>
     </div>
+    <v-dialog
+      v-model="savingDialog"
+      fullscreen
+      hide-overlay
+      :transition="false"
+    >
+      <v-card><div v-html="dialogMessage" class="dialog-body-container"></div></v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import converter from "questionnaire-to-survey";
 import { getInstrumentCSS } from "../util/css-selector.js";
-import { getScreeningInstrument } from "../util/screening-selector.js";
+import {
+  getScreeningInstrument,
+  removeSessionInstrumentList,
+  setSessionInstrumentList,
+} from "../util/screening-selector.js";
 import Worker from "cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from "cql-worker";
 import {
@@ -29,6 +40,7 @@ import {
   getFHIRResourcePaths,
   getResponseValue,
   setFavicon,
+  removeArrayItem
 } from "../util/util.js";
 import surveyOptions from "../context/surveyjs.options.js";
 import themes from "../context/themes.js";
@@ -68,6 +80,9 @@ export default {
   data() {
     return {
       projectID: getEnv("VUE_APP_PROJECT_ID"),
+      sessionKey: 0,
+      currentQuestionnaireId: null,
+      currentQuestionnaireList: [],
       survey: null,
       surveyOptions: {},
       patientId: 0,
@@ -86,6 +101,8 @@ export default {
       },
       ready: false,
       error: false,
+      savingDialog: false,
+      dialogMessage: "Saving in progress ..."
     };
   },
   created() {
@@ -98,6 +115,7 @@ export default {
       if (this.error || !this.patient) false;
       //console.log("state ", this.client.getState("tokenResponse.id_token"));
       console.log("client state ", this.client.getState());
+      this.sessionKey = this.client.getState().key;
       console.log("environment variables ", getEnvs());
       this.patientId = this.patient.id;
       this.patientBundle.entry.unshift({ resource: this.patient });
@@ -168,7 +186,13 @@ export default {
       return getScreeningInstrument(this.client, this.patientId)
         .then((data) => {
           // Load the Questionniare, CQL ELM JSON, and value set cache which represents the alcohol screening instrument
-          const [questionnaire, elmJson, valueSetJson] = data;
+          const [instrumentList, questionnaire, elmJson, valueSetJson] = data;
+          if (!instrumentList || !instrumentList.length) {
+            this.error = "No questionnaire to administer.";
+            return;
+          }
+          this.currentQuestionnaireList = instrumentList;
+          this.currentQuestionnaireId = instrumentList[0];
           if (!questionnaire) throw Error("No questionnaire set");
           this.questionnaire = questionnaire;
           // Assemble the parameters needed by the CQL
@@ -177,6 +201,7 @@ export default {
               getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() ===
               "true",
             QuestionnaireURL: this.getQuestionnaireURL(),
+            QuestionnaireName: questionnaire.name,
           };
           // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
           setupExecution(elmJson, valueSetJson, cqlParameters);
@@ -233,11 +258,11 @@ export default {
       var options = {
         ...surveyOptions["default"],
         ...(surveyOptions[optionsKeys] || {}),
+        navigateToUrl: this.currentQuestionnaireList.length > 1 ? location.href: null,
       };
       Object.entries(options).forEach(
         (option) => (model[option[0]] = option[1])
       );
-      //if (this.questionnaire.title) model["title"] = this.questionnaire.title;
       this.surveyOptions = options;
       this.survey = model;
     },
@@ -365,18 +390,36 @@ export default {
       );
       // Add a handler which will fire when the Questionnaire is submittedc
       this.survey.onComplete.add(
-        function() {
+        function(sender, options) {
+          console.log("sender ", sender);
           // Mark the QuestionnaireResponse as completed
           this.questionnaireResponse.status = "completed";
 
           // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
           if (getEnv("VUE_APP_WRITE_BACK_MODE").toLowerCase() == "smart") {
-            this.client.create(this.questionnaireResponse, {
-              headers: {
-                "Content-Type": "application/fhir+json",
-              },
-            });
-          }
+            options.showDataSaving();
+            this.savingDialog = true;
+            this.client
+              .create(this.questionnaireResponse, {
+                headers: {
+                  "Content-Type": "application/fhir+json",
+                },
+              })
+              .then(() => {
+                options.showDataSavingSuccess();
+                options.showDataSavingClear();
+                this.handleAdvanceQuestionnaireList();
+                this.savingDialog = this.currentQuestionnaireList.length > 0;
+                if(this.currentQuestionnaireList.length) {
+                  this.dialogMessage = `Loading ${this.currentQuestionnaireList[0].toUpperCase()} questionnaire`;
+                }
+              })
+              .catch((e) => {
+                this.error = `Error saving the questionnaire response for ${this.currentQuestionnaireId.toUpperCase()}.  See console for details.`;
+                this.savingDialog = false;
+                console.log(e);
+              });
+          } else this.handleAdvanceQuestionnaireList();
           if (this.isDevelopment()) {
             console.log(
               "questionnaire responses ",
@@ -385,6 +428,12 @@ export default {
           }
         }.bind(this)
       );
+    },
+    handleAdvanceQuestionnaireList() {
+      setSessionInstrumentList(this.sessionKey, removeArrayItem(this.currentQuestionnaireList, this.currentQuestionnaireId));
+      if (this.currentQuestionnaireList.length === 0) {
+        removeSessionInstrumentList(this.sessionKey);
+      }
     },
     getError() {
       return getErrorText(this.error);

@@ -1,0 +1,8 @@
+library:
+  name: GAD7LogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/gad7
+options:
+  dumpFiles:
+    enabled: true

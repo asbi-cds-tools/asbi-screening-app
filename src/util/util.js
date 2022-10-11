@@ -206,4 +206,13 @@ export function setFavicon(href) {
   faviconEl.href = href;
 }
 
+export function removeArrayItem (arr, value) {
+  if (!arr || !Array.isArray(arr)) return [];
+  let index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+
 export const queryPatientIdKey = "launch_queryPatientId";

@@ -1,0 +1,59 @@
+# test all answers with option 1 to make sure all have a correct value of 0
+---
+name: GAD7 Total Score
+externalData:
+- gad7_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Gad7Question1
+  - *Gad7Question2
+  - *Gad7Question3
+  - *Gad7Question4
+  - *Gad7Question5
+  - *Gad7Question6
+  - *Gad7Question7
+- <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+
+  - # question 2
+    linkId: *q2LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 3
+    linkId: *q3LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 4
+    linkId: *q4LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 5
+    linkId: *q5LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 6
+    linkId: *q6LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 7
+    linkId: *q7LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  
+results:
+  Gad7Questionnaire: $should exist
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  ScoreFullGad7: 0 # total score

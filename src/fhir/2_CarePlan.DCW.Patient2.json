@@ -1,0 +1,75 @@
+{
+    "resourceType": "CarePlan",
+    "id": "CarePlan-DCW-PHQ9-GAD7",
+    "description": "Administer PHQ-9 and GAD-7",
+    "status": "active",
+    "intent": "order",
+    "category": [
+        {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "719091000000102",
+                    "display": "Questionnaire"
+                }
+            ],
+            "text": "Questionnaire"
+        }
+    ],
+    "subject": {
+        "reference": "Patient/test-patient-2",
+        "display": "Doe, Jane"
+    },
+    "activity": [
+        {
+            "detail": {
+                "instantiatesCanonical": [
+                    "Questionnaire/CIRG-PHQ9"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "719091000000102",
+                            "display": "Questionnaire"
+                        }
+                    ],
+                    "text": "PHQ-9 questionnaire"
+                },
+                "status": "scheduled",
+                "scheduledTiming": {
+                    "repeat": {
+                        "frequency": 1,
+                        "period": 1,
+                        "periodUnit": "d"
+                    }
+                }
+            }
+        },
+        {
+            "detail": {
+                "instantiatesCanonical": [
+                    "Questionnaire/CIRG-GAD7"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "719091000000102",
+                            "display": "Questionnaire"
+                        }
+                    ],
+                    "text": "GAD-7 questionnaire"
+                },
+                "status": "scheduled",
+                "scheduledTiming": {
+                    "repeat": {
+                        "frequency": 1,
+                        "period": 1,
+                        "periodUnit": "d"
+                    }
+                }
+            }
+        }
+    ]
+}

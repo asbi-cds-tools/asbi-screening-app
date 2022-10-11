@@ -80,11 +80,12 @@ Parameters for the app are stored in [environment variables](http://man7.org/lin
 | `VUE_APP_WRITE_BACK_MODE` | Sets the mode for writing out a `QuestionnaireResponse` resource after the completion of screening. If set to `smart` then the resource is sent back via the SMART on FHIR<sup>&reg;</sup> interface to be created in the EHR. If set to `none` then no write back is made | `['smart', 'none']` |
 | `VUE_APP_QUESTIONNAIRE_AUTHOR` | Used for indicating who is actually filling out and submitting the `QuestionnaireResponse` resource. This is used to determine how to fill out the `QuestionnaireResponse.author` element. | `['practitioner', 'patient']` |
 | `VUE_APP_FHIR_OBSERVATION_CATEGORY_QUERIES` | Some FHIR<sup>&reg;</sup> APIs require `Observation` resource queries to specify an [observation category](https://www.hl7.org/fhir/codesystem-observation-category.html). Setting this parameter to `true` causes the query of a patient's `Observation` resources to be made specified using categories. | `['true', 'false']` |
-| `VUE_APP_SCREENING_INSTRUMENT` | For selecting which screening instrument is presented to the user. | `['usaudit', 'whoaudit', 'nidaqs2usaudit', 'phq9', 'minicog']` |
+| `VUE_APP_SCREENING_INSTRUMENT` | For selecting which screening instrument is presented to the user. | `['usaudit', 'whoaudit', 'nidaqs2usaudit', 'phq9', 'minicog']`   Example, `phq9` or `phq9,minicog` (if more than one, delimit by `,`)|
 | `VUE_APP_FHIR_RESOURCES` | For specifying which FHIR resource(s) to load for the selected patient. | `Condition,Procedure,Observation,QuestionnaireResponse` |
 | `VUE_APP_AUTH_SCOPES` | For allowing the app to specify the delegation of a specific set of access rights via launch context. see [App Launch: Scopes and Launch Context](https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html) | `profile roles email patient/*.read openid fhirUser patient/QuestionnaireResponse.write` |
 | `VUE_APP_CONF_API_URL` | URL from which the app can retrieve launch context, i.e. launching as a confidential client | ''
 | `VUE_APP_PROJECT_ID` | Project ID that uniquely identifies the project.  The app will display project specific logo and theme based on the ID | 'DCW'
+| `VUE_APP_DASHBOARD_URL` | URL for returning to FEMR dashboard app | Example: `https://dashboard.acc.dev.cosri.cirg.washington.edu`
 
 ### Using with ASBI Testing Server
 This option requires installing the [ASBI Testing Server](https://github.com/asbi-cds-tools/asbi-testing-server):

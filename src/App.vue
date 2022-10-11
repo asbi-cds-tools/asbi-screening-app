@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <Header :title="title" :patient="patient" v-if="ready"></Header>
+    <Header :title="title" :patient="patient" v-if="patient"></Header>
     <Survey
       :client="client"
       :patient="patient"
@@ -58,7 +58,6 @@ export default {
         this.error = "No valid patient is set.";
       }
     }
-    this.ready = true;
   },
   methods: {
     async setAuthClient() {
