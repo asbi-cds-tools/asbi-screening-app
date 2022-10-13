@@ -13,6 +13,15 @@ RUN yarn build
 
 
 FROM nginx as production
+
+# TODO remove when FHIR resources are PUT after SoF launch
+# python3 needed for upload.py
+RUN \
+    apt-get update && \
+    apt-get install --quiet --quiet --no-install-recommends \
+        python3 python3-requests
+COPY src/fhir /var/opt/
+
 COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 # write environment variables to config file and start
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh", "/docker-entrypoint.sh"]
