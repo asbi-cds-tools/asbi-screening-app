@@ -41,7 +41,9 @@ export default {
       return `/${getEnv("VUE_APP_PROJECT_ID")}/img/logo.png`;
     },
     getReturnURL() {
-      return getEnv('VUE_APP_DASHBOARD_URL');
+      const dashboardURL = getEnv('VUE_APP_DASHBOARD_URL');
+      if (!dashboardURL) return false;
+      return dashboardURL + "/clear_session";
     },
     handleImageLoaded(e) {
       if (!e.target) {
