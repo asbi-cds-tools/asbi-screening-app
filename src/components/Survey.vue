@@ -164,8 +164,9 @@ export default {
       );
     },
     getTheme() {
-      if (themes[this.projectID] && themes[this.projectID].survey)
-        return themes[this.projectID].survey;
+      const projectTheme = themes[String(this.projectID).toLowerCase()];
+      if (projectTheme && projectTheme.survey)
+        return projectTheme.survey;
       return themes["default"].survey;
     },
     setDocumentTitle() {
