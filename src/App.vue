@@ -7,6 +7,7 @@
       :authError="getError()"
       @finished="finished"
     />
+    <Version></Version>
   </v-app>
 </template>
 <script>
@@ -15,6 +16,7 @@ import "survey-vue/modern.css";
 import "./style/app.scss";
 import Header from "./components/Header";
 import Survey from "./components/Survey";
+import Version from "./components/Version";
 import {
   fetchEnvData,
   getEnv,
@@ -29,6 +31,7 @@ export default {
   components: {
     Header,
     Survey,
+    Version
   },
   data() {
     return {
