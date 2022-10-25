@@ -13,7 +13,8 @@ RUN yarn build
 
 
 FROM nginx as production
-
+ARG VUE_APP_VERSION_STRING
+ENV VUE_APP_VERSION_STRING=$VUE_APP_VERSION_STRING
 # TODO remove when FHIR resources are PUT after SoF launch
 # python3 needed for upload.py
 RUN \

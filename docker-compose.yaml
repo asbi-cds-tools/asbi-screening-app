@@ -3,7 +3,12 @@ services:
 
   # expose client to internet
   client:
-    build: .
+    build:
+      context: .
+      args:
+        # set build arg from environment variable with same name
+        # add default to squelch warnings
+        VUE_APP_VERSION_STRING: ${VUE_APP_VERSION_STRING:-local}
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.client-${COMPOSE_PROJECT_NAME}.rule=Host(`client.${BASE_DOMAIN:-asbi-test.cirg.uw.edu}`)"
