@@ -80,6 +80,7 @@ export default {
   data() {
     return {
       projectID: getEnv("VUE_APP_PROJECT_ID"),
+      dashboardURL: getEnv("VUE_APP_DASHBOARD_URL"),
       sessionKey: 0,
       currentQuestionnaireId: null,
       currentQuestionnaireList: [],
@@ -260,6 +261,10 @@ export default {
         ...(surveyOptions[optionsKeys] || {}),
         navigateToUrl: this.currentQuestionnaireList.length > 1 ? location.href: null,
       };
+
+      if (this.dashboardURL) {
+        options.completedHtml = "<h3>The screening is complete.</h3><h3>Redirecting back to the patient list...</h3>";
+      }
       Object.entries(options).forEach(
         (option) => (model[option[0]] = option[1])
       );
@@ -412,6 +417,8 @@ export default {
                 this.savingDialog = this.currentQuestionnaireList.length > 0;
                 if(this.currentQuestionnaireList.length) {
                   this.dialogMessage = `Loading ${this.currentQuestionnaireList[0].toUpperCase()} questionnaire`;
+                } else {
+                  if (this.dashboardURL) setTimeout(() => window.location = this.dashboardURL+"/clear_session", 1000);
                 }
               })
               .catch((e) => {
