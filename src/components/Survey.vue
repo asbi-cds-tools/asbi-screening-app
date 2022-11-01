@@ -17,7 +17,9 @@
       hide-overlay
       :transition="false"
     >
-      <v-card><div v-html="dialogMessage" class="dialog-body-container"></div></v-card>
+      <v-card
+        ><div v-html="dialogMessage" class="dialog-body-container"></div
+      ></v-card>
     </v-dialog>
   </div>
 </template>
@@ -40,7 +42,7 @@ import {
   getFHIRResourcePaths,
   getResponseValue,
   setFavicon,
-  removeArrayItem
+  removeArrayItem,
 } from "../util/util.js";
 import surveyOptions from "../context/surveyjs.options.js";
 import themes from "../context/themes.js";
@@ -103,7 +105,7 @@ export default {
       ready: false,
       error: false,
       savingDialog: false,
-      dialogMessage: "Saving in progress ..."
+      dialogMessage: "Saving in progress ...",
     };
   },
   methods: {
@@ -166,8 +168,7 @@ export default {
     },
     getTheme() {
       const projectTheme = themes[String(this.projectID).toLowerCase()];
-      if (projectTheme && projectTheme.survey)
-        return projectTheme.survey;
+      if (projectTheme && projectTheme.survey) return projectTheme.survey;
       return themes["default"].survey;
     },
     setDocumentTitle() {
@@ -259,15 +260,23 @@ export default {
       var options = {
         ...surveyOptions["default"],
         ...(surveyOptions[optionsKeys] || {}),
-        navigateToUrl: this.currentQuestionnaireList.length > 1 ? location.href: null,
+        navigateToUrl:
+          this.currentQuestionnaireList.length > 1 ? location.href : null,
       };
 
       if (this.dashboardURL) {
-        options.completedHtml = "<h3>The screening is complete.</h3><h3>Redirecting back to the patient list...</h3>";
+        options.completedHtml =
+          "<h3>The screening is complete.</h3><h3>Redirecting back to the patient list...</h3>";
       }
       Object.entries(options).forEach(
         (option) => (model[option[0]] = option[1])
       );
+      if (options.showClearButton) {
+        const questions = model.getAllQuestions();
+        questions.forEach((item) =>
+          item.setPropertyValue("showClearButton", true)
+        );
+      }
       this.surveyOptions = options;
       this.survey = model;
     },
@@ -347,12 +356,14 @@ export default {
         function(sender, options) {
           // We don't want to modify anything if the survey has been submitted/completed.
           if (sender.isCompleted == true) return;
+
+          // Find the index of this item (may not exist)
+          // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
+          let answerItemIndex = this.questionnaireResponse.item.findIndex(
+            (itm) => itm.linkId == options.name
+          );
+
           if (options.value != null) {
-            // Find the index of this item (may not exist)
-            // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
-            let answerItemIndex = this.questionnaireResponse.item.findIndex(
-              (itm) => itm.linkId == options.name
-            );
             let responseValue = getResponseValue(
               this.questionnaire,
               options.name,
@@ -387,6 +398,15 @@ export default {
                 ],
               };
             }
+          } // end check if value is null
+          else {
+            // if answer item is null, e.g. due to user hitting clear button
+            // remove it from questionnaire responses
+            if (answerItemIndex !== -1) {
+              const items = this.questionnaireResponse.item;
+              items.splice(answerItemIndex, 1);
+              this.questionnaireResponse.item = items;
+            }
           }
 
           // Need to reload the patient bundle since the responses have been updated
@@ -415,10 +435,16 @@ export default {
                 options.showDataSavingClear();
                 this.handleAdvanceQuestionnaireList();
                 this.savingDialog = this.currentQuestionnaireList.length > 0;
-                if(this.currentQuestionnaireList.length) {
+                if (this.currentQuestionnaireList.length) {
                   this.dialogMessage = `Loading ${this.currentQuestionnaireList[0].toUpperCase()} questionnaire`;
                 } else {
-                  if (this.dashboardURL) setTimeout(() => window.location = this.dashboardURL+"/clear_session", 1000);
+                  if (this.dashboardURL)
+                    setTimeout(
+                      () =>
+                        (window.location =
+                          this.dashboardURL + "/clear_session"),
+                      1000
+                    );
                 }
               })
               .catch((e) => {
@@ -437,7 +463,13 @@ export default {
       );
     },
     handleAdvanceQuestionnaireList() {
-      setSessionInstrumentList(this.sessionKey, removeArrayItem(this.currentQuestionnaireList, this.currentQuestionnaireId));
+      setSessionInstrumentList(
+        this.sessionKey,
+        removeArrayItem(
+          this.currentQuestionnaireList,
+          this.currentQuestionnaireId
+        )
+      );
       if (this.currentQuestionnaireList.length === 0) {
         removeSessionInstrumentList(this.sessionKey);
       }

@@ -1,5 +1,8 @@
 $info-color: #2196f3;
 $muted-color: #777;
+$link-color: #0000ff;
+$hr-color: #ececec;
+$body-bg-color: #f7f6f6;
 body {
     padding: 0;
     margin: 0;
@@ -7,6 +10,9 @@ body {
     font-family: "Roboto","Helvetica","Arial",sans-serif;
     font-size: 18px;
     line-height: 1.45;
+}
+.v-application {
+    background: $body-bg-color !important;
 }
 .logo-container {
     img {
@@ -36,6 +42,12 @@ body {
         max-width: 100%;
     }
 }
+.sv-body {
+    background: #FFF;
+    padding: 8px 0 40px;
+    max-width: 900px;
+    margin: auto;
+}
 .sv-container-modern__title {
     padding-top: 1em;
 }
@@ -61,8 +73,10 @@ body {
 .sv-string-viewer {
     line-height: 1.45;
 }
-.sv-body__footer {
-    margin-top: 1em;
+
+.sv-footer {
+    border-top: 2px solid $hr-color;
+    padding-top: 16px;
 }
 .sv-footer__next-btn,
 .sv-footer__prev-btn,
@@ -74,6 +88,13 @@ body {
 .sv-footer__next-btn {
     float: left;
     margin-left: 8px;
+}
+.sv-footer__prev-btn {
+    margin-right: 8px;
+}
+.sv-footer__next-btn {
+    min-width: 120px;
+    text-align: center;
 }
 .info {
     position: relative;
@@ -93,6 +114,23 @@ body {
     margin-top: 24px;
 }
 
+.sv-selectbase__clear-btn {
+    color: $link-color !important;
+    box-shadow: none;
+    background: transparent !important;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sv-item:not(.sv-radio--checked):hover {
+    .sv-radio__svg {
+        border: 3px solid $muted-color;
+        use {
+            fill: none
+        }
+    }
+}
+
 .dialog-body-container {
     position: absolute;
     top: 25%;
@@ -109,4 +147,5 @@ body {
     margin-top: 16px;
     color: $muted-color;
     font-size: 0.9em;
-} 
+}
+

@@ -2,6 +2,7 @@
 export default {
   default: {
     showQuestionNumbers: "off",
+    showClearButton: true,
     completeText: "Submit",
     clearInvisibleValues: "onHidden",
     requiredText: "",
