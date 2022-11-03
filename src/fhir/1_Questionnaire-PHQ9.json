@@ -3,10 +3,12 @@
   "id": "CIRG-PHQ9",
   "name": "phq9",
   "url": "http://www.cdc.gov/ncbddd/fasd/phq9",
-  "identifier": {
-    "system": "http://hl7.org/fhir/uv/sdc/NamingSystem/questionnaire-ids",
-    "value": "phq9"
-  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/uv/sdc/NamingSystem/questionnaire-ids",
+      "value": "phq9"
+    }
+  ],
   "meta": {
     "versionId": "1",
     "lastUpdated": "2022-03-31T17:37:39.938+00:00",

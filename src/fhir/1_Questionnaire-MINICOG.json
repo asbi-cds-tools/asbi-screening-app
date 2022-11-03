@@ -8,10 +8,12 @@
   "id": "CIRG-MINICOG",
   "url": "http://www.cdc.gov/ncbddd/fasd/minicog",
   "name": "MINICOG",
-  "identifier": {
-    "system": "http://hl7.org/fhir/uv/sdc/NamingSystem/questionnaire-ids",
-    "value": "MINICOG"
-  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/uv/sdc/NamingSystem/questionnaire-ids",
+      "value": "MINICOG"
+    }
+  ],
   "status": "draft",
   "title": "Mini Cognitive Assessment",
   "subjectType": [
@@ -34,7 +36,6 @@
     {
       "linkId": "minicog-question1-instruction",
       "type": "display",
-      "text": "",
       "readOnly": true,
       "_text": {
         "extension": [
@@ -54,7 +55,6 @@
     {
       "linkId": "minicog-question2-instruction",
       "type": "display",
-      "text": "",
       "readOnly": true,
       "_text": {
         "extension": [
@@ -93,7 +93,6 @@
     {
       "linkId": "minicog-total-score-explanation",
       "type": "display",
-      "text": "",
       "extension": [
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
@@ -117,7 +116,6 @@
     {
       "linkId": "minicog-questionnaire-footnote",
       "type": "display",
-      "text": "",
       "readOnly":true,
       "_text": {
         "extension": [
