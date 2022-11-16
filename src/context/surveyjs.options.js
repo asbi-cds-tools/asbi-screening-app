@@ -30,4 +30,18 @@ export default {
       }
     },
   },
+  SLUMS: {
+    focusFirstQuestionAutomatic: true,
+    checkErrorsMode: "onValueChanged",
+    //validation
+    questionValidator: function (survey, options) {
+      const SCORE_QUESTION_ID = "/71492-3";
+      const optionVal = parseInt(options.value);
+      if (options.name === SCORE_QUESTION_ID) {
+        if (optionVal > 30 || optionVal < 1) {
+          options.error = "The value must be between 1 and 30.";
+        }
+      }
+    },
+  },
 };
