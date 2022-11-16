@@ -1,0 +1,8 @@
+library:
+  name: BEHAV5LogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/behav5
+options:
+  dumpFiles:
+    enabled: true

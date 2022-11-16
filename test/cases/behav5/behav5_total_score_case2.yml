@@ -1,19 +1,18 @@
-# test all answers with option 2, this is to make sure that each option has the correct value of 1
+# test all answers with option 2 to make sure all have a correct value of 0
 ---
-name: GAD7 Total Score (all with value 2)
+name: Behav5 Total Score (all with 0)
 externalData:
-- gad7_reusable_resources
+- behav5_reusable_resources
 data:
 - *patientResource
 - <<: *questionnaireResource
   item:
-  - *Gad7Question1
-  - *Gad7Question2
-  - *Gad7Question3
-  - *Gad7Question4
-  - *Gad7Question5
-  - *Gad7Question6
-  - *Gad7Question7
+  - *Question1
+  - *Question2
+  - *Question3
+  - *Question4
+  - *Question5
+  - *Question6
 - <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
   item:
   - # question 1
@@ -21,6 +20,7 @@ data:
     answer:
     -
       valueCoding: *answerOption2ValueCode
+
   - # question 2
     linkId: *q2LinkId
     answer:
@@ -46,13 +46,8 @@ data:
     answer:
     -
       valueCoding: *answerOption2ValueCode
-  - # question 7
-    linkId: *q7LinkId
-    answer:
-    -
-      valueCoding: *answerOption2ValueCode
-  
+
 results:
-  Gad7Questionnaire: $should exist
+  Behav5Questionnaire: $should exist
   CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
-  ScoreFullGad7: 7 # total score
+  ScoreFullBehav5: 0 # total score

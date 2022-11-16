@@ -1,4 +1,4 @@
-library GAD7LogicLibrary version '1.0.0'
+library BEHAV5LogicLibrary version '1.0.0'
 /* Change Log
 */
 
@@ -7,31 +7,18 @@ using FHIR version '4.0.1'
 include "FHIRHelpers" version '4.0.1' called FHIRHelpers
 
 // -----------------------------------------------------------------------------
-// CODESYSTEMS, VALUE SETS, CODES, AND CONCEPTS
-// -----------------------------------------------------------------------------
-
-codesystem "LOINC": 'http://loinc.org'
-codesystem "LOCAL": 'http://www.cdc.gov/ncbddd/fasd'
-
-
-// Local (non-standard) codes
-// Not sure if this qualifies as LOCAL...
-code "GAD7 Total Score code": '70274-6' from "LOCAL" display 'GAD7 Total Score'
-
-// -----------------------------------------------------------------------------
 // PARAMETERS
 // -----------------------------------------------------------------------------
 parameter DisplayScreeningScores default true
-parameter QuestionnaireName default 'gad7'
-parameter QuestionnaireURL default 'http://www.cdc.gov/ncbddd/fasd/gad7'
+parameter QuestionnaireName default 'behav5'
+parameter QuestionnaireURL default 'http://www.cdc.gov/ncbddd/fasd/behav5'
 
-define question1LinkId: '/69725-0'
-define question2LinkId: '/68509-9'
-define question3LinkId: '/69733-4'
-define question4LinkId: '/69734-2'
-define question5LinkId: '/69735-9'
-define question6LinkId: '/69689-8'
-define question7LinkId: '/69736-7'
+define question1LinkId: 'behav-1'
+define question2LinkId: 'behav-2'
+define question3LinkId: 'behav-3'
+define question4LinkId: 'behav-4'
+define question5LinkId: 'behav-5'
+define question6LinkId: 'behav-6'
 
 
 // -----------------------------------------------------------------------------
@@ -43,31 +30,12 @@ context Patient
 define CurrentQuestionnaireURL:
   QuestionnaireURL
 
-// -----------------------------------------------------------------------------
-// FUNCTIONS
-// -----------------------------------------------------------------------------
-
-define function ToCode(coding FHIR.Coding):
-  FHIRHelpers.ToCode(coding)
-
-define function ToConcept(concept FHIR.CodeableConcept):
-  FHIRHelpers.ToConcept(concept)
-
-// From the CDS Connect Commons Library
-// Available from the Agency for Healthcare Research and Quality (AHRQ) under an 
-// Apache 2.0 license. See https://cds.ahrq.gov
-define function PeriodToInterval(period FHIR.Period):
-  if period is null then
-    null
-  else
-    Interval[period."start".value, period."end".value]
-
 //------------------------------------------------------------------------------
 // QUESTIONNAIRE AND QUESTIONNAIRERESPONSE LOGIC
 //------------------------------------------------------------------------------
 
 // Load Questionnaire
-define Gad7Questionnaire:
+define Behav5Questionnaire:
   singleton from ([Questionnaire] Q
     where (
       Q.url.value = CurrentQuestionnaireURL or
@@ -77,7 +45,7 @@ define Gad7Questionnaire:
 
 // Extract of the link IDs of each item in the Questionnaire
 define ItemLinkIds:
-  Gad7Questionnaire Q
+  Behav5Questionnaire Q
   let item: Q.item
   return item.linkId.value
 
@@ -89,15 +57,14 @@ define IndexOfQuestion:
     three: IndexOf(ItemLinkIds, question3LinkId),
     four: IndexOf(ItemLinkIds, question4LinkId),
     five: IndexOf(ItemLinkIds, question5LinkId),
-    six: IndexOf(ItemLinkIds, question6LinkId),
-    seven: IndexOf(ItemLinkIds, question7LinkId)
+    six: IndexOf(ItemLinkIds, question6LinkId)
   }
 
 define QuestionnaireResponses:
   ([QuestionnaireResponse] QR
     where (
       QR.questionnaire.value = CurrentQuestionnaireURL or
-      PositionOf(Gad7Questionnaire.id, QR.questionnaire.value)  != -1)
+      PositionOf(Behav5Questionnaire.id, QR.questionnaire.value)  != -1)
     sort by authored desc
   )
 
@@ -138,8 +105,8 @@ define function getCurrentResponseByQuestionId(qid String):
  @return code value for the answer
  */
 define function getAnswerOptionCodeValue(qIndex Integer):
-  if Gad7Questionnaire.item[qIndex] is not null then
-    Gad7Questionnaire.item[qIndex].answerOption.value.code.value
+  if Behav5Questionnaire.item[qIndex] is not null then
+    Behav5Questionnaire.item[qIndex].answerOption.value.code.value
   else
     null
 
@@ -160,63 +127,59 @@ define function getQuestionScore(qIndex Integer, qId String):
     let
       qAnswerOptionCode: getAnswerOptionCodeValue(qIndex),
       qResponseIndex: if qResponse is not null then IndexOf(qAnswerOptionCode, qResponse.code.value as String) else -1,
-      extensionItem: Gad7Questionnaire.item[qIndex].answerOption[qResponseIndex].extension
+      extensionItem: Behav5Questionnaire.item[qIndex].answerOption[qResponseIndex].extension
     return
       if qResponseIndex != -1 then
         if extensionItem is not null then
           getAnswerOptionExtensionValue(extensionItem)
-        else null
+        else 0
       else
-        null
+        0
       
 // Question 1
-define Gad7ScoreQuestion1:
+define Behav5ScoreQuestion1:
   getQuestionScore(IndexOfQuestion.one, question1LinkId)
 
 // Question 2
-define Gad7ScoreQuestion2:
+define Behav5ScoreQuestion2:
   getQuestionScore(IndexOfQuestion.two, question2LinkId)
 
 // Question 3
-define Gad7ScoreQuestion3:
+define Behav5ScoreQuestion3:
   getQuestionScore(IndexOfQuestion.three, question3LinkId)
 
 // Question 4
-define Gad7ScoreQuestion4:
+define Behav5ScoreQuestion4:
   getQuestionScore(IndexOfQuestion.four, question4LinkId)
 
 // Question 5
-define Gad7ScoreQuestion5:
+define Behav5ScoreQuestion5:
   getQuestionScore(IndexOfQuestion.five, question5LinkId)
 
 // Question 6
-define Gad7ScoreQuestion6:
+define Behav5ScoreQuestion6:
   getQuestionScore(IndexOfQuestion.six, question6LinkId)
 
-// Question 7
-define Gad7ScoreQuestion7:
-  getQuestionScore(IndexOfQuestion.seven, question7LinkId)
 
-// Should the score for the Full GAD7 be displayed?
-define DisplayScoreFullGad7:
+// Should the score for the Full Behav5 be displayed?
+define DisplayScoreFullBehav5:
    (
     (getCurrentResponseByQuestionId(question1LinkId)) is not null or 
     (getCurrentResponseByQuestionId(question2LinkId)) is not null or
     (getCurrentResponseByQuestionId(question3LinkId)) is not null or
     (getCurrentResponseByQuestionId(question4LinkId)) is not null or 
     (getCurrentResponseByQuestionId(question5LinkId)) is not null or
-    (getCurrentResponseByQuestionId(question6LinkId)) is not null or
-    (getCurrentResponseByQuestionId(question7LinkId)) is not null
+    (getCurrentResponseByQuestionId(question6LinkId)) is not null
    ) // at least one response for all the questions
     and DisplayScreeningScores // Input parameter which allows score display to be disabled
 
-// Calculate the score for the Full GAD7
+// Calculate the score for the Full Behav5
 // sum up all numeric values for all the answers
-define ScoreFullGad7:
-  Gad7ScoreQuestion1
-  + Gad7ScoreQuestion2
-  + Gad7ScoreQuestion3
-  + Gad7ScoreQuestion4
-  + Gad7ScoreQuestion5
-  + Gad7ScoreQuestion6
-  + Gad7ScoreQuestion7
+define ScoreFullBehav5:
+  Behav5ScoreQuestion1
+  + Behav5ScoreQuestion2
+  + Behav5ScoreQuestion3
+  + Behav5ScoreQuestion4
+  + Behav5ScoreQuestion5
+  + Behav5ScoreQuestion6
+

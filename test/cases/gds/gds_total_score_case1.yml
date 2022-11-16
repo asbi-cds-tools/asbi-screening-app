@@ -1,0 +1,105 @@
+# test all answers question 1, 5, 7, 11, 13 should be 0, coz 1 point for answering NO for those questions
+---
+name: GDS Total Score (test 1 point for No answer)
+externalData:
+- gds_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *GDSQuestion1
+  - *GDSQuestion2
+  - *GDSQuestion3
+  - *GDSQuestion4
+  - *GDSQuestion5
+  - *GDSQuestion6
+  - *GDSQuestion7
+  - *GDSQuestion8
+  - *GDSQuestion9
+  - *GDSQuestion10
+  - *GDSQuestion11
+  - *GDSQuestion12
+  - *GDSQuestion13
+  - *GDSQuestion14
+  - *GDSQuestion15
+- <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 2
+    linkId: *q2LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 3
+    linkId: *q3LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 4
+    linkId: *q4LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 5
+    linkId: *q5LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 6
+    linkId: *q6LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 7
+    linkId: *q7LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 8
+    linkId: *q8LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 9
+    linkId: *q9LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 10
+    linkId: *q10LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 11
+    linkId: *q11LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 12
+    linkId: *q12LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 13
+    linkId: *q13LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 14
+    linkId: *q14LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 15
+    linkId: *q15LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+results:
+  GDSQuestionnaire: $should exist
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  ScoreFullGds: 10 # total score

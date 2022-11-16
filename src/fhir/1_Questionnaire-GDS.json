@@ -1,14 +1,14 @@
 {
   "resourceType": "Questionnaire",
-  "id": "CIRG-GAD7",
-  "name": "GAD7",
+  "id": "CIRG-GDS",
+  "name": "GDS",
   "code": [
     {
-      "code": "69737-5",
-      "display": "Generalized anxiety disorder 7 item (GAD-7)"
+      "code": "48543-3",
+      "display": "Geriatric depression scale (GDS).short version panel"
     }
   ],
-  "title": "Generalized anxiety disorder 7 item (GAD-7)",
+  "title": "Geriatric depression scale (GDS).short version panel",
   "status": "draft",
   "meta": {
     "profile": [
@@ -28,7 +28,7 @@
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
-            "valueString": "<p style='font-size:1.3em'>The <b>Generalized Anxiety Disorder Assessment</b> (GAD-7) is a seven-item instrument that is used to measure or assess the severity of generalized anxiety disorder (GAD). Each item asks the individual to rate the severity of his or her symptoms over the past two weeks.</br></br>These questions are to be answered by the <b>patient</b>.</p>"
+            "valueString": "<p style='font-size:1.3em'>The <b>Geriatric Depression Scale</b> (GDS) short version panel is a 15-item self-report assessment used as a basic screening measure of depression in the elderly.</br></br>These questions are to be answered by the <b>patient</b>.</p>"
           }
         ]
       }
@@ -37,30 +37,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69725-0",
-          "display": "Feeling nervous, anxious or on edge"
+          "code": "48512-8",
+          "display": "Are you basically satisfied with your life"
         }
       ],
       "required": false,
-      "linkId": "/69725-0",
-      "text": "Feeling nervous, anxious or on edge",
+      "linkId": "/48512-8",
+      "text": "Are you basically satisfied with your life",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -73,40 +57,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -115,30 +83,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "68509-9",
-          "display": "Over the past 2 weeks have you not been able to stop or control worrying"
+          "code": "48513-6",
+          "display": "Have you dropped many of your activities and interests"
         }
       ],
       "required": false,
-      "linkId": "/68509-9",
-      "text": "Over the past 2 weeks have you not been able to stop or control worrying",
+      "linkId": "/48513-6",
+      "text": "Have you dropped many of your activities and interests",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -151,40 +103,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA18938-3",
-            "display": "More days than not"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -193,30 +129,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69733-4",
-          "display": "Worrying too much about different things"
+          "code": "48514-4",
+          "display": "Do you feel that your life is empty"
         }
       ],
       "required": false,
-      "linkId": "/69733-4",
-      "text": "Worrying too much about different things",
+      "linkId": "/48514-4",
+      "text": "Do you feel that your life is empty",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -229,40 +149,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -271,30 +175,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69734-2",
-          "display": "Trouble relaxing"
+          "code": "48515-1",
+          "display": "Do you often get bored"
         }
       ],
       "required": false,
-      "linkId": "/69734-2",
-      "text": "Trouble relaxing",
+      "linkId": "/48515-1",
+      "text": "Do you often get bored",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -307,40 +195,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -349,30 +221,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69735-9",
-          "display": "Being so restless that it is hard to sit still"
+          "code": "48518-5",
+          "display": "Are you in good spirits most of the time"
         }
       ],
       "required": false,
-      "linkId": "/69735-9",
-      "text": "Being so restless that it is hard to sit still",
+      "linkId": "/48518-5",
+      "text": "Are you in good spirits most of the time",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -385,40 +241,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -427,30 +267,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69689-8",
-          "display": "Becoming easily annoyed or irritable."
+          "code": "48519-3",
+          "display": "Are you afraid that something bad is going to happen to you"
         }
       ],
       "required": false,
-      "linkId": "/69689-8",
-      "text": "Becoming easily annoyed or irritable.",
+      "linkId": "/48519-3",
+      "text": "Are you afraid that something bad is going to happen to you",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -463,40 +287,24 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
-          }
-        },
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -505,30 +313,14 @@
       "type": "choice",
       "code": [
         {
-          "code": "69736-7",
-          "display": "Feeling afraid as if something awful might happen"
+          "code": "48520-1",
+          "display": "Do you feel happy most of the time"
         }
       ],
       "required": false,
-      "linkId": "/69736-7",
-      "text": "Feeling afraid as if something awful might happen",
+      "linkId": "/48520-1",
+      "text": "Do you feel happy most of the time",
       "answerOption": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "0"
-            },
-            {
-              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 0
-            }
-          ],
-          "valueCoding": {
-            "code": "LA6568-5",
-            "display": "Not at all"
-          }
-        },
         {
           "extension": [
             {
@@ -541,40 +333,392 @@
             }
           ],
           "valueCoding": {
-            "code": "LA6569-3",
-            "display": "Several days"
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "2"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 2
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6570-1",
-            "display": "More than half the days"
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48521-9",
+          "display": "Do you often feel helpless"
+        }
+      ],
+      "required": false,
+      "linkId": "/48521-9",
+      "text": "Do you often feel helpless",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
           }
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
-              "valueString": "3"
+              "valueString": "0"
             },
             {
               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
-              "valueDecimal": 3
+              "valueDecimal": 0
             }
           ],
           "valueCoding": {
-            "code": "LA6571-9",
-            "display": "Nearly every day"
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48523-5",
+          "display": "Do you prefer to stay at home, rather than going out and doing new things"
+        }
+      ],
+      "required": false,
+      "linkId": "/48523-5",
+      "text": "Do you prefer to stay at home, rather than going out and doing new things",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48525-0",
+          "display": "Do you feel you have more problems with memory than most"
+        }
+      ],
+      "required": false,
+      "linkId": "/48525-0",
+      "text": "Do you feel you have more problems with memory than most",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48526-8",
+          "display": "Do you think it is wonderful to be alive now"
+        }
+      ],
+      "required": false,
+      "linkId": "/48526-8",
+      "text": "Do you think it is wonderful to be alive now",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48528-4",
+          "display": "Do you feel pretty worthless the way you are now"
+        }
+      ],
+      "required": false,
+      "linkId": "/48528-4",
+      "text": "Do you feel pretty worthless the way you are now",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48532-6",
+          "display": "Do you feel full of energy"
+        }
+      ],
+      "required": false,
+      "linkId": "/48532-6",
+      "text": "Do you feel full of energy",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48533-4",
+          "display": "Do you feel that your situation is hopeless"
+        }
+      ],
+      "required": false,
+      "linkId": "/48533-4",
+      "text": "Do you feel that your situation is hopeless",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "48534-2",
+          "display": "Do you think that most people are better off than you are"
+        }
+      ],
+      "required": false,
+      "linkId": "/48534-2",
+      "text": "Do you think that most people are better off than you are",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
           }
         }
       ]
@@ -583,31 +727,31 @@
       "type": "decimal",
       "code": [
         {
-          "code": "70274-6",
-          "display": "Generalized anxiety disorder 7 item total score"
+          "code": "48545-8",
+          "display": "Geriatric depression scale.short version total"
         }
       ],
+      "required": false,
+      "linkId": "/48545-8",
+      "text": "Geriatric depression scale.short version total",
       "extension": [
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "DisplayScoreFullGad7",
-            "reference": "#GAD7LogicLibrary|1.0"
+            "expression": "DisplayScoreFullGds",
+            "reference": "#GDSLogicLibrary|1.0"
           }
         },
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
           "valueExpression": {
             "language": "text/cql",
-            "expression": "ScoreFullGad7",
-            "reference": "#GAD7LogicLibrary|1.0"
+            "expression": "ScoreFullGds",
+            "reference": "#GDSLogicLibrary|1.0"
           }
         }
-      ],
-      "required": false,
-      "linkId": "/70274-6",
-      "text": "Generalized anxiety disorder 7 item total score"
+      ]
     }
   ]
 }

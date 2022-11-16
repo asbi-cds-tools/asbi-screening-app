@@ -1,0 +1,1445 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "CIRG-C-IDAS",
+  "name": "C-IDAS",
+  "title": "Cornell Scale of Depression in Dementia - Indicators of depression, anxiety, sad mood",
+  "status": "draft",
+  "item": [
+    {
+      "linkId": "introduction",
+      "type": "display",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<p style='font-size:1.3em'>The <b>Cornell Scale for Depression in Dementia</b> is a nineteen-question assessment on observations of the resident's behavior during the week prior to the interview.</br></br>These questions are to be answered by the <b>care partner</b>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-1",
+      "text": "Anxiety - anxious expression, ruminations, worrying",
+      "_text": {
+        "extension": [
+           {
+             "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+             "valueString": "<h4>Anxiety</h4><div>Anxious expression, ruminations, worrying</div>"
+           }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+         {
+           "extension": [
+             {
+               "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+               "valueString": "a"
+             },
+             {
+               "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+               "valueString": "a"
+             }
+           ],
+           "valueCoding": {
+             "code": "LA4489-6",
+             "display": "Unable to evaluate"
+           }
+         }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-2",
+      "text": "Sadness - sad expression, sad voice, tearfulness",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Sadness</h4><div>Sad expression, sad voice, tearfulness</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-3",
+      "text": "Lack of reactivity to pleasant events",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-4",
+      "text": "Irritability - easily annoyed, short-tempered",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Irritability</h4><div>Easily annoyed, short-tempered</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-5",
+      "text": "Agitation - restlessness, handwringing, hairpulling",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Agitation</h4><div>Restlessness, handwringing, hairpulling</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-6",
+      "text": "Multiple physical complaints (score 0 if GI symptoms only)",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-7",
+      "text": "Loss of interest - less involved in usual activities (score only if change occurred acutely, i.e., in less than 1 month)",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-8",
+      "text": "Appetite loss - eating less than usual",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Appetite loss</h4><div>Eating less than usual</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-9",
+      "text": "Weight loss",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-10",
+      "text": "Lack of energy - fatigues easily, unable to sustain activities",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Lack of energy</h4><div>Fatigues easily, unable to sustain activities</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-11",
+      "text": "Diurnal variation of mood - symptoms worse in the morning",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Diurnal variation of mood</h4><div>Symptoms worse in the morning</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-12",
+      "text": "Difficulty falling asleep - later than usual for this individual",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Difficulty falling asleep</h4><div>Later than usual for this individual</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-13",
+      "text": "Multiple awakenings during sleep",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-14",
+      "text": "Early-morning awakening - earlier than usual for this individual",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Early-morning awakening</h4><div>Earlier than usual for this individual</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-15",
+      "text": "Suicide - feels life is not worth living, has suicidal wishes or makes suicide attempt",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Suicide</h4><div>Feels life is not worth living, has suicidal wishes or makes suicide attempt</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-16",
+      "text": "Poor self-esteem - self-blame, self-deprecation, feelings of failure",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Poor self-esteem</h4><div>Self-blame, self-deprecation, feelings of failure</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-17",
+      "text": "Pessimism - anticipation of the worst",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Pessimism</h4><div>Anticipation of the worst</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "required": false,
+      "linkId": "cs-idas-18",
+      "text": "Mood-congruent delusions - delusions of poverty, illness or loss",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<h4>Mood-congruent delusions</h4><div>Delusions of poverty, illness or loss</div>"
+          }
+        ]
+      },
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA9634-2",
+            "display": "Absent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6752-5",
+            "display": "Mild or intermittent"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6750-9",
+            "display": "Severe"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "a"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "a"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA4489-6",
+            "display": "Unable to evaluate"
+          }
+        }
+      ]
+    },
+    {
+      "type": "decimal",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "DisplayScoreFullCIDAS",
+            "reference": "#CIDASLogicLibrary|1.0"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "ScoreFullCIDAS",
+            "reference": "#CIDASLogicLibrary|1.0"
+          }
+        }
+      ],
+      "required": false,
+      "linkId": "c-ids-score",
+      "text": "Cornell scale of depression in dementia total score"
+    }
+  ]
+}

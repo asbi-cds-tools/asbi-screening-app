@@ -1,0 +1,8 @@
+library:
+  name: CIDASLogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/cidas
+options:
+  dumpFiles:
+    enabled: true

@@ -1,0 +1,2580 @@
+{
+   "library" : {
+      "annotation" : [ {
+         "translatorOptions" : "",
+         "type" : "CqlToElmInfo"
+      } ],
+      "identifier" : {
+         "id" : "CP_ECOGLogicLibrary",
+         "version" : "1.0.0"
+      },
+      "schemaIdentifier" : {
+         "id" : "urn:hl7-org:elm",
+         "version" : "r1"
+      },
+      "usings" : {
+         "def" : [ {
+            "localIdentifier" : "System",
+            "uri" : "urn:hl7-org:elm-types:r1"
+         }, {
+            "localIdentifier" : "FHIR",
+            "uri" : "http://hl7.org/fhir",
+            "version" : "4.0.1"
+         } ]
+      },
+      "includes" : {
+         "def" : [ {
+            "localIdentifier" : "FHIRHelpers",
+            "path" : "FHIRHelpers",
+            "version" : "4.0.1"
+         } ]
+      },
+      "parameters" : {
+         "def" : [ {
+            "name" : "DisplayScreeningScores",
+            "accessLevel" : "Public",
+            "default" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}Boolean",
+               "value" : "true",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "QuestionnaireName",
+            "accessLevel" : "Public",
+            "default" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "cp-ecog",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "QuestionnaireURL",
+            "accessLevel" : "Public",
+            "default" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "http://www.cdc.gov/ncbddd/fasd/cp-ecog",
+               "type" : "Literal"
+            }
+         } ]
+      },
+      "contexts" : {
+         "def" : [ {
+            "name" : "Patient"
+         } ]
+      },
+      "statements" : {
+         "def" : [ {
+            "name" : "question1LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89286-9/89146-5",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question2LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89286-9/89149-9",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question3LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89287-7/89172-1",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question4LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89287-7/89138-2",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question5LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89288-5/89154-9",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question6LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89288-5/89165-5",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question7LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89289-3/89143-2",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question8LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89289-3/89140-8",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question9LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89290-1/89158-0",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question10LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89290-1/89173-9",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question11LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89285-1/89141-6",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "question12LinkId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "valueType" : "{urn:hl7-org:elm-types:r1}String",
+               "value" : "/89285-1/89171-3",
+               "type" : "Literal"
+            }
+         }, {
+            "name" : "Patient",
+            "context" : "Patient",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "dataType" : "{http://hl7.org/fhir}Patient",
+                  "templateId" : "http://hl7.org/fhir/StructureDefinition/Patient",
+                  "type" : "Retrieve"
+               }
+            }
+         }, {
+            "name" : "CurrentQuestionnaireURL",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "name" : "QuestionnaireURL",
+               "type" : "ParameterRef"
+            }
+         }, {
+            "name" : "ECOG12Questionnaire",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "Q",
+                     "expression" : {
+                        "dataType" : "{http://hl7.org/fhir}Questionnaire",
+                        "templateId" : "http://hl7.org/fhir/StructureDefinition/Questionnaire",
+                        "type" : "Retrieve"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "type" : "Or",
+                     "operand" : [ {
+                        "type" : "Or",
+                        "operand" : [ {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "url",
+                                 "scope" : "Q",
+                                 "type" : "Property"
+                              }
+                           }, {
+                              "name" : "CurrentQuestionnaireURL",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "type" : "Not",
+                           "operand" : {
+                              "type" : "Equal",
+                              "operand" : [ {
+                                 "type" : "PositionOf",
+                                 "pattern" : {
+                                    "type" : "Lower",
+                                    "operand" : {
+                                       "name" : "QuestionnaireName",
+                                       "type" : "ParameterRef"
+                                    }
+                                 },
+                                 "string" : {
+                                    "type" : "Lower",
+                                    "operand" : {
+                                       "name" : "ToString",
+                                       "libraryName" : "FHIRHelpers",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "path" : "id",
+                                          "scope" : "Q",
+                                          "type" : "Property"
+                                       } ]
+                                    }
+                                 }
+                              }, {
+                                 "type" : "Negate",
+                                 "operand" : {
+                                    "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                    "value" : "1",
+                                    "type" : "Literal"
+                                 }
+                              } ]
+                           }
+                        } ]
+                     }, {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "type" : "Lower",
+                           "operand" : {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "name",
+                                 "scope" : "Q",
+                                 "type" : "Property"
+                              } ]
+                           }
+                        }, {
+                           "type" : "Lower",
+                           "operand" : {
+                              "name" : "QuestionnaireName",
+                              "type" : "ParameterRef"
+                           }
+                        } ]
+                     } ]
+                  }
+               }
+            }
+         }, {
+            "name" : "ItemLinkIds",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "Q",
+                  "expression" : {
+                     "name" : "ECOG12Questionnaire",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "let" : [ {
+                  "identifier" : "item",
+                  "expression" : {
+                     "path" : "item",
+                     "scope" : "Q",
+                     "type" : "Property"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "$this",
+                        "expression" : {
+                           "type" : "Query",
+                           "source" : [ {
+                              "alias" : "$this",
+                              "expression" : {
+                                 "name" : "item",
+                                 "type" : "QueryLetRef"
+                              }
+                           } ],
+                           "where" : {
+                              "type" : "Not",
+                              "operand" : {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "path" : "linkId",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "$this",
+                                       "type" : "AliasRef"
+                                    }
+                                 }
+                              }
+                           },
+                           "return" : {
+                              "distinct" : false,
+                              "expression" : {
+                                 "path" : "linkId",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "$this",
+                                    "type" : "AliasRef"
+                                 }
+                              }
+                           }
+                        }
+                     } ],
+                     "where" : {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "$this",
+                                 "type" : "AliasRef"
+                              }
+                           }
+                        }
+                     },
+                     "return" : {
+                        "distinct" : false,
+                        "expression" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "$this",
+                              "type" : "AliasRef"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "IndexOfQuestion",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Tuple",
+               "element" : [ {
+                  "name" : "one",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question1LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "two",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question2LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "three",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question3LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "four",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question4LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "five",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question5LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "six",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question6LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "seven",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question7LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "eight",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question8LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "nine",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question9LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "ten",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question10LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "eleven",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question11LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               }, {
+                  "name" : "twelve",
+                  "value" : {
+                     "type" : "IndexOf",
+                     "source" : {
+                        "name" : "ItemLinkIds",
+                        "type" : "ExpressionRef"
+                     },
+                     "element" : {
+                        "name" : "question12LinkId",
+                        "type" : "ExpressionRef"
+                     }
+                  }
+               } ]
+            }
+         }, {
+            "name" : "QuestionnaireResponses",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "QR",
+                  "expression" : {
+                     "dataType" : "{http://hl7.org/fhir}QuestionnaireResponse",
+                     "templateId" : "http://hl7.org/fhir/StructureDefinition/QuestionnaireResponse",
+                     "type" : "Retrieve"
+                  }
+               } ],
+               "relationship" : [ ],
+               "where" : {
+                  "type" : "Or",
+                  "operand" : [ {
+                     "type" : "Equal",
+                     "operand" : [ {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "path" : "questionnaire",
+                           "scope" : "QR",
+                           "type" : "Property"
+                        }
+                     }, {
+                        "name" : "CurrentQuestionnaireURL",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }, {
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "type" : "PositionOf",
+                           "pattern" : {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "id",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "ECOG12Questionnaire",
+                                    "type" : "ExpressionRef"
+                                 }
+                              } ]
+                           },
+                           "string" : {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "questionnaire",
+                                 "scope" : "QR",
+                                 "type" : "Property"
+                              }
+                           }
+                        }, {
+                           "type" : "Negate",
+                           "operand" : {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "1",
+                              "type" : "Literal"
+                           }
+                        } ]
+                     }
+                  } ]
+               },
+               "sort" : {
+                  "by" : [ {
+                     "direction" : "desc",
+                     "path" : "authored",
+                     "type" : "ByColumn"
+                  } ]
+               }
+            }
+         }, {
+            "name" : "CurrentQuestionnaireResponse",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "SingletonFrom",
+               "operand" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "QR",
+                     "expression" : {
+                        "name" : "QuestionnaireResponses",
+                        "type" : "ExpressionRef"
+                     }
+                  } ],
+                  "relationship" : [ ],
+                  "where" : {
+                     "type" : "And",
+                     "operand" : [ {
+                        "type" : "GreaterOrEqual",
+                        "operand" : [ {
+                           "type" : "DateFrom",
+                           "operand" : {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "authored",
+                                 "scope" : "QR",
+                                 "type" : "Property"
+                              }
+                           }
+                        }, {
+                           "type" : "Today"
+                        } ]
+                     }, {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "status",
+                              "scope" : "QR",
+                              "type" : "Property"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                           "value" : "in-progress",
+                           "type" : "Literal"
+                        } ]
+                     } ]
+                  }
+               }
+            }
+         }, {
+            "name" : "CurrentResponseItems",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "QR",
+                  "expression" : {
+                     "name" : "CurrentQuestionnaireResponse",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "path" : "item",
+                     "scope" : "QR",
+                     "type" : "Property"
+                  }
+               }
+            }
+         }, {
+            "name" : "CurrentResponses",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "I",
+                  "expression" : {
+                     "name" : "CurrentResponseItems",
+                     "type" : "ExpressionRef"
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "Tuple",
+                     "element" : [ {
+                        "name" : "id",
+                        "value" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "path" : "linkId",
+                              "scope" : "I",
+                              "type" : "Property"
+                           }
+                        }
+                     }, {
+                        "name" : "answer",
+                        "value" : {
+                           "type" : "Indexer",
+                           "operand" : [ {
+                              "type" : "Query",
+                              "source" : [ {
+                                 "alias" : "$this",
+                                 "expression" : {
+                                    "path" : "answer",
+                                    "scope" : "I",
+                                    "type" : "Property"
+                                 }
+                              } ],
+                              "where" : {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "path" : "value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "$this",
+                                          "type" : "AliasRef"
+                                       }
+                                    }
+                                 }
+                              },
+                              "return" : {
+                                 "distinct" : false,
+                                 "expression" : {
+                                    "path" : "value",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "$this",
+                                       "type" : "AliasRef"
+                                    }
+                                 }
+                              }
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "value" : "0",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     } ]
+                  }
+               }
+            }
+         }, {
+            "name" : "getCurrentResponseByQuestionId",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "CR",
+                  "expression" : {
+                     "type" : "Query",
+                     "source" : [ {
+                        "alias" : "R",
+                        "expression" : {
+                           "name" : "CurrentResponses",
+                           "type" : "ExpressionRef"
+                        }
+                     } ],
+                     "relationship" : [ ],
+                     "where" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "path" : "id",
+                           "scope" : "R",
+                           "type" : "Property"
+                        }, {
+                           "name" : "qid",
+                           "type" : "OperandRef"
+                        } ]
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "CR",
+                              "type" : "AliasRef"
+                           }
+                        }
+                     },
+                     "then" : {
+                        "path" : "answer",
+                        "scope" : "CR",
+                        "type" : "Property"
+                     },
+                     "else" : {
+                        "type" : "As",
+                        "operand" : {
+                           "type" : "Null"
+                        },
+                        "asTypeSpecifier" : {
+                           "type" : "ChoiceTypeSpecifier",
+                           "choice" : [ {
+                              "name" : "{http://hl7.org/fhir}boolean",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}decimal",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}integer",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}date",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}dateTime",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}time",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}string",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}uri",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Attachment",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Coding",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Quantity",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Reference",
+                              "type" : "NamedTypeSpecifier"
+                           } ]
+                        }
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "qid",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "name" : "getAnswerOptionCodeValue",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "If",
+               "condition" : {
+                  "type" : "Not",
+                  "operand" : {
+                     "type" : "IsNull",
+                     "operand" : {
+                        "type" : "Indexer",
+                        "operand" : [ {
+                           "path" : "item",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "ECOG12Questionnaire",
+                              "type" : "ExpressionRef"
+                           }
+                        }, {
+                           "name" : "qIndex",
+                           "type" : "OperandRef"
+                        } ]
+                     }
+                  }
+               },
+               "then" : {
+                  "type" : "Query",
+                  "source" : [ {
+                     "alias" : "$this",
+                     "expression" : {
+                        "type" : "Query",
+                        "source" : [ {
+                           "alias" : "$this",
+                           "expression" : {
+                              "type" : "Query",
+                              "source" : [ {
+                                 "alias" : "$this",
+                                 "expression" : {
+                                    "path" : "answerOption",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "type" : "Indexer",
+                                       "operand" : [ {
+                                          "path" : "item",
+                                          "type" : "Property",
+                                          "source" : {
+                                             "name" : "ECOG12Questionnaire",
+                                             "type" : "ExpressionRef"
+                                          }
+                                       }, {
+                                          "name" : "qIndex",
+                                          "type" : "OperandRef"
+                                       } ]
+                                    }
+                                 }
+                              } ],
+                              "where" : {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "path" : "value",
+                                       "type" : "Property",
+                                       "source" : {
+                                          "name" : "$this",
+                                          "type" : "AliasRef"
+                                       }
+                                    }
+                                 }
+                              },
+                              "return" : {
+                                 "distinct" : false,
+                                 "expression" : {
+                                    "path" : "value",
+                                    "type" : "Property",
+                                    "source" : {
+                                       "name" : "$this",
+                                       "type" : "AliasRef"
+                                    }
+                                 }
+                              }
+                           }
+                        } ],
+                        "where" : {
+                           "type" : "Not",
+                           "operand" : {
+                              "type" : "IsNull",
+                              "operand" : {
+                                 "path" : "code",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "$this",
+                                    "type" : "AliasRef"
+                                 }
+                              }
+                           }
+                        },
+                        "return" : {
+                           "distinct" : false,
+                           "expression" : {
+                              "path" : "code",
+                              "type" : "Property",
+                              "source" : {
+                                 "name" : "$this",
+                                 "type" : "AliasRef"
+                              }
+                           }
+                        }
+                     }
+                  } ],
+                  "where" : {
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "IsNull",
+                        "operand" : {
+                           "path" : "value",
+                           "type" : "Property",
+                           "source" : {
+                              "name" : "$this",
+                              "type" : "AliasRef"
+                           }
+                        }
+                     }
+                  },
+                  "return" : {
+                     "distinct" : false,
+                     "expression" : {
+                        "path" : "value",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "$this",
+                           "type" : "AliasRef"
+                        }
+                     }
+                  }
+               },
+               "else" : {
+                  "type" : "As",
+                  "operand" : {
+                     "type" : "Null"
+                  },
+                  "asTypeSpecifier" : {
+                     "type" : "ListTypeSpecifier",
+                     "elementType" : {
+                        "name" : "{urn:hl7-org:elm-types:r1}String",
+                        "type" : "NamedTypeSpecifier"
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "qIndex",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "name" : "getAnswerOptionExtensionValue",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "path" : "value",
+               "type" : "Property",
+               "source" : {
+                  "path" : "value",
+                  "type" : "Property",
+                  "source" : {
+                     "type" : "Indexer",
+                     "operand" : [ {
+                        "type" : "Query",
+                        "source" : [ {
+                           "alias" : "e",
+                           "expression" : {
+                              "name" : "extList",
+                              "type" : "OperandRef"
+                           }
+                        } ],
+                        "relationship" : [ ],
+                        "where" : {
+                           "type" : "Equivalent",
+                           "operand" : [ {
+                              "name" : "ToString",
+                              "libraryName" : "FHIRHelpers",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "path" : "url",
+                                 "scope" : "e",
+                                 "type" : "Property"
+                              } ]
+                           }, {
+                              "valueType" : "{urn:hl7-org:elm-types:r1}String",
+                              "value" : "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                              "type" : "Literal"
+                           } ]
+                        }
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     } ]
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "extList",
+               "operandTypeSpecifier" : {
+                  "type" : "ListTypeSpecifier",
+                  "elementType" : {
+                     "name" : "{http://hl7.org/fhir}Extension",
+                     "type" : "NamedTypeSpecifier"
+                  }
+               }
+            } ]
+         }, {
+            "name" : "getQuestionScore",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "type" : "FunctionDef",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "qResponse",
+                  "expression" : {
+                     "type" : "Indexer",
+                     "operand" : [ {
+                        "name" : "getCurrentResponseByQuestionId",
+                        "type" : "FunctionRef",
+                        "operand" : [ {
+                           "name" : "qId",
+                           "type" : "OperandRef"
+                        } ]
+                     }, {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     } ]
+                  }
+               } ],
+               "let" : [ {
+                  "identifier" : "qAnswerOptionCode",
+                  "expression" : {
+                     "name" : "getAnswerOptionCodeValue",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "name" : "qIndex",
+                        "type" : "OperandRef"
+                     } ]
+                  }
+               }, {
+                  "identifier" : "qResponseIndex",
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "qResponse",
+                              "type" : "AliasRef"
+                           }
+                        }
+                     },
+                     "then" : {
+                        "type" : "IndexOf",
+                        "source" : {
+                           "name" : "qAnswerOptionCode",
+                           "type" : "QueryLetRef"
+                        },
+                        "element" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "path" : "value",
+                              "type" : "Property",
+                              "source" : {
+                                 "path" : "code",
+                                 "scope" : "qResponse",
+                                 "type" : "Property"
+                              }
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     },
+                     "else" : {
+                        "type" : "Negate",
+                        "operand" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "1",
+                           "type" : "Literal"
+                        }
+                     }
+                  }
+               }, {
+                  "identifier" : "extensionItem",
+                  "expression" : {
+                     "path" : "extension",
+                     "type" : "Property",
+                     "source" : {
+                        "type" : "Indexer",
+                        "operand" : [ {
+                           "path" : "answerOption",
+                           "type" : "Property",
+                           "source" : {
+                              "type" : "Indexer",
+                              "operand" : [ {
+                                 "path" : "item",
+                                 "type" : "Property",
+                                 "source" : {
+                                    "name" : "ECOG12Questionnaire",
+                                    "type" : "ExpressionRef"
+                                 }
+                              }, {
+                                 "name" : "qIndex",
+                                 "type" : "OperandRef"
+                              } ]
+                           }
+                        }, {
+                           "name" : "qResponseIndex",
+                           "type" : "QueryLetRef"
+                        } ]
+                     }
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "Equal",
+                           "operand" : [ {
+                              "name" : "qResponseIndex",
+                              "type" : "QueryLetRef"
+                           }, {
+                              "type" : "Negate",
+                              "operand" : {
+                                 "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                                 "value" : "1",
+                                 "type" : "Literal"
+                              }
+                           } ]
+                        }
+                     },
+                     "then" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "Not",
+                           "operand" : {
+                              "type" : "IsNull",
+                              "operand" : {
+                                 "name" : "extensionItem",
+                                 "type" : "QueryLetRef"
+                              }
+                           }
+                        },
+                        "then" : {
+                           "name" : "getAnswerOptionExtensionValue",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "extensionItem",
+                              "type" : "QueryLetRef"
+                           } ]
+                        },
+                        "else" : {
+                           "type" : "As",
+                           "operand" : {
+                              "type" : "Null"
+                           },
+                           "asTypeSpecifier" : {
+                              "type" : "ChoiceTypeSpecifier",
+                              "choice" : [ {
+                                 "name" : "{urn:hl7-org:elm-types:r1}Boolean",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}Time",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}DateTime",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}CodeableConcept",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}Quantity",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}Range",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}Reference",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}decimal",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{http://hl7.org/fhir}string",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}Date",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}String",
+                                 "type" : "NamedTypeSpecifier"
+                              }, {
+                                 "name" : "{urn:hl7-org:elm-types:r1}Decimal",
+                                 "type" : "NamedTypeSpecifier"
+                              } ]
+                           }
+                        }
+                     },
+                     "else" : {
+                        "type" : "As",
+                        "operand" : {
+                           "type" : "Null"
+                        },
+                        "asTypeSpecifier" : {
+                           "type" : "ChoiceTypeSpecifier",
+                           "choice" : [ {
+                              "name" : "{urn:hl7-org:elm-types:r1}Boolean",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}Time",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}DateTime",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}CodeableConcept",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Quantity",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Range",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}Reference",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}decimal",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{http://hl7.org/fhir}string",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}Date",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}String",
+                              "type" : "NamedTypeSpecifier"
+                           }, {
+                              "name" : "{urn:hl7-org:elm-types:r1}Decimal",
+                              "type" : "NamedTypeSpecifier"
+                           } ]
+                        }
+                     }
+                  }
+               }
+            },
+            "operand" : [ {
+               "name" : "qIndex",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                  "type" : "NamedTypeSpecifier"
+               }
+            }, {
+               "name" : "qId",
+               "operandTypeSpecifier" : {
+                  "name" : "{urn:hl7-org:elm-types:r1}String",
+                  "type" : "NamedTypeSpecifier"
+               }
+            } ]
+         }, {
+            "name" : "ECOG12ScoreQuestion1",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "one",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question1LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion2",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "two",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question2LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion3",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "three",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question3LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion4",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "four",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question4LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion5",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "five",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question5LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion6",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "six",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question6LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion7",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "seven",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question7LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "12",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion8",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "eight",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question8LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion9",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "nine",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question9LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion10",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "ten",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question10LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion11",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "eleven",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question11LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "ECOG12ScoreQuestion12",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Query",
+               "source" : [ {
+                  "alias" : "score",
+                  "expression" : {
+                     "name" : "getQuestionScore",
+                     "type" : "FunctionRef",
+                     "operand" : [ {
+                        "path" : "twelve",
+                        "type" : "Property",
+                        "source" : {
+                           "name" : "IndexOfQuestion",
+                           "type" : "ExpressionRef"
+                        }
+                     }, {
+                        "name" : "question12LinkId",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }
+               } ],
+               "relationship" : [ ],
+               "return" : {
+                  "expression" : {
+                     "type" : "If",
+                     "condition" : {
+                        "type" : "Equal",
+                        "operand" : [ {
+                           "asType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        }, {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "9",
+                           "type" : "Literal"
+                        } ]
+                     },
+                     "then" : {
+                        "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                        "value" : "0",
+                        "type" : "Literal"
+                     },
+                     "else" : {
+                        "type" : "If",
+                        "condition" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           }
+                        },
+                        "then" : {
+                           "valueType" : "{urn:hl7-org:elm-types:r1}Integer",
+                           "value" : "0",
+                           "type" : "Literal"
+                        },
+                        "else" : {
+                           "strict" : false,
+                           "type" : "As",
+                           "operand" : {
+                              "name" : "score",
+                              "type" : "AliasRef"
+                           },
+                           "asTypeSpecifier" : {
+                              "name" : "{urn:hl7-org:elm-types:r1}Integer",
+                              "type" : "NamedTypeSpecifier"
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }, {
+            "name" : "DisplayScoreFullECOG12",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "And",
+               "operand" : [ {
+                  "type" : "Or",
+                  "operand" : [ {
+                     "type" : "Or",
+                     "operand" : [ {
+                        "type" : "Or",
+                        "operand" : [ {
+                           "type" : "Or",
+                           "operand" : [ {
+                              "type" : "Or",
+                              "operand" : [ {
+                                 "type" : "Or",
+                                 "operand" : [ {
+                                    "type" : "Or",
+                                    "operand" : [ {
+                                       "type" : "Or",
+                                       "operand" : [ {
+                                          "type" : "Or",
+                                          "operand" : [ {
+                                             "type" : "Or",
+                                             "operand" : [ {
+                                                "type" : "Or",
+                                                "operand" : [ {
+                                                   "type" : "Not",
+                                                   "operand" : {
+                                                      "type" : "IsNull",
+                                                      "operand" : {
+                                                         "name" : "getCurrentResponseByQuestionId",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "question1LinkId",
+                                                            "type" : "ExpressionRef"
+                                                         } ]
+                                                      }
+                                                   }
+                                                }, {
+                                                   "type" : "Not",
+                                                   "operand" : {
+                                                      "type" : "IsNull",
+                                                      "operand" : {
+                                                         "name" : "getCurrentResponseByQuestionId",
+                                                         "type" : "FunctionRef",
+                                                         "operand" : [ {
+                                                            "name" : "question2LinkId",
+                                                            "type" : "ExpressionRef"
+                                                         } ]
+                                                      }
+                                                   }
+                                                } ]
+                                             }, {
+                                                "type" : "Not",
+                                                "operand" : {
+                                                   "type" : "IsNull",
+                                                   "operand" : {
+                                                      "name" : "getCurrentResponseByQuestionId",
+                                                      "type" : "FunctionRef",
+                                                      "operand" : [ {
+                                                         "name" : "question3LinkId",
+                                                         "type" : "ExpressionRef"
+                                                      } ]
+                                                   }
+                                                }
+                                             } ]
+                                          }, {
+                                             "type" : "Not",
+                                             "operand" : {
+                                                "type" : "IsNull",
+                                                "operand" : {
+                                                   "name" : "getCurrentResponseByQuestionId",
+                                                   "type" : "FunctionRef",
+                                                   "operand" : [ {
+                                                      "name" : "question4LinkId",
+                                                      "type" : "ExpressionRef"
+                                                   } ]
+                                                }
+                                             }
+                                          } ]
+                                       }, {
+                                          "type" : "Not",
+                                          "operand" : {
+                                             "type" : "IsNull",
+                                             "operand" : {
+                                                "name" : "getCurrentResponseByQuestionId",
+                                                "type" : "FunctionRef",
+                                                "operand" : [ {
+                                                   "name" : "question5LinkId",
+                                                   "type" : "ExpressionRef"
+                                                } ]
+                                             }
+                                          }
+                                       } ]
+                                    }, {
+                                       "type" : "Not",
+                                       "operand" : {
+                                          "type" : "IsNull",
+                                          "operand" : {
+                                             "name" : "getCurrentResponseByQuestionId",
+                                             "type" : "FunctionRef",
+                                             "operand" : [ {
+                                                "name" : "question6LinkId",
+                                                "type" : "ExpressionRef"
+                                             } ]
+                                          }
+                                       }
+                                    } ]
+                                 }, {
+                                    "type" : "Not",
+                                    "operand" : {
+                                       "type" : "IsNull",
+                                       "operand" : {
+                                          "name" : "getCurrentResponseByQuestionId",
+                                          "type" : "FunctionRef",
+                                          "operand" : [ {
+                                             "name" : "question7LinkId",
+                                             "type" : "ExpressionRef"
+                                          } ]
+                                       }
+                                    }
+                                 } ]
+                              }, {
+                                 "type" : "Not",
+                                 "operand" : {
+                                    "type" : "IsNull",
+                                    "operand" : {
+                                       "name" : "getCurrentResponseByQuestionId",
+                                       "type" : "FunctionRef",
+                                       "operand" : [ {
+                                          "name" : "question8LinkId",
+                                          "type" : "ExpressionRef"
+                                       } ]
+                                    }
+                                 }
+                              } ]
+                           }, {
+                              "type" : "Not",
+                              "operand" : {
+                                 "type" : "IsNull",
+                                 "operand" : {
+                                    "name" : "getCurrentResponseByQuestionId",
+                                    "type" : "FunctionRef",
+                                    "operand" : [ {
+                                       "name" : "question9LinkId",
+                                       "type" : "ExpressionRef"
+                                    } ]
+                                 }
+                              }
+                           } ]
+                        }, {
+                           "type" : "Not",
+                           "operand" : {
+                              "type" : "IsNull",
+                              "operand" : {
+                                 "name" : "getCurrentResponseByQuestionId",
+                                 "type" : "FunctionRef",
+                                 "operand" : [ {
+                                    "name" : "question10LinkId",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              }
+                           }
+                        } ]
+                     }, {
+                        "type" : "Not",
+                        "operand" : {
+                           "type" : "IsNull",
+                           "operand" : {
+                              "name" : "getCurrentResponseByQuestionId",
+                              "type" : "FunctionRef",
+                              "operand" : [ {
+                                 "name" : "question11LinkId",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }
+                        }
+                     } ]
+                  }, {
+                     "type" : "Not",
+                     "operand" : {
+                        "type" : "IsNull",
+                        "operand" : {
+                           "name" : "getCurrentResponseByQuestionId",
+                           "type" : "FunctionRef",
+                           "operand" : [ {
+                              "name" : "question12LinkId",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }
+                     }
+                  } ]
+               }, {
+                  "name" : "DisplayScreeningScores",
+                  "type" : "ParameterRef"
+               } ]
+            }
+         }, {
+            "name" : "ScoreFullECOG12",
+            "context" : "Patient",
+            "accessLevel" : "Public",
+            "expression" : {
+               "type" : "Add",
+               "operand" : [ {
+                  "type" : "Add",
+                  "operand" : [ {
+                     "type" : "Add",
+                     "operand" : [ {
+                        "type" : "Add",
+                        "operand" : [ {
+                           "type" : "Add",
+                           "operand" : [ {
+                              "type" : "Add",
+                              "operand" : [ {
+                                 "type" : "Add",
+                                 "operand" : [ {
+                                    "type" : "Add",
+                                    "operand" : [ {
+                                       "type" : "Add",
+                                       "operand" : [ {
+                                          "type" : "Add",
+                                          "operand" : [ {
+                                             "type" : "Add",
+                                             "operand" : [ {
+                                                "name" : "ECOG12ScoreQuestion1",
+                                                "type" : "ExpressionRef"
+                                             }, {
+                                                "name" : "ECOG12ScoreQuestion2",
+                                                "type" : "ExpressionRef"
+                                             } ]
+                                          }, {
+                                             "name" : "ECOG12ScoreQuestion3",
+                                             "type" : "ExpressionRef"
+                                          } ]
+                                       }, {
+                                          "name" : "ECOG12ScoreQuestion4",
+                                          "type" : "ExpressionRef"
+                                       } ]
+                                    }, {
+                                       "name" : "ECOG12ScoreQuestion5",
+                                       "type" : "ExpressionRef"
+                                    } ]
+                                 }, {
+                                    "name" : "ECOG12ScoreQuestion6",
+                                    "type" : "ExpressionRef"
+                                 } ]
+                              }, {
+                                 "name" : "ECOG12ScoreQuestion7",
+                                 "type" : "ExpressionRef"
+                              } ]
+                           }, {
+                              "name" : "ECOG12ScoreQuestion8",
+                              "type" : "ExpressionRef"
+                           } ]
+                        }, {
+                           "name" : "ECOG12ScoreQuestion9",
+                           "type" : "ExpressionRef"
+                        } ]
+                     }, {
+                        "name" : "ECOG12ScoreQuestion10",
+                        "type" : "ExpressionRef"
+                     } ]
+                  }, {
+                     "name" : "ECOG12ScoreQuestion11",
+                     "type" : "ExpressionRef"
+                  } ]
+               }, {
+                  "name" : "ECOG12ScoreQuestion12",
+                  "type" : "ExpressionRef"
+               } ]
+            }
+         } ]
+      }
+   }
+}
+

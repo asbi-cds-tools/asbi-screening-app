@@ -1,0 +1,8 @@
+library:
+  name: ADL_IADLLogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/adl-iadl
+options:
+  dumpFiles:
+    enabled: true

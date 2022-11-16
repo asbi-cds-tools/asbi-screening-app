@@ -1,0 +1,6 @@
+$input-border-color: #b5b8b7;
+
+input[type=text] {
+    width: 100px;
+    border-bottom-color: $input-border-color;
+}

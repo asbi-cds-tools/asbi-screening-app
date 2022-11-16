@@ -1,0 +1,1199 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "CIRG-CP-ECOG",
+  "name": "CP-ECOG",
+  "title": "Everyday Cognition Care Partner Assessment (ECog-12 Care Partner)",
+  "status": "active",
+  "item": [
+    {
+      "linkId": "introduction",
+      "type": "display",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<p style='font-size:1.3em'>The <b>Everyday Cognition Care Partner Assessment</b> (ECog-12 Care Partner) is a brief questionnaire assessing the participant’s care recipient’s capability to perform normal everyday tasks, in comparison to activity levels 10 years prior, on a 5 point scale. Three domains are assessed: Memory, Language, and Executive Functioning.</br></br>Please read the following to the patient’s care partner:</br></br>“Please rate their ability to perform certain everyday tasks  NOW, as compared to their own baseline (for example you could compare their ability to do these same tasks 10 years ago). In other words, try to remember how they were doing 10 years ago and indicate any change in their level of ability.</br>Rate the amount of change on a five-point scale ranging from: 1) there has been no change in their ability compared to 10 years ago, 2) they occasionally perform the task worse but not all the time, 3) they consistently perform the task a little worse than 10 years ago, 4) they perform the task much worse than 10 years ago or, 5) I don’t know. Please tell me which option best describes your care recipient’s situation.”</br></br>These questions are to be answered by the <b>care partner</b>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89174-7",
+          "display": "Are you concerned that your care recipient has a memory or other thinking problem?"
+        }
+      ],
+      "required": false,
+      "linkId": "/89174-7",
+      "text": "Are you concerned that your care recipient has a memory or other thinking problem?",
+      "answerOption": [
+        {
+          "valueCoding": {
+            "code": "LA33-6",
+            "display": "Yes"
+          }
+        },
+        {
+          "valueCoding": {
+            "code": "LA32-8",
+            "display": "No"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89146-5",
+          "display": "Compared to 10 years ago, has there been any change in remembering where they have placed objects."
+        }
+      ],
+      "required": false,
+      "linkId": "/89286-9/89146-5",
+      "text": "Compared to 10 years ago, has there been any change in remembering where they have placed objects.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89149-9",
+          "display": "Compared to 10 years ago, has there been any change in remembering the current date or day of the week."
+        }
+      ],
+      "required": false,
+      "linkId": "/89286-9/89149-9",
+      "text": "Compared to 10 years ago, has there been any change in remembering the current date or day of the week.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89172-1",
+          "display": "Compared to 10 years ago, has there been any change in communicating thoughts in a conversation."
+        }
+      ],
+      "required": false,
+      "linkId": "/89287-7/89172-1",
+      "text": "Compared to 10 years ago, has there been any change in communicating thoughts in a conversation.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89138-2",
+          "display": "Compared to 10 years ago, has there been any change in understanding spoken directions or instructions."
+        }
+      ],
+      "required": false,
+      "linkId": "/89287-7/89138-2",
+      "text": "Compared to 10 years ago, has there been any change in understanding spoken directions or instructions.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89154-9",
+          "display": "Compared to 10 years ago, has there been any change in reading a map and helping with directions when someone else is driving."
+        }
+      ],
+      "required": false,
+      "linkId": "/89288-5/89154-9",
+      "text": "Compared to 10 years ago, has there been any change in reading a map and helping with directions when someone else is driving.",
+     "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89165-5",
+          "display": "Compared to 10 years ago, has there been any change in finding their way around a house/building visited many times."
+        }
+      ],
+      "required": false,
+      "linkId": "/89288-5/89165-5",
+      "text": "Compared to 10 years ago, has there been any change in finding their way around a house/building visited many times.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89143-2",
+          "display": "Compared to 10 years ago, has there been any change in the ability to anticipate weather changes and plan accordingly (i.e. bring a coat or umbrella)."
+        }
+      ],
+      "required": false,
+      "linkId": "/89289-3/89143-2",
+      "text": "Compared to 10 years ago, has there been any change in the ability to anticipate weather changes and plan accordingly (i.e. bring a coat or umbrella).",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89140-8",
+          "display": "Compared to 10 years ago, has there been any change in thinking ahead."
+        }
+      ],
+      "required": false,
+      "linkId": "/89289-3/89140-8",
+      "text": "Compared to 10 years ago, has there been any change in thinking ahead.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89158-0",
+          "display": "Compared to 10 years ago, has there been any change in keeping living and work space organized."
+        }
+      ],
+      "required": false,
+      "linkId": "/89290-1/89158-0",
+      "text": "Compared to 10 years ago, has there been any change in keeping living and work space organized.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89173-9",
+          "display": "Compared to 10 years ago, has there been any change in balancing the checkbook/account without error."
+        }
+      ],
+      "required": false,
+      "linkId": "/89290-1/89173-9",
+      "text": "Compared to 10 years ago, has there been any change in balancing the checkbook/account without error.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89141-6",
+          "display": "Compared to 10 years ago, has there been any change in the ability to do two things at once."
+        }
+      ],
+      "required": false,
+      "linkId": "/89285-1/89141-6",
+      "text": "Compared to 10 years ago, has there been any change in the ability to do two things at once.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "89171-3",
+          "display": "Compared to 10 years ago, has there been any change in cooking or working and talking at the same time."
+        }
+      ],
+      "required": false,
+      "linkId": "/89285-1/89171-3",
+      "text": "Compared to 10 years ago, has there been any change in cooking or working and talking at the same time.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28962-1",
+            "display": "There has been no change in their ability compared to 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA28963-9",
+            "display": "They occasionally perform the task worse but not all the time"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29135-3",
+            "display": "They consistently perform the task a little worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA29136-1",
+            "display": "They perform the task much worse than 10 years ago"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "9"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 9
+            }
+          ],
+          "valueCoding": {
+            "code": "LA15599-6",
+            "display": "I don’t know"
+          }
+        }
+      ]
+    },
+    {
+      "type": "decimal",
+      "required": false,
+      "linkId": "cp-ecog-total-score",
+      "text": "Total Score",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "DisplayScoreFullECOG12",
+            "reference": "#CP_ECOGLogicLibrary|1.0"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "ScoreFullECOG12",
+            "reference": "#CP_ECOGLogicLibrary|1.0"
+          }
+        }
+      ]
+    }
+  ]
+}

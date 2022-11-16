@@ -1,4 +1,4 @@
-library GAD7LogicLibrary version '1.0.0'
+library ADL_IADLLogicLibrary version '1.0.0'
 /* Change Log
 */
 
@@ -6,33 +6,25 @@ using FHIR version '4.0.1'
 
 include "FHIRHelpers" version '4.0.1' called FHIRHelpers
 
-// -----------------------------------------------------------------------------
-// CODESYSTEMS, VALUE SETS, CODES, AND CONCEPTS
-// -----------------------------------------------------------------------------
-
-codesystem "LOINC": 'http://loinc.org'
-codesystem "LOCAL": 'http://www.cdc.gov/ncbddd/fasd'
-
-
-// Local (non-standard) codes
-// Not sure if this qualifies as LOCAL...
-code "GAD7 Total Score code": '70274-6' from "LOCAL" display 'GAD7 Total Score'
 
 // -----------------------------------------------------------------------------
 // PARAMETERS
 // -----------------------------------------------------------------------------
 parameter DisplayScreeningScores default true
-parameter QuestionnaireName default 'gad7'
-parameter QuestionnaireURL default 'http://www.cdc.gov/ncbddd/fasd/gad7'
+parameter QuestionnaireName default 'adl-iadl'
+parameter QuestionnaireURL default 'http://www.cdc.gov/ncbddd/fasd/adl-iadl'
 
-define question1LinkId: '/69725-0'
-define question2LinkId: '/68509-9'
-define question3LinkId: '/69733-4'
-define question4LinkId: '/69734-2'
-define question5LinkId: '/69735-9'
-define question6LinkId: '/69689-8'
-define question7LinkId: '/69736-7'
-
+define question1LinkId: '/46595-5'
+define question2LinkId: '/46597-1'
+define question3LinkId: '/46599-7'
+define question4LinkId: '/57243-8'
+define question5LinkId: '/57244-6'
+define question6LinkId: '/57245-3'
+define question7LinkId: '/57246-1'
+define question8LinkId: '/57247-9'
+define question9LinkId: '/57248-7'
+define question10LinkId: '/57249-5'
+define question11LinkId: '/46569-0'
 
 // -----------------------------------------------------------------------------
 // PATIENT INFORMATION
@@ -43,31 +35,12 @@ context Patient
 define CurrentQuestionnaireURL:
   QuestionnaireURL
 
-// -----------------------------------------------------------------------------
-// FUNCTIONS
-// -----------------------------------------------------------------------------
-
-define function ToCode(coding FHIR.Coding):
-  FHIRHelpers.ToCode(coding)
-
-define function ToConcept(concept FHIR.CodeableConcept):
-  FHIRHelpers.ToConcept(concept)
-
-// From the CDS Connect Commons Library
-// Available from the Agency for Healthcare Research and Quality (AHRQ) under an 
-// Apache 2.0 license. See https://cds.ahrq.gov
-define function PeriodToInterval(period FHIR.Period):
-  if period is null then
-    null
-  else
-    Interval[period."start".value, period."end".value]
-
 //------------------------------------------------------------------------------
 // QUESTIONNAIRE AND QUESTIONNAIRERESPONSE LOGIC
 //------------------------------------------------------------------------------
 
 // Load Questionnaire
-define Gad7Questionnaire:
+define ADL_IADL_Questionnaire:
   singleton from ([Questionnaire] Q
     where (
       Q.url.value = CurrentQuestionnaireURL or
@@ -77,7 +50,7 @@ define Gad7Questionnaire:
 
 // Extract of the link IDs of each item in the Questionnaire
 define ItemLinkIds:
-  Gad7Questionnaire Q
+  ADL_IADL_Questionnaire Q
   let item: Q.item
   return item.linkId.value
 
@@ -90,14 +63,18 @@ define IndexOfQuestion:
     four: IndexOf(ItemLinkIds, question4LinkId),
     five: IndexOf(ItemLinkIds, question5LinkId),
     six: IndexOf(ItemLinkIds, question6LinkId),
-    seven: IndexOf(ItemLinkIds, question7LinkId)
+    seven: IndexOf(ItemLinkIds, question7LinkId),
+    eight: IndexOf(ItemLinkIds, question8LinkId),
+    nine: IndexOf(ItemLinkIds, question9LinkId),
+    ten: IndexOf(ItemLinkIds, question10LinkId),
+    eleven: IndexOf(ItemLinkIds, question11LinkId)
   }
 
 define QuestionnaireResponses:
   ([QuestionnaireResponse] QR
     where (
       QR.questionnaire.value = CurrentQuestionnaireURL or
-      PositionOf(Gad7Questionnaire.id, QR.questionnaire.value)  != -1)
+      PositionOf(ADL_IADL_Questionnaire.id, QR.questionnaire.value)  != -1)
     sort by authored desc
   )
 
@@ -138,8 +115,8 @@ define function getCurrentResponseByQuestionId(qid String):
  @return code value for the answer
  */
 define function getAnswerOptionCodeValue(qIndex Integer):
-  if Gad7Questionnaire.item[qIndex] is not null then
-    Gad7Questionnaire.item[qIndex].answerOption.value.code.value
+  if ADL_IADL_Questionnaire.item[qIndex] is not null then
+    ADL_IADL_Questionnaire.item[qIndex].answerOption.value.code.value
   else
     null
 
@@ -160,7 +137,7 @@ define function getQuestionScore(qIndex Integer, qId String):
     let
       qAnswerOptionCode: getAnswerOptionCodeValue(qIndex),
       qResponseIndex: if qResponse is not null then IndexOf(qAnswerOptionCode, qResponse.code.value as String) else -1,
-      extensionItem: Gad7Questionnaire.item[qIndex].answerOption[qResponseIndex].extension
+      extensionItem: ADL_IADL_Questionnaire.item[qIndex].answerOption[qResponseIndex].extension
     return
       if qResponseIndex != -1 then
         if extensionItem is not null then
@@ -170,35 +147,85 @@ define function getQuestionScore(qIndex Integer, qId String):
         null
       
 // Question 1
-define Gad7ScoreQuestion1:
-  getQuestionScore(IndexOfQuestion.one, question1LinkId)
+define ADL_IADL_ScoreQuestion1:
+  (getQuestionScore(IndexOfQuestion.one, question1LinkId)) score
+  return
+    if score is null then 0
+    else score
 
 // Question 2
-define Gad7ScoreQuestion2:
-  getQuestionScore(IndexOfQuestion.two, question2LinkId)
+define ADL_IADL_ScoreQuestion2:
+  (getQuestionScore(IndexOfQuestion.two, question2LinkId)) score
+  return 
+    if score is null then 0
+    else score
 
 // Question 3
-define Gad7ScoreQuestion3:
-  getQuestionScore(IndexOfQuestion.three, question3LinkId)
+define ADL_IADL_ScoreQuestion3:
+  (getQuestionScore(IndexOfQuestion.three, question3LinkId)) score
+  return
+    if score is null then 0
+    else score
 
 // Question 4
-define Gad7ScoreQuestion4:
-  getQuestionScore(IndexOfQuestion.four, question4LinkId)
+define ADL_IADL_ScoreQuestion4:
+  (getQuestionScore(IndexOfQuestion.four, question4LinkId)) score
+  return
+    if score is null then 0
+    else score
 
 // Question 5
-define Gad7ScoreQuestion5:
-  getQuestionScore(IndexOfQuestion.five, question5LinkId)
+define ADL_IADL_ScoreQuestion5:
+  (getQuestionScore(IndexOfQuestion.five, question5LinkId)) score
+  return
+    if score is null then 0
+    else score
 
 // Question 6
-define Gad7ScoreQuestion6:
-  getQuestionScore(IndexOfQuestion.six, question6LinkId)
+define ADL_IADL_ScoreQuestion6:
+  (getQuestionScore(IndexOfQuestion.six, question6LinkId)) score
+  return
+    if score is null then 0
+    else score
 
 // Question 7
-define Gad7ScoreQuestion7:
-  getQuestionScore(IndexOfQuestion.seven, question7LinkId)
+define ADL_IADL_ScoreQuestion7:
+  (getQuestionScore(IndexOfQuestion.seven, question7LinkId)) score
+  return
+    if score is null then 0
+    else score
 
-// Should the score for the Full GAD7 be displayed?
-define DisplayScoreFullGad7:
+// Question 8
+define ADL_IADL_ScoreQuestion8:
+  (getQuestionScore(IndexOfQuestion.eight, question8LinkId)) score
+  return
+    if score is null then 0
+    else score
+
+// Question 9
+define ADL_IADL_ScoreQuestion9:
+  (getQuestionScore(IndexOfQuestion.nine, question9LinkId)) score
+  return
+    if score is null then 0
+    else score
+
+// Question 10
+define ADL_IADL_ScoreQuestion10:
+  (getQuestionScore(IndexOfQuestion.ten, question10LinkId)) score
+  return
+    if score is null then 0
+    else score
+
+// Question 11
+define ADL_IADL_ScoreQuestion11:
+  (getQuestionScore(IndexOfQuestion.eleven, question11LinkId)) score
+  return
+    if score is null then 0
+    else score
+
+
+// Should the score for the Full ADL_IADL be displayed?
+define DisplayScoreFullADL_IADL:
    (
     (getCurrentResponseByQuestionId(question1LinkId)) is not null or 
     (getCurrentResponseByQuestionId(question2LinkId)) is not null or
@@ -206,17 +233,25 @@ define DisplayScoreFullGad7:
     (getCurrentResponseByQuestionId(question4LinkId)) is not null or 
     (getCurrentResponseByQuestionId(question5LinkId)) is not null or
     (getCurrentResponseByQuestionId(question6LinkId)) is not null or
-    (getCurrentResponseByQuestionId(question7LinkId)) is not null
+    (getCurrentResponseByQuestionId(question7LinkId)) is not null or
+    (getCurrentResponseByQuestionId(question8LinkId)) is not null or
+    (getCurrentResponseByQuestionId(question9LinkId)) is not null or
+    (getCurrentResponseByQuestionId(question10LinkId)) is not null or
+    (getCurrentResponseByQuestionId(question11LinkId)) is not null
    ) // at least one response for all the questions
     and DisplayScreeningScores // Input parameter which allows score display to be disabled
 
-// Calculate the score for the Full GAD7
+// Calculate the score for the Full ADL_IADL
 // sum up all numeric values for all the answers
-define ScoreFullGad7:
-  Gad7ScoreQuestion1
-  + Gad7ScoreQuestion2
-  + Gad7ScoreQuestion3
-  + Gad7ScoreQuestion4
-  + Gad7ScoreQuestion5
-  + Gad7ScoreQuestion6
-  + Gad7ScoreQuestion7
+define ScoreFullADL_IADL:
+  Coalesce(ADL_IADL_ScoreQuestion1, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion2, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion3, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion4, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion5, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion6, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion7, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion8, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion9, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion10, 0)
+  + Coalesce(ADL_IADL_ScoreQuestion11, 0)

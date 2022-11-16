@@ -112,11 +112,10 @@ export async function getScreeningInstrument(client, patientId) {
     ).then((module) => module.default);
     return [questionnaireNidaQs, elmJsonNidaQs, valueSetJson];
   } else {
-    const nameSearchString = screeningInstrument.split("-").join(",");
     const searchData = await Promise.all([
       // look up the questionnaire based on whether the id or the name attribute matches the specified instrument id?
       client.request("/Questionnaire/?_id=" + screeningInstrument),
-      client.request("/Questionnaire?name:contains=" + nameSearchString),
+      client.request("/Questionnaire?name:contains=" + screeningInstrument),
     ]).catch((e) => {
       throw new Error(
         `Error retrieving questionnaire from SoF host server: ${e}`

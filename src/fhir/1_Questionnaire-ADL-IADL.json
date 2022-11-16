@@ -1,0 +1,1127 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "CIRG-ADL-IADL",
+  "name": "ADL-IADL",
+  "code": [
+    {
+      "code": "69337-4",
+      "display": "ADL/IADLs"
+    }
+  ],
+  "title": "Functional Impairments (ADL/IADLs)",
+  "status": "draft",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire|2.7"
+    ],
+    "tag": [
+      {
+        "code": "lformsVersion: 32.0.0"
+      }
+    ]
+  },
+  "item": [
+    {
+      "linkId": "introduction",
+      "type": "display",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<p style='font-size:1.3em'>The <b>ADLs/IADLs - Functional Impairment Assessment</b> is a eleven-item questionnaire about the patient’s current grooming and self-care ability.</br></br>These questions are to be answered by the <b>care partner</b>.</p>"
+          }
+        ]
+      }
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "46595-5",
+          "display": "Grooming: Current ability to tend safely to personal hygiene needs (specifically: washing face and hands, hair care, shaving or make up, teeth or denture care, or fingernail care)."
+        }
+      ],
+      "required": false,
+      "linkId": "/46595-5",
+      "text": "Grooming: Current ability to tend safely to personal hygiene needs (specifically: washing face and hands, hair care, shaving or make up, teeth or denture care, or fingernail care).",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6131-2",
+            "display": "Able to groom self unaided, with or without the use of assistive devices or adapted methods."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6207-0",
+            "display": "Grooming utensils must be placed within reach before able to complete grooming activities."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6379-7",
+            "display": "Someone must assist the patient to groom self."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6326-8",
+            "display": "Patient depends entirely upon someone else for grooming needs."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "46597-1",
+          "display": "Current Ability to Dress Upper Body safely (with or without dressing aids) including undergarments, pullovers, front-opening shirts and blouses, managing zippers, buttons, and snaps."
+        }
+      ],
+      "required": false,
+      "linkId": "/46597-1",
+      "text": "Current Ability to Dress Upper Body safely (with or without dressing aids) including undergarments, pullovers, front-opening shirts and blouses, managing zippers, buttons, and snaps.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6129-6",
+            "display": "Able to get clothes out of closets and drawers, put them on and remove them from the upper body without assistance."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6127-0",
+            "display": "Able to dress upper body without assistance if clothing is laid out or handed to the patient."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6381-3",
+            "display": "Someone must help the patient put on upper body clothing."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6325-0",
+            "display": "Patient depends entirely upon another person to dress the upper body."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "46599-7",
+          "display": "Current Ability to Dress Lower Body safely (with or without dressing aids) including undergarments, slacks, socks or nylons, shoes."
+        }
+      ],
+      "required": false,
+      "linkId": "/46599-7",
+      "text": "Current Ability to Dress Lower Body safely (with or without dressing aids) including undergarments, slacks, socks or nylons, shoes.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6138-7",
+            "display": "Able to obtain, put on, and remove clothing and shoes without assistance."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6126-2",
+            "display": "Able to dress lower body without assistance if clothing and shoes are laid out or handed to the patient."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6380-5",
+            "display": "Someone must help the patient put on undergarments, slacks, socks or nylons, and shoes."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6324-3",
+            "display": "Patient depends entirely upon another person to dress lower body."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57243-8",
+          "display": "Bathing: Current ability to wash entire body safely. Excludes grooming (washing face, washing hands, and shampooing hair)."
+        }
+      ],
+      "required": false,
+      "linkId": "/57243-8",
+      "text": "Bathing: Current ability to wash entire body safely. Excludes grooming (washing face, washing hands, and shampooing hair).",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12264-0",
+            "display": "Able to bathe self in shower or tub independently, including getting in and out of tub/shower."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12265-7",
+            "display": "With the use of devices, is able to bathe self in shower or tub independently, including getting in and out of the tub/shower."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12266-5",
+            "display": "Able to bathe in shower or tub with the intermittent assistance of another person: (a) for intermittent supervision or encouragement or reminders, OR (b) to get in and out of the shower or tub, OR (c) for washing difficult to reach areas."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12267-3",
+            "display": "Able to participate in bathing self in shower or tub, but requires presence of another person throughout the bath for assistance or supervision."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12268-1",
+            "display": "Unable to use the shower or tub, but able to bathe self independently with or without the use of devices at the sink, in chair, or on commode."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "5"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 5
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12269-9",
+            "display": "Unable to use the shower or tub, but able to participate in bathing self in bed, at the sink, in bedside chair, or on commode, with the assistance or supervision of another person."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "6"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 6
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12270-7",
+            "display": "Unable to participate effectively in bathing and is bathed totally by another person."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57244-6",
+          "display": "Toilet Transferring: Current ability to get to and from the toilet or bedside commode safely and transfer on and off toilet/commode."
+        }
+      ],
+      "required": false,
+      "linkId": "/57244-6",
+      "text": "Toilet Transferring: Current ability to get to and from the toilet or bedside commode safely and transfer on and off toilet/commode.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12271-5",
+            "display": "Able to get to and from the toilet and transfer independently with or without a device."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12272-3",
+            "display": "When reminded, assisted, or supervised by another person, able to get to and from the toilet and transfer."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6415-9",
+            "display": "Unable to get to and from the toilet but is able to use a bedside commode (with or without assistance)."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6416-7",
+            "display": "Unable to get to and from the toilet or bedside commode but is able to use a bedpan/urinal independently."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6245-0",
+            "display": "Is totally dependent in toileting."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57245-3",
+          "display": "Toileting Hygiene: Current ability to maintain perineal hygiene safely, adjust clothes and/or incontinence pads before and after using toilet, commode, bedpan, urinal. If managing ostomy, includes cleaning area around stoma, but not managing equipment."
+        }
+      ],
+      "required": false,
+      "linkId": "/57245-3",
+      "text": "Toileting Hygiene: Current ability to maintain perineal hygiene safely, adjust clothes and/or incontinence pads before and after using toilet, commode, bedpan, urinal. If managing ostomy, includes cleaning area around stoma, but not managing equipment.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12276-4",
+            "display": "Able to manage toileting hygiene and clothing management without assistance."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12277-2",
+            "display": "Able to manage toileting hygiene and clothing management without assistance if supplies/implements are laid out for the patient."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12278-0",
+            "display": "Someone must help the patient to maintain toileting hygiene and/or adjust clothing."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12279-8",
+            "display": "Patient depends entirely upon another person to maintain toileting hygiene."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57246-1",
+          "display": "Transferring: Current ability to move safely from bed to chair, or ability to turn and position self in bed if patient is bedfast."
+        }
+      ],
+      "required": false,
+      "linkId": "/57246-1",
+      "text": "Transferring: Current ability to move safely from bed to chair, or ability to turn and position self in bed if patient is bedfast.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6136-1",
+            "display": "Able to independently transfer."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12281-4",
+            "display": "Able to transfer with minimal human assistance or with use of an assistive device."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12282-2",
+            "display": "Able to bear weight and pivot during the transfer process but unable to transfer self."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6426-6",
+            "display": "Unable to transfer self and is unable to bear weight or pivot when transferred by another person."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6161-9",
+            "display": "Bedfast, unable to transfer but is able to turn and position self in bed."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "5"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 5
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6160-1",
+            "display": "Bedfast, unable to transfer and is unable to turn and position self."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57247-9",
+          "display": "Ambulation/Locomotion: Current ability to walk safely, once in a standing position, or use a wheelchair, once in a seated position, on a variety of surfaces."
+        }
+      ],
+      "required": false,
+      "linkId": "/57247-9",
+      "text": "Ambulation/Locomotion: Current ability to walk safely, once in a standing position, or use a wheelchair, once in a seated position, on a variety of surfaces.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12286-3",
+            "display": "Able to independently walk on even and uneven surfaces and negotiate stairs with or without railings (specifically: needs no human assistance or assistive device)."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12287-1",
+            "display": "With the use of a one-handed device (for example, cane, single crutch, hemi-walker), able to independently walk on even and uneven surfaces and negotiate stairs with or without railings."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12288-9",
+            "display": "Requires use of a two-handed device (for example, walker or crutches) to walk alone on a level surface and/or requires human supervision or assistance to negotiate stairs or steps or uneven surfaces."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6147-8",
+            "display": "Able to walk only with the supervision or assistance of another person at all times."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6171-8",
+            "display": "Chairfast, unable to ambulate but is able to wheel self independently."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "5"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 5
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6170-0",
+            "display": "Chairfast, unable to ambulate and is unable to wheel self."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "6"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 6
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6159-3",
+            "display": "Bedfast, unable to ambulate or be up in a chair."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57248-7",
+          "display": "Feeding or Eating: Current ability to feed self meals and snacks safely."
+        }
+      ],
+      "required": false,
+      "linkId": "/57248-7",
+      "text": "Feeding or Eating: Current ability to feed self meals and snacks safely.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6133-8",
+            "display": "Able to independently feed self."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12294-7",
+            "display": "Able to feed self independently but requires: (a) meal set-up; OR (b) intermittent assistance or supervision from another person; OR (c) a liquid, pureed or ground meat diet."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6414-2",
+            "display": "Unable to feed self and must be assisted or supervised throughout the meal/snack."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6142-9",
+            "display": "Able to take in nutrients orally AND receives supplemental nutrients through a nasogastric tube or gastrostomy."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6422-5",
+            "display": "Unable to take in nutrients orally and is fed nutrients through a nasogastric tube or gastrostomy."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "5"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 5
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6423-3",
+            "display": "Unable to take in nutrients orally or by tube feeding."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "57249-5",
+          "display": "Current Ability to Plan and Prepare Light Meals (for example, cereal, sandwich) or reheat delivered meals safely."
+        }
+      ],
+      "required": false,
+      "linkId": "/57249-5",
+      "text": "Current Ability to Plan and Prepare Light Meals (for example, cereal, sandwich) or reheat delivered meals safely.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA12299-6",
+            "display": "Able to independently plan and prepare all light meals for self or reheat delivered meals; or Is physically, cognitively, and mentally able to prepare light meals on a regular basis but has not routinely performed light meal preparation in the past."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6420-9",
+            "display": "Unable to prepare light meals on a regular basis due to physical, cognitive, or mental limitations."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6419-1",
+            "display": "Unable to prepare any light meals or reheat any delivered meals."
+          }
+        }
+      ]
+    },
+    {
+      "type": "choice",
+      "code": [
+        {
+          "code": "46569-0",
+          "display": "Ability to Use Telephone: Current ability to answer the phone safely, including dialing numbers, and effectively using the telephone to communicate."
+        }
+      ],
+      "required": false,
+      "linkId": "/46569-0",
+      "text": "Ability to Use Telephone: Current ability to answer the phone safely, including dialing numbers, and effectively using the telephone to communicate.",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6124-7",
+            "display": "Able to dial numbers and answer calls appropriately and as desired."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6146-0",
+            "display": "Able to use a specially adapted telephone (for example, large numbers on the dial, teletype phone for the deaf) and call essential numbers."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "2"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 2
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6121-3",
+            "display": "Able to answer the telephone and carry on a normal conversation but has difficulty with placing calls."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "3"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 3
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6122-1",
+            "display": "Able to answer the telephone only some of the time or is able to carry on only a limited conversation."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "4"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 4
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6409-2",
+            "display": "Unable to answer the telephone at all but can listen if assisted with equipment."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "5"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 5
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6400-1",
+            "display": "Totally unable to use the telephone."
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "NA"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueString": "NA"
+            }
+          ],
+          "valueCoding": {
+            "code": "LA6327-6",
+            "display": "Patient does not have a telephone."
+          }
+        }
+      ]
+    },
+    {
+      "type": "decimal",
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-enableWhenExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "DisplayScoreFullADL_IADL",
+            "reference": "#ADL_IADLLogicLibrary|1.0"
+          }
+        },
+        {
+          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-calculatedExpression",
+          "valueExpression": {
+            "language": "text/cql",
+            "expression": "ScoreFullADL_IADL",
+            "reference": "#ADL_IADLLogicLibrary|1.0"
+          }
+        }
+      ],
+      "required": false,
+      "linkId": "adl-iadls-total-score",
+      "text": "ADL/IADLS 11 item total score"
+    }
+  ]
+}

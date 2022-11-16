@@ -39,6 +39,6 @@ module.exports = {
     launch: './src/launch.js'
   },
   transpileDependencies: [
-    'vuetify'
+    'vuetify', 'questionnaire-to-survey'
   ]
 }

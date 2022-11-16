@@ -1,0 +1,8 @@
+library:
+  name: ECOG12LogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/ecog12
+options:
+  dumpFiles:
+    enabled: true

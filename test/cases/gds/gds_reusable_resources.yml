@@ -1,0 +1,134 @@
+gds_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG/GDS
+  code: LOINC#48543-3 Geriatric depression scale (GDS).short version panel
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: http://www.cdc.gov/ncbddd/fasd/gds
+  status: in-progress
+  authored: 2030-04-18
+
+# value code for each answer option (for question 1 ~ question 9, question 10 has a different answer option set)
+# answer option 1 value code
+- &answerOption1ValueCode
+  code: LA33-6
+  display: Yes
+# answer option 2 value code
+- &answerOption2ValueCode
+  code: LA32-8
+  display: No
+
+# answer option 1
+- &answerOption1
+  extension:
+  -
+    url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+    valueDecimal: 1
+  valueCoding: *answerOption1ValueCode
+# answer option 2
+- &answerOption2
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 0
+  valueCoding: *answerOption2ValueCode
+
+# answer options, apply to question 1 ~ 9, question 10 has a different set of answer options
+- &questionnaireAnswerOptions
+  - *answerOption1
+  - *answerOption2
+
+# anchor for each question link Id
+- GDSQuestion1LinkId: &q1LinkId /48512-8
+- GDSQuestion2LinkId: &q2LinkId /48513-6
+- GDSQuestion3LinkId: &q3LinkId /48514-4
+- GDSQuestion4LinkId: &q4LinkId /48515-1
+- GDSQuestion5LinkId: &q5LinkId /48518-5
+- GDSQuestion6LinkId: &q6LinkId /48519-3
+- GDSQuestion7LinkId: &q7LinkId /48520-1
+- GDSQuestion8LinkId: &q8LinkId /48521-9
+- GDSQuestion9LinkId: &q9LinkId /48523-5
+- GDSQuestion10LinkId: &q10LinkId /48525-0
+- GDSQuestion11LinkId: &q11LinkId /48526-8
+- GDSQuestion12LinkId: &q12LinkId /48528-4
+- GDSQuestion13LinkId: &q13LinkId /48532-6
+- GDSQuestion14LinkId: &q14LinkId /48533-4
+- GDSQuestion15LinkId: &q15LinkId /48534-2
+
+# questions
+- &GDSQuestion1
+  linkId: *q1LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion2
+  linkId: *q2LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion3
+  linkId: *q3LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion4
+  linkId: *q4LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion5
+  linkId: *q5LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion6
+  linkId: *q6LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion7
+  linkId: *q7LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion8
+  linkId: *q8LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion9
+  linkId: *q9LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion10
+  linkId: *q10LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion11
+  linkId: *q11LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion12
+  linkId: *q12LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion13
+  linkId: *q13LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion14
+  linkId: *q14LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &GDSQuestion15
+  linkId: *q15LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions

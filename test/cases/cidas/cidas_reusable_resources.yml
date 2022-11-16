@@ -1,0 +1,173 @@
+cidas_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG-C-IDAS
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-C-IDAS
+  status: in-progress
+  authored: 2030-04-18
+
+# value code for each answer option (for question 1 ~ question 18
+# answer option 1 value code
+- &answerOption1ValueCode
+  code: LA9634-2
+  display: Absent
+# answer option 2 value code
+- &answerOption2ValueCode
+  code: LA6752-5
+  display: Mild or intermittent
+# answer option 3 value code
+- &answerOption3ValueCode
+  code: LA6750-9
+  display: Severe
+# answer option 4 value code
+- &answerOption4ValueCode
+  code: LA4489-6
+  display: Unable to evaluate
+
+
+# answer option 1
+- &answerOption1
+  extension:
+  -
+    url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+    valueDecimal: 0
+  valueCoding: *answerOption1ValueCode
+# answer option 2
+- &answerOption2
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 1
+  valueCoding: *answerOption2ValueCode
+# answer option 3
+- &answerOption3
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 2
+  valueCoding: *answerOption3ValueCode
+# answer option 4
+- &answerOption4
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueString: a
+  valueCoding: *answerOption4ValueCode
+  
+# answer options, apply to question 1 ~ 18
+- &questionnaireAnswerOptions
+  - *answerOption1
+  - *answerOption2
+  - *answerOption3
+  - *answerOption4
+
+# anchor for each question link Id
+- Question1LinkId: &q1LinkId cs-idas-1
+- Question2LinkId: &q2LinkId cs-idas-2
+- Question3LinkId: &q3LinkId cs-idas-3
+- Question4LinkId: &q4LinkId cs-idas-4
+- Question5LinkId: &q5LinkId cs-idas-5
+- Question6LinkId: &q6LinkId cs-idas-6
+- Question7LinkId: &q7LinkId cs-idas-7
+- Question8LinkId: &q8LinkId cs-idas-8
+- Question9LinkId: &q9LinkId cs-idas-9
+- Question10LinkId: &q10LinkId cs-idas-10
+- Question11LinkId: &q11LinkId cs-idas-11
+- Question12LinkId: &q12LinkId cs-idas-12
+- Question13LinkId: &q13LinkId cs-idas-13
+- Question14LinkId: &q14LinkId cs-idas-14
+- Question15LinkId: &q15LinkId cs-idas-15
+- Question16LinkId: &q16LinkId cs-idas-16
+- Question17LinkId: &q17LinkId cs-idas-17
+- Question18LinkId: &q18LinkId cs-idas-18
+
+# questions
+- &Question1
+  linkId: *q1LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question2
+  linkId: *q2LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question3
+  linkId: *q3LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question4
+  linkId: *q4LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question5
+  linkId: *q5LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question6
+  linkId: *q6LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question7
+  linkId: *q7LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question8
+  linkId: *q8LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question9
+  linkId: *q9LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question10
+  linkId: *q10LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question11
+  linkId: *q11LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question12
+  linkId: *q12LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question13
+  linkId: *q13LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question14
+  linkId: *q14LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question15
+  linkId: *q15LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question16
+  linkId: *q16LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question17
+  linkId: *q17LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question18
+  linkId: *q18LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions

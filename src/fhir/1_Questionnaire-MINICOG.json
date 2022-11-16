@@ -28,6 +28,18 @@
   ],
   "item": [
     {
+      "linkId": "introduction",
+      "type": "display",
+      "_text": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
+            "valueString": "<p style='font-size:1.3em'>The <b>Mini-Cog©</b> is a fast and simple screening test to help detect dementia in its early stages.</br></br>Please administer the Mini-Cog© questionnaire on paper to the patient and enter the results on the following page.</br>These questions are to be answered by the <b>patient</b>.</p>"
+          }
+        ]
+      }
+    },
+    {
       "linkId": "minicog-question1",
       "type": "decimal",
       "text": "Word Recall (0-3 points)",
@@ -87,8 +99,7 @@
       "linkId": "minicog-total-score",
       "text": "Total Score (0 - 5 points)",
       "type": "decimal",
-      "required": false,
-      "readOnly": true
+      "required": false
     },
     {
       "linkId": "minicog-total-score-explanation",

@@ -1,0 +1,83 @@
+# test question 1 to 11 each with the option 6 (value 5)
+---
+name: ADL_IADL Total Score (all 5)
+externalData:
+- adl_iadl_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+  - *Question2
+  - *Question3
+  - *Question4
+  - *Question5
+  - *Question6
+  - *Question7
+  - *Question8
+  - *Question9
+  - *Question10
+  - *Question11
+
+- <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 2
+    linkId: *q2LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 3
+    linkId: *q3LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 4
+    linkId: *q4LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 5
+    linkId: *q5LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 6
+    linkId: *q6LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 7
+    linkId: *q7LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 8
+    linkId: *q8LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 9
+    linkId: *q9LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 10
+    linkId: *q10LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+  - # question 11
+    linkId: *q11LinkId
+    answer:
+    -
+      valueCoding: *answerOption6ValueCode
+
+results:
+  ADL_IADL_Questionnaire: $should exist
+  CurrentQuestionnaireResponse: $should exist  # make sure questionnaire responses are returned
+  ScoreFullADL_IADL: 55 # total score

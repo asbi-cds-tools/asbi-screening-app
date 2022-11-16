@@ -1,0 +1,8 @@
+library:
+  name: GdsLogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/gds
+options:
+  dumpFiles:
+    enabled: true
