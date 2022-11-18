@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-jt",
+  "birthDate": "1942-03-03",
+  "gender": "male",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN2"
+    }
+  ],
+  "name": [
+    {
+      "family": "Tribbiani",
+      "given": [
+        "Joey"
+      ]
+    }
+  ]
+}

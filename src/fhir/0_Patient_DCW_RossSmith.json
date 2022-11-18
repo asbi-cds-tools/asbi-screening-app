@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-rs",
+  "birthDate": "1932-02-02",
+  "gender": "male",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN1"
+    }
+  ],
+  "name": [
+    {
+      "family": "Smith",
+      "given": [
+        "Ross"
+      ]
+    }
+  ]
+}

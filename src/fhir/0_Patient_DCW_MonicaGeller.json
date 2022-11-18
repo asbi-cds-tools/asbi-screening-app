@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-mg",
+  "birthDate": "1952-04-04",
+  "gender": "female",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN3"
+    }
+  ],
+  "name": [
+    {
+      "family": "Geller",
+      "given": [
+        "Monica"
+      ]
+    }
+  ]
+}
