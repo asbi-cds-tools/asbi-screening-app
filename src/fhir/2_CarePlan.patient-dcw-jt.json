@@ -1,0 +1,99 @@
+{
+    "resourceType": "CarePlan",
+    "id": "CarePlan-patient-dcw-jt",
+    "description": "Hand-coded CarePlan for patient-dcw-jt",
+    "status": "active",
+    "intent": "order",
+    "category": [
+        {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "719091000000102",
+                    "display": "Questionnaire"
+                }
+            ],
+            "text": "Questionnaire"
+        }
+    ],
+    "subject": {
+        "reference": "Patient/patient-dcw-jt"
+    },
+    "activity": [
+        {
+            "detail": {
+                "instantiatesCanonical": [
+                    "Questionnaire/CIRG-ECOG12"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "719091000000102",
+                            "display": "Questionnaire"
+                        }
+                    ],
+                    "text": "ECOG12 questionnaire"
+                },
+                "status": "scheduled",
+                "scheduledTiming": {
+                    "repeat": {
+                        "frequency": 1,
+                        "period": 1,
+                        "periodUnit": "d"
+                    }
+                }
+            }
+        },
+        {
+            "detail": {
+                "instantiatesCanonical": [
+                    "Questionnaire/MINICOG"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "719091000000102",
+                            "display": "Questionnaire"
+                        }
+                    ],
+                    "text": "Mini-Cog"
+                },
+                "status": "scheduled",
+                "scheduledTiming": {
+                    "repeat": {
+                        "frequency": 1,
+                        "period": 1,
+                        "periodUnit": "d"
+                    }
+                }
+            }
+        },
+        {
+            "detail": {
+                "instantiatesCanonical": [
+                    "Questionnaire/CIRG-SLUMS"
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "719091000000102",
+                            "display": "Questionnaire"
+                        }
+                    ],
+                    "text": "SLUMS questionnaire"
+                },
+                "status": "scheduled",
+                "scheduledTiming": {
+                    "repeat": {
+                        "frequency": 1,
+                        "period": 1,
+                        "periodUnit": "d"
+                    }
+                }
+            }
+        }
+    ]
+}
