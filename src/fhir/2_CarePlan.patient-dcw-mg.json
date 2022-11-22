@@ -1,7 +1,7 @@
 {
     "resourceType": "CarePlan",
-    "id": "CarePlan-patient-dcw-rs",
-    "description": "Hand-coded CarePlan for patient-dcw-rs",
+    "id": "CarePlan-patient-dcw-mg",
+    "description": "Hand-coded CarePlan for patient-dcw-mg",
     "status": "active",
     "intent": "order",
     "category": [
@@ -17,7 +17,7 @@
         }
     ],
     "subject": {
-        "reference": "Patient/patient-dcw-rs"
+        "reference": "Patient/patient-dcw-mg"
     },
     "activity": [
         {
