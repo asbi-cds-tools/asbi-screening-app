@@ -21,6 +21,7 @@ export default {
       "$main-color": colors.teal.darken2,
       "$main-hover-color": colors.teal.darken3,
       "$header-color": colors.teal.darken3,
+      "$text-border-color": colors.teal.darken3,
     },
   },
   dcw: {
@@ -44,6 +45,7 @@ export default {
       "$main-color": colors.deepPurple.darken2,
       "$main-hover-color": colors.deepPurple.darken3,
       "$header-color": colors.deepPurple.darken3,
+      "$text-border-color": colors.deepPurple.darken3,
     },
   },
   // project specific theme here

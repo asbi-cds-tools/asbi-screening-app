@@ -351,6 +351,21 @@ export default {
       //add validation to question
       this.survey.onValidateQuestion.add(this.getSurveyQuestionValidator());
 
+      this.survey.onCurrentPageChanged.add(function() {
+        setTimeout(() => {
+          // find all question elements
+          const questionElements = document.querySelectorAll(".sv-question");
+          if (questionElements.length) {
+            // get the first question
+            const firstQuestionElement = questionElements[0];
+            // check if the first question contains a text input field
+            const inputTextElement = firstQuestionElement.querySelector("input[type='text']");
+            // if so, focus on it
+            if (inputTextElement) inputTextElement.focus();
+          }
+        }, 300);
+      }),
+
       // Add an event listener which updates questionnaireResponse based upon user responses
       this.survey.onValueChanging.add(
         function(sender, options) {

@@ -47,6 +47,10 @@ body {
     padding: 8px 0 40px;
     max-width: 900px;
     margin: auto;
+
+    input[type=text]:focus {
+        border-bottom-width: 2px;
+    }
 }
 .sv-container-modern__title {
     padding-top: 1em;
