@@ -22,7 +22,7 @@
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/rendering-xhtml",
-            "valueString": "<div style='font-size:1.3em'><b>BEHAVE 5+</b> is a YES/NO assessment of six high-impact behaviors of the patient over the last month.</br></br>These questions are to be answered by the <b>care partner</b>.</div>"
+            "valueString": "<div style='font-size:1.3em'><b>BEHAV5+</b> is a YES/NO assessment of six high-impact behaviors of the patient over the last month.</br></br>These questions are to be answered by the <b>care partner</b>.</div>"
           }
         ]
       }
@@ -30,7 +30,7 @@
     {
       "type": "choice",
       "linkId": "behav-1",
-      "text": "Does your care recipient get angry or hostile? Resist care from others?",
+      "text": "AGITATION/AGGRESSION: Does your care recipient get angry or hostile? Resist care from others?",
       "answerOption": [
         {
           "extension": [
@@ -69,7 +69,7 @@
     {
       "type": "choice",
       "linkId": "behav-2",
-      "text": "Does your care recipient see and/or hear things that no one else can see or hear?",
+      "text": "HALLUCINATIONS: Does your care recipient see and/or hear things that no one else can see or hear?",
       "answerOption": [
         {
           "extension": [
@@ -109,7 +109,7 @@
       "type": "choice",
       "required": false,
       "linkId": "behav-3",
-      "text": "Does your care recipient act impatient and cranky? Does his or her mood frequently change for no apparent reason? ",
+      "text": "IRRITABILITY/ FREQUENTLY CHANGING MOOD: Does your care recipient act impatient and cranky? Does his or her mood frequently change for no apparent reason? ",
       "answerOption": [
         {
           "extension": [
@@ -148,7 +148,7 @@
     {
       "type": "choice",
       "linkId": "behav-4",
-      "text": "Does your care recipient act suspicious without good reason (example: believes that others are stealing from him or her, or planning to harm him or her in some way)?",
+      "text": "SUSPICIOUSNESS/PARANOIA: Does your care recipient act suspicious without good reason (example: believes that others are stealing from him or her, or planning to harm him or her in some way)?",
       "answerOption": [
         {
           "extension": [
@@ -187,7 +187,7 @@
     {
       "type": "choice",
       "linkId": "behav-5",
-      "text": "Does your care recipient seem less interested in his or her usual activities and in the activities and plans of others?",
+      "text": "INDIFFERENCE/SOCIAL WITHDRAWAL: Does your care recipient seem less interested in his or her usual activities and in the activities and plans of others?",
       "answerOption": [
         {
           "extension": [
@@ -226,7 +226,7 @@
     {
       "type": "choice",
       "linkId": "behav-6",
-      "text": "Does your care recipient have trouble sleeping at night?",
+      "text": "SLEEP PROBLEMS: Does your care recipient have trouble sleeping at night?",
       "answerOption": [
         {
           "extension": [
