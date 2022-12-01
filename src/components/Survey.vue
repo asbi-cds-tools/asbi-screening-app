@@ -3,6 +3,16 @@
     <v-alert color="error" v-if="error" class="ma-4 pa-4" dark>
       <div v-html="getError()" class="font-weight-bold"></div>
     </v-alert>
+    <div class="survey--actions-container">
+      <v-btn
+        color="primary"
+        class="ml-4"
+        @click="handleSkippingQuestionnaire"
+        :loading="reloadInProgress"
+        v-if="shouldShowSkipQuestionnaireButton()"
+        >Skip this Questionnaire</v-btn
+      >
+    </div>
     <survey v-if="!error && ready" :survey="survey" :css="getTheme()"></survey>
     <div v-if="!error && !ready" class="ma-4 pa-4">
       <v-progress-circular
@@ -11,12 +21,7 @@
         color="primary"
       ></v-progress-circular>
     </div>
-    <v-dialog
-      v-model="savingDialog"
-      fullscreen
-      hide-overlay
-      :transition="false"
-    >
+    <v-dialog v-model="showDialog" fullscreen hide-overlay :transition="false">
       <v-card
         ><div v-html="dialogMessage" class="dialog-body-container"></div
       ></v-card>
@@ -51,11 +56,8 @@ import { FunctionFactory, Model, Serializer, StylesManager } from "survey-vue";
 // Define a web worker for evaluating CQL expressions
 const cqlWorker = new Worker();
 // Initialize the cql-worker
-let [
-  setupExecution,
-  sendPatientBundle,
-  evaluateExpression,
-] = initialzieCqlWorker(cqlWorker);
+let [setupExecution, sendPatientBundle, evaluateExpression] =
+  initialzieCqlWorker(cqlWorker);
 
 // Define the survey component for Vue
 export default {
@@ -104,8 +106,11 @@ export default {
       },
       ready: false,
       error: false,
-      savingDialog: false,
+      showDialog: false,
       dialogMessage: "Saving in progress ...",
+      allowSkip:
+        String(getEnv("VUE_APP_ALLOW_SKIPPING_QUESTIONNAIRE")) === "true",
+      reloadInProgress: false,
     };
   },
   methods: {
@@ -182,7 +187,8 @@ export default {
     setFirstInputFocus() {
       if (!this.surveyOptions.focusFirstQuestionAutomatic) return;
       setTimeout(() => {
-        document.querySelector("input[type=text]").focus();
+        const textElement = document.querySelector("input[type=text]");
+        if (textElement) textElement.focus();
       }, 350);
     },
     initializeInstrument() {
@@ -204,7 +210,7 @@ export default {
               getEnv("VUE_APP_DISPLAY_SCREENING_SCORES").toLowerCase() ===
               "true",
             QuestionnaireURL: this.getQuestionnaireURL(),
-            QuestionnaireName: questionnaire.name
+            QuestionnaireName: questionnaire.name,
           };
           // Send the cqlWorker an initial message containing the ELM JSON representation of the CQL expressions
           setupExecution(elmJson, valueSetJson, cqlParameters);
@@ -232,7 +238,7 @@ export default {
       // call `this.returnResult(result)` when it completes. Here we create a wrapper
       // calls `returnResult()` when the promise resolves.
       // See: https://surveyjs.io/Examples/Library/?id=questiontype-expression-async#content-js
-      let wrappedExpression = function(expression) {
+      let wrappedExpression = function (expression) {
         let self = this;
         // For some reason SurveyJS wraps `expression` in an array
         evaluateExpression(expression[0]).then((result) => {
@@ -345,93 +351,102 @@ export default {
     },
     getSurveyQuestionValidator() {
       if (!this.surveyOptions || !this.surveyOptions.questionValidator)
-        return function() {};
+        return function () {};
       return this.surveyOptions.questionValidator;
     },
     initializeSurveyObjEvents() {
       //add validation to question
       this.survey.onValidateQuestion.add(this.getSurveyQuestionValidator());
 
-      this.survey.onCurrentPageChanged.add(function() {
-        setTimeout(() => {
-          // find all question elements
-          const questionElements = document.querySelectorAll(".sv-question");
-          if (questionElements.length) {
-            // get the first question
-            const firstQuestionElement = questionElements[0];
-            // check if the first question contains a text input field
-            const inputTextElement = firstQuestionElement.querySelector("input[type='text']");
-            // if so, focus on it
-            if (inputTextElement) inputTextElement.focus();
-          }
-        }, 300);
-      }),
-
-      // Add an event listener which updates questionnaireResponse based upon user responses
-      this.survey.onValueChanging.add(
-        function(sender, options) {
-          // We don't want to modify anything if the survey has been submitted/completed.
-          if (sender.isCompleted == true) return;
-
-          // Find the index of this item (may not exist)
-          // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
-          let answerItemIndex = this.questionnaireResponse.item.findIndex(
-            (itm) => itm.linkId == options.name
+      this.survey.onCurrentPageChanged.add(
+        function (sender) {
+          console.log(
+            "sender page number on page changed ",
+            sender.currentPageNo
           );
+          // only allow skip questionnaire botón on the first page
+          this.allowSkip = !sender.currentPageNo;
+          setTimeout(() => {
+            // find all question elements
+            const questionElements = document.querySelectorAll(".sv-question");
+            if (questionElements.length) {
+              // get the first question
+              const firstQuestionElement = questionElements[0];
+              // check if the first question contains a text input field
+              const inputTextElement = firstQuestionElement
+                ? firstQuestionElement.querySelector("input[type='text']")
+                : null;
+              // if so, focus on it
+              if (inputTextElement) inputTextElement.focus();
+            }
+          }, 300);
+        }.bind(this)
+      ),
+        // Add an event listener which updates questionnaireResponse based upon user responses
+        this.survey.onValueChanging.add(
+          function (sender, options) {
+            // We don't want to modify anything if the survey has been submitted/completed.
+            if (sender.isCompleted == true) return;
 
-          if (options.value != null) {
-            let responseValue = getResponseValue(
-              this.questionnaire,
-              options.name,
-              options.value
+            // Find the index of this item (may not exist)
+            // NOTE: THIS WON'T WORK WITH QUESTIONNAIRES THAT HAVE NESTED ITEMS
+            let answerItemIndex = this.questionnaireResponse.item.findIndex(
+              (itm) => itm.linkId == options.name
             );
 
-            let question = this.questionnaire.item.filter(
-              (item) => item.linkId === options.name
-            )[0];
-            let questionText = question && question.text ? question.text : "";
+            if (options.value != null) {
+              let responseValue = getResponseValue(
+                this.questionnaire,
+                options.name,
+                options.value
+              );
 
-            // If the index is undefined, add a new entry to questionnaireResponse.item
-            if (answerItemIndex == -1) {
-              this.questionnaireResponse.item.push({
-                linkId: options.name,
-                text: questionText,
-                answer: [
-                  {
-                    [responseValue.type]: responseValue.value,
-                  },
-                ],
-              });
-            } else {
-              // Otherwise update the existing index with the new response
-              this.questionnaireResponse.item[answerItemIndex] = {
-                linkId: options.name,
-                text: questionText,
-                answer: [
-                  {
-                    [responseValue.type]: responseValue.value,
-                  },
-                ],
-              };
-            }
-          } // end check if value is null
-          else {
-            // if answer item is null, e.g. due to user hitting clear button
-            // remove it from questionnaire responses
-            if (answerItemIndex !== -1) {
-              const items = this.questionnaireResponse.item;
-              items.splice(answerItemIndex, 1);
-              this.questionnaireResponse.item = items;
-            }
-          }
+              let question = this.questionnaire.item.filter(
+                (item) => item.linkId === options.name
+              )[0];
+              let questionText = question && question.text ? question.text : "";
 
-          // Need to reload the patient bundle since the responses have been updated
-          cqlWorker.postMessage({ patientBundle: this.patientBundle });
-        }.bind(this)
-      );
+              // If the index is undefined, add a new entry to questionnaireResponse.item
+              if (answerItemIndex == -1) {
+                this.questionnaireResponse.item.push({
+                  linkId: options.name,
+                  text: questionText,
+                  answer: [
+                    {
+                      [responseValue.type]: responseValue.value,
+                    },
+                  ],
+                });
+              } else {
+                // Otherwise update the existing index with the new response
+                this.questionnaireResponse.item[answerItemIndex] = {
+                  linkId: options.name,
+                  text: questionText,
+                  answer: [
+                    {
+                      [responseValue.type]: responseValue.value,
+                    },
+                  ],
+                };
+              }
+            } // end check if value is null
+            else {
+              // if answer item is null, e.g. due to user hitting clear button
+              // remove it from questionnaire responses
+              if (answerItemIndex !== -1) {
+                const items = this.questionnaireResponse.item;
+                items.splice(answerItemIndex, 1);
+                this.questionnaireResponse.item = items;
+              }
+            }
+
+            // Need to reload the patient bundle since the responses have been updated
+            cqlWorker.postMessage({ patientBundle: this.patientBundle });
+          }.bind(this)
+        );
       // Add a handler which will fire when the Questionnaire is submittedc
       this.survey.onComplete.add(
-        function(sender, options) {
+        function (sender, options) {
           console.log("sender ", sender);
           // Mark the QuestionnaireResponse as completed
           this.questionnaireResponse.status = "completed";
@@ -439,7 +454,7 @@ export default {
           // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
           if (getEnv("VUE_APP_WRITE_BACK_MODE").toLowerCase() == "smart") {
             options.showDataSaving();
-            this.savingDialog = true;
+            this.showDialog = true;
             this.client
               .create(this.questionnaireResponse, {
                 headers: {
@@ -450,22 +465,16 @@ export default {
                 options.showDataSavingSuccess();
                 options.showDataSavingClear();
                 this.handleAdvanceQuestionnaireList();
-                this.savingDialog = this.currentQuestionnaireList.length > 0;
+                this.showDialog = this.currentQuestionnaireList.length > 0;
                 if (this.currentQuestionnaireList.length) {
                   this.dialogMessage = `Loading ${this.currentQuestionnaireList[0].toUpperCase()} questionnaire`;
                 } else {
-                  if (this.dashboardURL)
-                    setTimeout(
-                      () =>
-                        (window.location =
-                          this.dashboardURL + "/clear_session"),
-                      1000
-                    );
+                  this.handleEndOfQuestionnaires();
                 }
               })
               .catch((e) => {
                 this.error = `Error saving the questionnaire response for ${this.currentQuestionnaireId.toUpperCase()}.  See console for details.`;
-                this.savingDialog = false;
+                this.showDialog = false;
                 console.log(e);
               });
           } else this.handleAdvanceQuestionnaireList();
@@ -478,6 +487,39 @@ export default {
         }.bind(this)
       );
     },
+    handleEndOfQuestionnaires() {
+      // don't end survey session if there is still questionnaire to do
+      if (this.currentQuestionnaireList.length > 0) return;
+
+      // turn off skip flag
+      this.allowSkip = false;
+
+      if (this.dashboardURL) {
+        setTimeout(
+          () => (window.location = this.dashboardURL + "/clear_session"),
+          1000
+        );
+        return;
+      }
+      // if no dashboard URL is specified, just show a message informing user that all questionnaires are completed
+      this.dialogMessage =
+        "<h3>All questionnaire(s) are completed. You may now close the window.</h3>";
+      this.showDialog = true;
+    },
+    handleSkippingQuestionnaire() {
+      this.reloadInProgress = true;
+
+      // advance to the next questionnaire if possible
+      this.handleAdvanceQuestionnaireList();
+
+      // if there are still questionnaire(s) left to do, reload the page to go to the next
+      if (this.currentQuestionnaireList.length > 0) {
+        setTimeout(() => location.reload(), 350);
+        return;
+      }
+      // no more questionnaire to do, handle it
+      this.handleEndOfQuestionnaires();
+    },
     handleAdvanceQuestionnaireList() {
       setSessionInstrumentList(
         this.sessionKey,
@@ -489,6 +531,9 @@ export default {
       if (this.currentQuestionnaireList.length === 0) {
         removeSessionInstrumentList(this.sessionKey);
       }
+    },
+    shouldShowSkipQuestionnaireButton() {
+      return !this.error && this.ready && this.allowSkip;
     },
     getError() {
       return getErrorText(this.error);

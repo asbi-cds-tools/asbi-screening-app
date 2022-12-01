@@ -86,6 +86,7 @@ Parameters for the app are stored in [environment variables](http://man7.org/lin
 | `VUE_APP_CONF_API_URL` | URL from which the app can retrieve launch context, i.e. launching as a confidential client | ''
 | `VUE_APP_PROJECT_ID` | Project ID that uniquely identifies the project.  The app will display project specific logo and theme based on the ID | 'DCW'
 | `VUE_APP_DASHBOARD_URL` | URL for returning to FEMR dashboard app | Example: `https://dashboard.acc.dev.cosri.cirg.washington.edu`
+| `VUE_APP_ALLOW_SKIPPING_QUESTIONNAIRE`| Specify `false` if the feature to allow skipping questionnaire is to be disabled | true
 
 ### Using with ASBI Testing Server
 This option requires installing the [ASBI Testing Server](https://github.com/asbi-cds-tools/asbi-testing-server):
