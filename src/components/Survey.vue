@@ -120,10 +120,11 @@ export default {
       this.initializeInstrument()
         .then(() => {
           if (this.error) return; // error getting instrument, abort
-
-          getInstrumentCSS(this.currentQuestionnaireId).catch((e) =>
-            console.log(`loading instrument css error: ${e}`)
-          );
+          if (this.questionnaire) {
+            getInstrumentCSS(this.questionnaire.name).catch((e) =>
+              console.log(`loading instrument css error: ${e}`)
+            );
+          }
           // set response identifier
           this.setUniqueQuestionnaireResponseIdentifier();
           this.setAppFavicon();
