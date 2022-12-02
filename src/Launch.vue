@@ -47,10 +47,12 @@ export default {
     sessionStorage.removeItem(queryPatientIdKey); //remove any stored patient id before launching the app
     let launchContextURL = "launch-context.json";
     let envLaunchContextURL = getEnv("VUE_APP_CONF_API_URL");
-    if (envLaunchContextURL) launchContextURL = envLaunchContextURL;
-    console.log("launch context url: ", launchContextURL);
+    const authURL = envLaunchContextURL
+      ? `${envLaunchContextURL}/auth/auth-info`
+      : launchContextURL;
+    console.log("launch context url: ", authURL);
 
-    fetch(launchContextURL, {
+    fetch(authURL, {
       // include cookies in request
       credentials: "include",
     })
