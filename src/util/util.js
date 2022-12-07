@@ -25,6 +25,18 @@ export function getCurrentISODate() {
   return correctedDate.toISOString().split("T")[0]; // just the date portion
 }
 
+/*
+ * @param dateString in ISO Date short format, e.g. 2022-11-01
+ * @return date object in local timezone
+ */
+export function getCorrectedDateByTimeZone(dateString) {
+  if (!dateString) return null;
+  let dateObject = new Date(dateString);
+  let timeZoneCorrection = dateObject.getTimezoneOffset() * 60 * 1000; // [minutes] * [seconds/minutes] * [milliseconds/second]
+  let correctedDate = new Date(dateObject.getTime() + timeZoneCorrection);
+  return correctedDate;
+}
+
 export function capitalizeFirstLetter(text) {
   if (!text) return "";
   return text[0].toUpperCase() + text.substring(1);
