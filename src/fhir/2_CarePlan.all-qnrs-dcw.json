@@ -148,7 +148,7 @@
         {
             "detail": {
                 "instantiatesCanonical": [
-                    "Questionnaire/BEHAV5"
+                    "Questionnaire/CIRG-BEHAV5"
                 ],
                 "code": {
                     "coding": [
