@@ -1,0 +1,54 @@
+{
+  "resourceType": "Questionnaire",
+  "id": "CIRG-DCW-CarePartner",
+  "name": "Care Partner",
+  "code": [
+    {
+      "code": "CIRG-DCW-CarePartner",
+      "system": "https://dementiacareworks.com"
+    }
+  ],
+  "title": "Dementia Care Works - Care Partner query",
+  "status": "active",
+  "item": [
+    {
+      "type": "choice",
+      "linkId": "CIRG-DCW-CarePartner-0",
+      "text": "Is the Care Partner present?",
+      "answerOption": [
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "1"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 1
+            }
+          ],
+          "valueCoding": {
+            "code": "CIRG-DCW-CarePartner-Yes",
+            "display": "Yes"
+          }
+        },
+        {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-optionPrefix",
+              "valueString": "0"
+            },
+            {
+              "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+              "valueDecimal": 0
+            }
+          ],
+          "valueCoding": {
+            "code": "CIRG-DCW-CarePartner-No",
+            "display": "No"
+          }
+        }
+      ]
+    }
+  ]
+}
