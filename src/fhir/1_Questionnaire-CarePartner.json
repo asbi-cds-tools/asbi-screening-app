@@ -1,7 +1,7 @@
 {
   "resourceType": "Questionnaire",
   "id": "CIRG-DCW-CarePartner",
-  "name": "Care Partner",
+  "name": "dcw-carepartner",
   "code": [
     {
       "code": "CIRG-DCW-CarePartner",
