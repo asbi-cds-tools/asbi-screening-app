@@ -1,0 +1,20 @@
+# test dementia condition code = F03.91
+---
+name: DWC Test Dementia Condtion F03.91
+externalData:
+- reusable_resources
+data:
+- *patientResource
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F03.91
+results:
+  HasDementia: true
+  dcw_cog_level_1: false
+  dcw_cog_level_2: true
+  PresentQnr_CIRG_SLUMS: $should exist
+  PresentQnr_CIRG_ECOG12: null
+  PresentQnr_CIRG_MINICOG: null

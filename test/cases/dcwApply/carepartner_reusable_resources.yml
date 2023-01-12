@@ -1,0 +1,63 @@
+carepartner_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG-DCW-CarePartner
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-DCW-CarePartner
+  status: completed
+  authored: 2030-01-18
+
+# value code for each answer option (for question 1 ~ question 6
+# answer option 1 value code
+- &answerOption1ValueCode
+  code: CIRG-DCW-CarePartner-Yes
+  display: Yes
+# answer option 2 value code
+- &answerOption2ValueCode
+  code: CIRG-DCW-CarePartner-No
+  display: No
+
+# answer option 1
+- &answerOption1
+  extension:
+  -
+    url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+    valueDecimal: 1
+  valueCoding: *answerOption1ValueCode
+# answer option 2
+- &answerOption2
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 0
+  valueCoding: *answerOption2ValueCode
+  
+# answer options, apply to question 1 ~ 6
+- &questionnaireAnswerOptions
+  - *answerOption1
+  - *answerOption2
+
+# anchor for each question link Id
+- Question1LinkId: &q1LinkId CIRG-DCW-CarePartner-0
+
+# questions
+- &Question1
+  linkId: *q1LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions

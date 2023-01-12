@@ -1,0 +1,22 @@
+# test dcw carepartner questionnaire
+---
+name: dcw_care_partner_present - Yes answer
+externalData:
+- carepartner_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+- <<: *questionnaireResponses
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+
+results:
+  dcw_care_partner_present: true
+  PresentQnr_CIRG_CP_ECOG: $should exist
+  PresentQnr_CIRG_BEHAV5: $should exist

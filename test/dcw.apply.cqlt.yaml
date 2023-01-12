@@ -1,0 +1,8 @@
+library:
+  name: CirgLibraryQuestionnaireLogic_DCW
+  paths: ../src/cql
+tests:
+  path: cases/dcwApply
+options:
+  dumpFiles:
+    enabled: true

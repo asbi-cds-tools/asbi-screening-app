@@ -1,0 +1,13 @@
+dcw_apply_reusable_resources:
+# patient resource
+- &patientResource
+  id: PatientLukeSkywalker
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16

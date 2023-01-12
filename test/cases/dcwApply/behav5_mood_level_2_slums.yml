@@ -1,0 +1,67 @@
+# test dcw mood level2 with BEHAV score <= 7 && SLUMS >= 21
+---
+name: Behav5 DCW Mood Level2 - with SLUMS >= 21 (higher education)
+externalData:
+- behav5_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+  - *Question2
+  - *Question3
+  - *Question4
+  - *Question5
+  - *Question6
+- <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+
+  - # question 2
+    linkId: *q2LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 3
+    linkId: *q3LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 4
+    linkId: *q4LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 5
+    linkId: *q5LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 6
+    linkId: *q6LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+-
+  resourceType: Questionnaire
+  id: CIRG-SLUMS
+-
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-SLUMS
+  status: completed
+  authored: 2022-04-18
+  item:
+    -
+      linkId: /71492-3
+      answer:
+        -
+          valueDecimal: 21
+
+results:
+  dcw_mood_level_2: true
+  PresentQnr_CIRG_GAD7: $should exist
+  PresentQnr_CIRG_GDS: $should exist

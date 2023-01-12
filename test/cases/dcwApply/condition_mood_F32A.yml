@@ -1,0 +1,16 @@
+# test mood condition code = F32.A
+---
+name: DWC Test Mood Condtion F32.A
+externalData:
+- reusable_resources
+data:
+- *patientResource
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+results:
+  HasMoodConditions: true
+  dcw_mood_level_2: true

@@ -1,0 +1,32 @@
+---
+name: DCW SLUMS normal score (lower education) - with mood condition
+externalData:
+- slums_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 25
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: Z55.5
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+results:
+  HasNormalSLUMSScore: true
+  PresentQnr_CIRG_GAD7: $should exist
+  PresentQnr_CIRG_GDS: $should exist

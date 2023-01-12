@@ -1,0 +1,71 @@
+---
+name: DCW Cog Level 2 (MINICOG score 1) (with partner present)
+externalData:
+- minicog_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+  - *question2
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 1
+  -
+    linkId: *q2LinkId
+    answer:
+    -
+      valueDecimal: 0
+-
+  resourceType: Questionnaire
+  id: CIRG-DCW-CarePartner
+  item:
+    -
+      linkId: CIRG-DCW-CarePartner-0
+      type: choices
+      answerOption:
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-Yes
+            display: Yes
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 1
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-No
+            display: No
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 0
+
+-
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-DCW-CarePartner
+  status: completed
+  authored: 2050-01-18
+  item:
+    -
+      linkId: CIRG-DCW-CarePartner-0
+      answer:
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-Yes
+            display: Yes
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 1
+
+results:
+  dcw_cog_level_2: true
+  PresentQnr_CIRG_SLUMS: $should exist
+  CarePartner_Questionnaire: $should exist
+  IsCarePartnerPresent: true
+  PresentQnr_CIRG_ADL_IADL: $should exist

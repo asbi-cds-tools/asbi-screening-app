@@ -1,5 +1,6 @@
 $info-color: #2196f3;
 $muted-color: #777;
+$warning-color: rgb(129, 88, 6);
 $link-color: #0000ff;
 $hr-color: #ececec;
 $body-bg-color: #f7f6f6;
@@ -167,5 +168,18 @@ body {
     &:empty {
         padding-top: 0;
         padding-bottom: 0;
+    }
+}
+
+.text-warning {
+    color: $warning-color;
+}
+
+.dialog-container {
+    top: 56px;
+}
+@media (min-width: 960px) {
+    .dialog-container {
+        top: 64px;
     }
 }

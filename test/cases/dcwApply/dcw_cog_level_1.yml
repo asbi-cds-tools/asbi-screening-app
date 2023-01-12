@@ -1,0 +1,10 @@
+# test dcw cog level 1
+---
+name: DCW Cog Level 1
+externalData:
+- reusable_resources
+data:
+- *patientResource
+results:
+  PresentQnr_CIRG_MINICOG: $should exist
+  PresentQnr_CIRG_ECOG12: $should exist

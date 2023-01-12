@@ -1,0 +1,151 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "CIRG-PlanDefinition-DCW",
+  "title": "PlanDefinition - mostly for logic around collection administering questionnaires",
+  "status": "draft",
+  "experimental": "true",
+  "publisher": "Clinical Informatics Research Group, School of Nursing, University of Washington.",
+  "copyright": "Copyright 2022, University of Washington.",
+  "action": [
+    {
+      "title": "Administer CIRG-DCW-CarePartner questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_DCW_CarePartner",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-MINICOG questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_MINICOG",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-ECOG12 questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_ECOG12",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-CP-ECOG questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_CP_ECOG",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-SLUMS questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_SLUMS",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-BEHAV5 questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_BEHAV5",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-ADL-IADL questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_ADL_IADL",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-GAD7 questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_GAD7",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-GDS questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_GDS",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Administer CIRG-C-IDAS questionnaire",
+      "description": "Adapted from https://github.com/ccsm-cds-tools/ccsm-cds-with-tests/blob/main/fsh-tank/fsh-generated/resources/PlanDefinition-CervicalCancerScreening.json#L115",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "PresentQnr_CIRG_C_IDAS",
+            "reference": "cql/CirgLibraryQuestionnaireLogic_DCW|1.0"
+          }
+        }
+      ]
+    }
+  ]
+}

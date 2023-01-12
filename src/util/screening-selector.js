@@ -1,21 +1,15 @@
 import valueSetJson from "../cql/valueset-db.json";
-import { getCorrectedDateByTimeZone, getEnv } from "./util.js";
+import { applyDefinition } from "./apply";
+import { getEnv, getErrorText } from "./util.js";
 
 export async function getPatientCarePlan(client, patientId) {
   if (!client || !patientId) return null;
-  const sessionKey = client.getState().key;
-  const CARE_PLAN_STORAGE_KEY = `careplan_${sessionKey}_${patientId}`;
-  // return stored careplan with same session key from session storage if available
-  const storageItem = sessionStorage.getItem(CARE_PLAN_STORAGE_KEY);
-  if (storageItem) return JSON.parse(storageItem);
-  // otherwise query for it
   const carePlan = await client
     .request(
       `CarePlan?subject=Patient/${patientId}&category:text=questionnaire&_sort=-_lastUpdated`
     )
     .catch((e) => console.log("Error retrieving patient careplan ", e));
   if (carePlan && carePlan.entry && carePlan.entry.length) {
-    sessionStorage.setItem(CARE_PLAN_STORAGE_KEY, JSON.stringify(carePlan));
     return carePlan;
   }
 
@@ -24,8 +18,14 @@ export async function getPatientCarePlan(client, patientId) {
 
 export async function getQuestionnaireResponsesForPatient(client, patientId) {
   if (!client || !patientId) return null;
+  // we need fresh data
   const questionnaireResponsesResult = await client
-    .request(`QuestionnaireResponse?patient=${patientId}`)
+    .request({
+      url: `QuestionnaireResponse?patient=${patientId}`,
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    })
     .catch((e) => {
       console.log(
         "Error occurred retrieving patient questionnaire responses ",
@@ -41,29 +41,19 @@ export async function getQuestionnaireResponsesForPatient(client, patientId) {
 
 export function getEnvInstrumentList() {
   const envList = getEnv("VUE_APP_SCREENING_INSTRUMENT") || "";
+  if (!envList)
+    throw new Error("no instrument id(s) set in environment variable");
   console.log("instruments from environment ", envList);
   return envList.split(",").map((item) => item.trim());
 }
 
-export function getInstrumentListFromCarePlan(
-  carePlan,
-  questionnaireResponses
-) {
-  // no care plan entry, return empty array
-  if (!carePlan || !carePlan.entry || !carePlan.entry.length) return [];
-  const resources = carePlan.entry;
+export function getInstrumentListFromCarePlan(carePlan) {
+  if (!carePlan) return null;
   let instrumentList = [];
-  let activities = [];
-  // gather activities from careplan(s)
-  resources.forEach((item) => {
-    if (item.resource.activity) {
-      activities = [...activities, ...item.resource.activity];
-    }
-  });
+  const activities = carePlan.activity;
+  console.log("activities ", activities);
   // no activities, return empty array
   if (!activities.length) return [];
-
-  const responses = questionnaireResponses ? questionnaireResponses : [];
 
   // loop through activities that contains instantiatesCanonical
   activities.forEach((a) => {
@@ -79,82 +69,8 @@ export function getInstrumentListFromCarePlan(
       qId = a.detail.instantiatesCanonical[0].split("/")[1];
     }
     if (!qId) return true;
-
-    // get matched completed questionnaire response(s) by questionnaire id
-    const qResults = responses.filter((q) => {
-      const questionnaireIdentifier = q.questionnaire.toUpperCase();
-      return (
-        q.status === "completed" &&
-        questionnaireIdentifier.indexOf(qId.toUpperCase()) !== -1
-      );
-    });
-
-    // check instruments against scheduled scheduledTiming
-    const scheduledTiming = detailElement.scheduledTiming;
-    const repeat = scheduledTiming ? scheduledTiming.repeat : null;
-    // check repeat schedule
-    const period =
-      repeat.period && !isNaN(repeat.period) ? parseInt(repeat.period) : 0;
-    // h | d | wk | mo, https://fhir-ru.github.io/datatypes.html#Timing
-
-    // helper object to convert time period to hours using period unit as key
-    const toHours = {
-      h: 1 * period,
-      d: 24 * period, // day
-      wk: 24 * 7 * period, // week
-      mo: 24 * 30 * period, // assume 30 days in a month
-    };
-
-    const frequency =
-      isNaN(repeat.frequency) || parseInt(repeat.frequency) === 0
-        ? null
-        : parseInt(repeat.frequency);
-
-    // based on period unit and period, convert scheduled time to hours
-    // event should occur frequency times per period
-    // ergo, for instance: period 1, periodUnit "d", frequency 1
-    // event should occur 1 time over 1 day period
-    const timePeriod = repeat.periodUnit ? toHours[repeat.periodUnit] : 0;
-
-    // if no matching questionaire response or no valid scheduled time to compare against
-    // count this questionnaire as need to administer
-    if (!qResults.length || !frequency || !timePeriod) {
-      if (instrumentList.indexOf(qId) === -1) instrumentList.push(qId);
-      return true;
-    }
-
-    // get today's date
-    let today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    // search for questionnaire responses that fall within the period time range
-    const matchedResults = qResults.filter((q) => {
-      // authoredDate needs to be correctly converted to local time for accurate comparison against today's date
-      let authoredDate = getCorrectedDateByTimeZone(q.authored);
-      // miniseconds between two dates
-      const msBetweenDates = Math.abs(today.getTime() - authoredDate.getTime());
-      // hours between two dates
-      const hoursBetweenDates = msBetweenDates / (60 * 60 * 1000);
-
-      //debug
-      console.log(
-        "matched questionnaire id: ",
-        qId,
-        "authoredDate: ",
-        authoredDate,
-        " time period to administer: ",
-        timePeriod,
-        " time elapsed (hours) from today: ",
-        hoursBetweenDates
-      );
-      return hoursBetweenDates < timePeriod;
-    });
-
-    // questionnaire response(s) found within the scheduled time and matched the frequency
-    // count this questionnaire as done
-    if (matchedResults.length > 0 && matchedResults.length >= frequency)
-      return true;
     if (instrumentList.indexOf(qId) === -1) instrumentList.push(qId);
+
   });
 
   console.log(
@@ -164,30 +80,63 @@ export function getInstrumentListFromCarePlan(
   return instrumentList;
 }
 
-export async function getInstrumentList(client, patientId) {
+export async function getInstrumentList(client, patientId, carePlan) {
   // if no patient id provided, get the questionnaire(s) fron the environment variable
   if (!patientId) return getEnvInstrumentList();
+
   // client session key
   const key = client.getState().key;
-  // if questionnaire list is already stored within a session variable, returns it
-  const sessionList = getSessionInstrumentList(key);
-  if (sessionList) return sessionList;
-  // get questionnaire(s) from care plan
-  // NOTE: this is looking to the care plan as the source of truth about what questionnaire(s) are required for the patient
-  const carePlan = await getPatientCarePlan(client, patientId);
+
+  // if we don't find a specified questionnaire from a patient's careplan,
+  // we look to see if it is specifed in the sessionStorage or environment variable
+  if (!carePlan) {
+    // if questionnaire list is already stored within a session variable, returns it
+    const sessionList = getSessionInstrumentList(key);
+    if (sessionList) return sessionList;
+    return getEnvInstrumentList();
+  }
   // get instruments from care plan if possible
+  // NOTE: this is looking to the care plan as the source of truth about what questionnaire(s) are required for the patient
   let instrumentList = carePlan
     ? getInstrumentListFromCarePlan(
-        carePlan,
-        await getQuestionnaireResponsesForPatient(client, patientId)
+        carePlan
+        //await getQuestionnaireResponsesForPatient(client, patientId)
       )
     : [];
-  // if we don't find a specified questionnaire from a patient's careplan,
-  // we look to see if it is specifed in the environment variable
-  if (!carePlan && (!instrumentList || !instrumentList.length)) {
-    instrumentList = getEnvInstrumentList();
+
+  const administeredQList = getSessionAdministeredInstrumentList(key);
+  if (administeredQList) {
+    let ListToAdminister = [];
+    instrumentList.forEach((q) => {
+      if (administeredQList.indexOf(q) === -1) ListToAdminister.push(q);
+    });
+    return ListToAdminister;
   }
+  
   return instrumentList;
+}
+
+export function getAdministeredQuestionnaireListStorageKey(sessionKey) {
+  return `administered_questionnaires_${sessionKey}`;
+}
+
+export function setSessionAdministeredInstrumentList(key, list) {
+  let administeredList = [];
+  const storageKey = getAdministeredQuestionnaireListStorageKey(key);
+  const storedItem = sessionStorage.getItem(storageKey);
+  if (storedItem) {
+    administeredList = JSON.parse(storedItem);
+    administeredList = [...administeredList, ...list];
+  } else administeredList = list;
+  sessionStorage.setItem(storageKey, JSON.stringify(administeredList));
+}
+
+export function getSessionAdministeredInstrumentList(key) {
+  const storedItem = sessionStorage.getItem(
+    getAdministeredQuestionnaireListStorageKey(key)
+  );
+  if (storedItem) return JSON.parse(storedItem);
+  return null;
 }
 
 export function setSessionInstrumentList(key, data) {
@@ -203,11 +152,28 @@ export function removeSessionInstrumentList(key) {
 }
 
 //dynamically load questionnaire and cql JSON
-export async function getScreeningInstrument(client, patientId) {
+export async function getScreeningInstrument(client, patientId, callback) {
   if (!client) throw new Error("invalid FHIR client provided");
-  const instrumentList = await getInstrumentList(client, patientId).catch((e) =>
-    console.log("Error getting instrument list ", e)
-  );
+  callback = callback || function () {};
+
+  // perform apply to plan definition
+  let carePlan = await applyDefinition(client, patientId).catch((e) => {
+    // need to let the callee know about error when performing apply here
+    callback({
+      notificationText: `Error occurred appying plan definition: ${getErrorText(
+        e
+      )}`,
+    });
+    carePlan = null;
+  });
+
+  const instrumentList = await getInstrumentList(
+    client,
+    patientId,
+    carePlan
+  ).catch((e) => {
+    throw new Error(e);
+  });
   if (!instrumentList || !instrumentList.length) {
     // TODO need to figure out if no questionnaire to administer is due to whether the user has completed all the survey(s)
     return [];

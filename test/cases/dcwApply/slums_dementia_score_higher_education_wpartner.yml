@@ -1,0 +1,68 @@
+---
+name: DCW SLUMS dementia score (higher education) - with mood condtion & care partner present
+externalData:
+- slums_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 20
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+-
+  resourceType: Questionnaire
+  id: CIRG-DCW-CarePartner
+  item:
+    -
+      linkId: CIRG-DCW-CarePartner-0
+      type: choices
+      answerOption:
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-Yes
+            display: Yes
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 1
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-No
+            display: No
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 0
+
+-
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-DCW-CarePartner
+  status: completed
+  authored: 2050-01-18
+  item:
+    -
+      linkId: CIRG-DCW-CarePartner-0
+      answer:
+        -
+          valueCoding:
+            code: CIRG-DCW-CarePartner-Yes
+            display: Yes
+          extension:
+            -
+              url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+              valueDecimal: 1
+results:
+  HasNormalSLUMSScore: false
+  HasSLUMSDementiaScore: true
+  PresentQnr_CIRG_C_IDAS: $should exist

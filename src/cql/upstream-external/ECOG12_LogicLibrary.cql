@@ -201,7 +201,7 @@ define ECOG12ScoreQuestion6:
 define ECOG12ScoreQuestion7:
   (getQuestionScore(IndexOfQuestion.seven, question7LinkId)) score
   return
-    if score = 12 then 0
+    if score = 9 then 0
     else if score is null then 0
     else score as Integer
 
@@ -267,15 +267,15 @@ define DisplayScoreFullECOG12:
 // Calculate the score for the Full ECOG12
 // sum up all numeric values for all the answers
 define ScoreFullECOG12:
-  ECOG12ScoreQuestion1 as Integer
-  + ECOG12ScoreQuestion2 as Integer
-  + ECOG12ScoreQuestion3 as Integer
-  + ECOG12ScoreQuestion4 as Integer
-  + ECOG12ScoreQuestion5 as Integer
-  + ECOG12ScoreQuestion6 as Integer
-  + ECOG12ScoreQuestion7 as Integer
-  + ECOG12ScoreQuestion8 as Integer
-  + ECOG12ScoreQuestion9 as Integer
-  + ECOG12ScoreQuestion10 as Integer
-  + ECOG12ScoreQuestion11 as Integer
-  + ECOG12ScoreQuestion12 as Integer
+  ECOG12ScoreQuestion1
+  + ECOG12ScoreQuestion2
+  + ECOG12ScoreQuestion3
+  + ECOG12ScoreQuestion4
+  + ECOG12ScoreQuestion5
+  + ECOG12ScoreQuestion6
+  + ECOG12ScoreQuestion7
+  + ECOG12ScoreQuestion8
+  + ECOG12ScoreQuestion9
+  + ECOG12ScoreQuestion10
+  + ECOG12ScoreQuestion11
+  + ECOG12ScoreQuestion12

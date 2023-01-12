@@ -201,7 +201,7 @@ define ECOG12ScoreQuestion6:
 define ECOG12ScoreQuestion7:
   (getQuestionScore(IndexOfQuestion.seven, question7LinkId)) score
   return
-    if score = 12 then 0
+    if score = 9 then 0
     else if score is null then 0
     else score as Integer
 

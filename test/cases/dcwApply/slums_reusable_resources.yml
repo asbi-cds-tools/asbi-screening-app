@@ -1,0 +1,33 @@
+slums_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG-SLUMS
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-SLUMS
+  status: completed
+  authored: 2022-04-18
+
+# anchor for each question link Id
+- question1LinkId: &q1LinkId /71492-3
+
+# questions
+- &question1
+  linkId: *q1LinkId
+  type: decimal
+  text: Score

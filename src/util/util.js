@@ -227,4 +227,14 @@ export function removeArrayItem (arr, value) {
   return arr;
 }
 
+export function clearSessionStorageByKeyword(matchString) {
+  if (!matchString) return;
+  for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    if (key.includes(matchString)) sessionStorage.removeItem(key);
+  }
+
+}
+
 export const queryPatientIdKey = "launch_queryPatientId";
+

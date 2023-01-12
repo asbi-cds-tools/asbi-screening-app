@@ -1,0 +1,26 @@
+---
+name: DCW SLUMS dementia score (higher education) - with mood condtion
+externalData:
+- slums_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 20
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+results:
+  HasNormalSLUMSScore: false
+  HasSLUMSDementiaScore: true
+  PresentQnr_CIRG_C_IDAS: null

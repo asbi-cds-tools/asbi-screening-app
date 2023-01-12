@@ -1,0 +1,8 @@
+library:
+  name: CP_ECOGLogicLibrary
+  paths: ../src/cql
+tests:
+  path: cases/cpecog
+options:
+  dumpFiles:
+    enabled: true

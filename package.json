@@ -9,6 +9,8 @@
     "test": "./node_modules/.bin/mocha --reporter spec --recursive;"
   },
   "dependencies": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
+    "@babel/plugin-proposal-optional-chaining": "^7.18.9",
     "core-js": "^3.6.4",
     "cql-exec-fhir": "^2.0.2",
     "cql-exec-vsac": "^1.2.2",

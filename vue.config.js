@@ -1,8 +1,8 @@
-const path = require('path');
+const path = require("path");
 const systemType = String(process.env.VUE_APP_SYSTEM_TYPE).toLowerCase();
 module.exports = {
   configureWebpack: {
-    devtool:  (systemType === 'development' ? 'source-map' : ''),
+    devtool: systemType === "development" ? "source-map" : "",
     module: {
       rules: [
         {
@@ -10,33 +10,34 @@ module.exports = {
           use: ["source-map-loader"],
           enforce: "pre",
           exclude: [
-            path.resolve(__dirname, 'node_modules/cql-execution/lib'),
-            path.resolve(__dirname, 'node_modules/fhirclient'),
-            path.resolve(__dirname, 'node_modules/cql-worker'),
-            path.resolve(__dirname, 'node_modules/cql-exec-fhir')
-          ]
+            path.resolve(__dirname, "node_modules/cql-execution/lib"),
+            path.resolve(__dirname, "node_modules/fhirclient"),
+            path.resolve(__dirname, "node_modules/cql-worker"),
+            path.resolve(__dirname, "node_modules/cql-exec-fhir"),
+            path.resolve(__dirname, "node_modules/encender"),
+          ],
         },
         {
           test: /\.worker\.js$/,
-          use: { 
-            loader: 'worker-loader',
-            options: { 
-              publicPath: '/src/cql/',
-              inline: true 
-            }
-          }
+          use: {
+            loader: "worker-loader",
+            options: {
+              publicPath: "/src/cql/",
+              inline: true,
+            },
+          },
         },
         {
           test: /\.js\.map$/,
-          use: ['ignore-loader']
-        }
-      ]
-    }
+          use: ["ignore-loader"],
+        },
+      ],
+    },
   },
-  publicPath: '/',
+  publicPath: "/",
   pages: {
-    index: './src/main.js',
-    launch: './src/launch.js'
+    index: "./src/main.js",
+    launch: "./src/launch.js",
   },
   transpileDependencies: [
     'vuetify', 'questionnaire-to-survey'

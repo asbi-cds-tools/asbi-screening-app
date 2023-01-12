@@ -1,4 +1,4 @@
-ecog12_reusable_resources:
+cpecog_reusable_resources:
 # patient resource
 - &patientResource
   resourceType: Patient
@@ -14,12 +14,12 @@ ecog12_reusable_resources:
 # questionnaire resource
 - &questionnaireResource # skeleton
   resourceType: Questionnaire
-  id: CIRG-ECOG12
+  id: CIRG-CP-ECOG
 
 # questionnaire responses
 - &questionnaireResponses # skeleton
   resourceType: QuestionnaireResponse
-  questionnaire: Questionnaire/CIRG-ECOG12
+  questionnaire: Questionnaire/CIRG-CP-ECOG
   status: in-progress
   authored: 2030-04-18
 

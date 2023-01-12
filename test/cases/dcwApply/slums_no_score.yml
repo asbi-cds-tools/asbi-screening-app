@@ -1,0 +1,21 @@
+---
+name: DCW SLUMS no score (with condition)
+externalData:
+- slums_reusable_resources
+data:
+- *patientResource
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: Z55.5
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+results:
+  PresentQnr_CIRG_GAD7: null
+  PresentQnr_CIRG_GDS: null

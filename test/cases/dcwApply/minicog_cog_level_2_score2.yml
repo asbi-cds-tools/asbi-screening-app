@@ -1,0 +1,25 @@
+---
+name: DCW Cog Level 2 (MINICOG score 2)
+externalData:
+- minicog_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+  - *question2
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 2
+  -
+    linkId: *q2LinkId
+    answer:
+    -
+      valueDecimal: 0
+results:
+  dcw_cog_level_2: true
+  PresentQnr_CIRG_SLUMS: $should exist

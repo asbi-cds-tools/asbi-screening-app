@@ -1,0 +1,88 @@
+behav5_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG-BEHAV5
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-BEHAV5
+  status: completed
+  authored: 2022-01-18
+
+# value code for each answer option (for question 1 ~ question 6
+# answer option 1 value code
+- &answerOption1ValueCode
+  code: LA33-6
+  display: Yes
+# answer option 2 value code
+- &answerOption2ValueCode
+  code: LA32-8
+  display: No
+
+# answer option 1
+- &answerOption1
+  extension:
+  -
+    url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+    valueDecimal: 1
+  valueCoding: *answerOption1ValueCode
+# answer option 2
+- &answerOption2
+  extension:
+    -
+      url: http://hl7.org/fhir/StructureDefinition/ordinalValue
+      valueDecimal: 0
+  valueCoding: *answerOption2ValueCode
+  
+# answer options, apply to question 1 ~ 6
+- &questionnaireAnswerOptions
+  - *answerOption1
+  - *answerOption2
+
+# anchor for each question link Id
+- Question1LinkId: &q1LinkId behav-1
+- Question2LinkId: &q2LinkId behav-2
+- Question3LinkId: &q3LinkId behav-3
+- Question4LinkId: &q4LinkId behav-4
+- Question5LinkId: &q5LinkId behav-5
+- Question6LinkId: &q6LinkId behav-6
+
+# questions
+- &Question1
+  linkId: *q1LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question2
+  linkId: *q2LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question3
+  linkId: *q3LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question4
+  linkId: *q4LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question5
+  linkId: *q5LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions
+- &Question6
+  linkId: *q6LinkId
+  type: choices
+  answerOption: *questionnaireAnswerOptions

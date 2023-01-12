@@ -1,0 +1,51 @@
+# test dcw mood level2 with BEHAV score <= 7
+---
+name: Behav5 DCW Mood Level2 - true
+externalData:
+- behav5_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+  - *Question2
+  - *Question3
+  - *Question4
+  - *Question5
+  - *Question6
+- <<: *questionnaireResponses  # answers are randomly assigned to test; can change to test; the goal is to test that the sum total from the scores is correct
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+
+  - # question 2
+    linkId: *q2LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 3
+    linkId: *q3LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 4
+    linkId: *q4LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 5
+    linkId: *q5LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+  - # question 6
+    linkId: *q6LinkId
+    answer:
+    -
+      valueCoding: *answerOption1ValueCode
+
+results:
+  dcw_mood_level_2: true

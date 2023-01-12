@@ -1,0 +1,10 @@
+# test dcw mood level2 with BEHAV no score
+---
+name: Behav5 DCW Mood Level2 - no score
+externalData:
+- behav5_reusable_resources
+data:
+- *patientResource
+
+results:
+  dcw_mood_level_2: false

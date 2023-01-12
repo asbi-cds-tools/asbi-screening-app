@@ -1,0 +1,22 @@
+# test whether to present dcw carepartner questionnaire
+---
+name: present care partner questionnaire (response in the past)
+externalData:
+- carepartner_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+- <<: *questionnaireResponses
+  authored: 2011-01-01
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption2ValueCode
+
+results:
+  PresentQnr_CIRG_DCW_CarePartner: $should exist
+  dcw_care_partner_present: false

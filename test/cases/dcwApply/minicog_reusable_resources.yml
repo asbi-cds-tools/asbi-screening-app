@@ -1,0 +1,38 @@
+minicog_reusable_resources:
+# patient resource
+- &patientResource
+  resourceType: Patient
+  name:
+    -
+      family: Skywalker
+      given:
+        -
+          Luke
+  gender: male
+  birthDate: 1978-07-16
+
+# questionnaire resource
+- &questionnaireResource # skeleton
+  resourceType: Questionnaire
+  id: CIRG-MINICOG
+
+# questionnaire responses
+- &questionnaireResponses # skeleton
+  resourceType: QuestionnaireResponse
+  questionnaire: Questionnaire/CIRG-MINICOG
+  status: completed
+  authored: 2022-01-01
+
+# anchor for each question link Id
+- question1LinkId: &q1LinkId minicog-question1
+- question2LinkId: &q2LinkId minicog-question2
+
+# questions
+- &question1
+  linkId: *q1LinkId
+  type: decimal
+  text: Word Recall
+- &question2
+  linkId: *q2LinkId
+  type: decimal
+  text: Clock Draw

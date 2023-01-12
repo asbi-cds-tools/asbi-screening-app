@@ -1,0 +1,22 @@
+# test dcw carepartner questionnaire
+---
+name: dcw_care_partner_present - No answer
+externalData:
+- carepartner_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item:
+  - *Question1
+- <<: *questionnaireResponses
+  item:
+  - # question 1
+    linkId: *q1LinkId
+    answer:
+    -
+      valueCoding: *answerOption2ValueCode
+
+results:
+  dcw_care_partner_present: false
+  PresentQnr_CIRG_CP_ECOG: null
+  PresentQnr_CIRG_BEHAV5: null
