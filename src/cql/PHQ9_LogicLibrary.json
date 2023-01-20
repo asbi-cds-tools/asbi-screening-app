@@ -1676,44 +1676,38 @@
                                  "operand" : [ {
                                     "type" : "Add",
                                     "operand" : [ {
-                                       "type" : "Add",
-                                       "operand" : [ {
-                                          "name" : "Phq9ScoreQuestion1",
-                                          "type" : "ExpressionRef"
-                                       }, {
-                                          "name" : "Phq9ScoreQuestion2",
-                                          "type" : "ExpressionRef"
-                                       } ]
+                                       "name" : "Phq9ScoreQuestion1",
+                                       "type" : "ExpressionRef"
                                     }, {
-                                       "name" : "Phq9ScoreQuestion3",
+                                       "name" : "Phq9ScoreQuestion2",
                                        "type" : "ExpressionRef"
                                     } ]
                                  }, {
-                                    "name" : "Phq9ScoreQuestion4",
+                                    "name" : "Phq9ScoreQuestion3",
                                     "type" : "ExpressionRef"
                                  } ]
                               }, {
-                                 "name" : "Phq9ScoreQuestion5",
+                                 "name" : "Phq9ScoreQuestion4",
                                  "type" : "ExpressionRef"
                               } ]
                            }, {
-                              "name" : "Phq9ScoreQuestion6",
+                              "name" : "Phq9ScoreQuestion5",
                               "type" : "ExpressionRef"
                            } ]
                         }, {
-                           "name" : "Phq9ScoreQuestion7",
+                           "name" : "Phq9ScoreQuestion6",
                            "type" : "ExpressionRef"
                         } ]
                      }, {
-                        "name" : "Phq9ScoreQuestion8",
+                        "name" : "Phq9ScoreQuestion7",
                         "type" : "ExpressionRef"
                      } ]
                   }, {
-                     "name" : "Phq9ScoreQuestion9",
+                     "name" : "Phq9ScoreQuestion8",
                      "type" : "ExpressionRef"
                   } ]
                }, {
-                  "name" : "Phq9ScoreQuestion10",
+                  "name" : "Phq9ScoreQuestion9",
                   "type" : "ExpressionRef"
                } ]
             }

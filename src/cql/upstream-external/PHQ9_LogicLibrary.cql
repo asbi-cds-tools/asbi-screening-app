@@ -238,4 +238,3 @@ define ScoreFullPhq9:
   + Phq9ScoreQuestion7
   + Phq9ScoreQuestion8
   + Phq9ScoreQuestion9
-  + Phq9ScoreQuestion10
