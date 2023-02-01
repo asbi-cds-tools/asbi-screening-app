@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-ms",
+  "birthDate": "1927-07-07",
+  "gender": "male",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN6"
+    }
+  ],
+  "name": [
+    {
+      "family": "Scott",
+      "given": [
+        "Michael"
+      ]
+    }
+  ]
+}

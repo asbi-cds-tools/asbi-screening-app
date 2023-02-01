@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-ds",
+  "birthDate": "1935-09-09",
+  "gender": "male",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN8"
+    }
+  ],
+  "name": [
+    {
+      "family": "Schrute",
+      "given": [
+        "Dwight"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "patient-dcw-mp",
+  "birthDate": "1937-05-05",
+  "gender": "male",
+  "identifier": [
+    {
+      "system": "https://hl7.org/mrn",
+      "value": "MRN4"
+    }
+  ],
+  "name": [
+    {
+      "family": "Pritchett",
+      "given": [
+        "Mitchell"
+      ]
+    }
+  ]
+}

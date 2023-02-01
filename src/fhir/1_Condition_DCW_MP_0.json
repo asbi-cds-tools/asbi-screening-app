@@ -1,0 +1,39 @@
+{
+  "resourceType": "Condition",
+  "id": "condition-DCW-MP-0",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ],
+    "text": "Active"
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ],
+    "text": "Confirmed"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://www.cdc.gov/nchs/icd/icd10cm.htm",
+        "code": "F01.5",
+        "display": "Vascular Dementia, unspecified severity"
+      }
+    ],
+    "text": "Vascular Dementia, unspecified severity"
+  },
+  "subject": {
+    "reference": "Patient/patient-dcw-mp"
+  },
+  "onsetDateTime": "2022-03-05T00:00:00.000Z",
+  "recordedDate": "2022-03-25T16:00:00.000Z"
+}

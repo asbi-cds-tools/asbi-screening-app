@@ -1,0 +1,39 @@
+{
+  "resourceType": "Condition",
+  "id": "condition-DCW-JH-1",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active",
+        "display": "Active"
+      }
+    ],
+    "text": "Active"
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "code": "confirmed",
+        "display": "Confirmed"
+      }
+    ],
+    "text": "Confirmed"
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://www.cdc.gov/nchs/icd/icd10cm.htm",
+        "code": "F33.41",
+        "display": "Major depressive disorder, recurrent, in partial remission"
+      }
+    ],
+    "text": "Major depressive disorder, recurrent, in partial remission"
+  },
+  "subject": {
+    "reference": "Patient/patient-dcw-jh"
+  },
+  "onsetDateTime": "2020-11-05T00:00:00.000Z",
+  "recordedDate": "2021-01-13T20:00:00.000Z"
+}

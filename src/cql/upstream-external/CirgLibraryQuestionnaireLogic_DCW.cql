@@ -110,9 +110,9 @@ define dcw_mood_level_1:
 
 define dcw_mood_level_2:
   // if (
-  //   depression condition ("F32.A - Depression, unspecified" and "F33.1 - Major Depressive Disorder, Recurrent, Moderate")
+  //   depression condition 
   //   and/or 
-  //   anxiety condition ("F41.1 - Generalized Anxiety Disorder" - not present in our 3 test patients...)
+  //   anxiety condition
   //   and/or 
   //   CIRG-BEHAV5 score is fail 
   // )
