@@ -53,9 +53,10 @@
 import converter from "questionnaire-to-survey";
 import { getInstrumentCSS } from "../util/css-selector.js";
 import {
+  getPatientCarePlan,
   getScreeningInstrument,
-  setSessionInstrumentList,
   setSessionAdministeredInstrumentList,
+  setSessionInstrumentList
 } from "../util/screening-selector.js";
 import Worker from "cql-worker/src/cql.worker.js"; // https://github.com/webpack-contrib/worker-loader
 import { initialzieCqlWorker } from "cql-worker";
@@ -69,6 +70,7 @@ import {
   setFavicon,
   removeArrayItem,
 } from "../util/util.js";
+import * as LogHelper from "../util/log";
 import surveyOptions from "../context/surveyjs.options.js";
 import themes from "../context/themes.js";
 import { FunctionFactory, Model, Serializer, StylesManager } from "survey-vue";
@@ -105,9 +107,11 @@ export default {
     return {
       projectID: getEnv("VUE_APP_PROJECT_ID"),
       dashboardURL: getEnv("VUE_APP_DASHBOARD_URL"),
+      systemType: getEnv("VUE_APP_SYSTEM_TYPE"),
       sessionKey: 0,
       currentQuestionnaireId: null,
       currentQuestionnaireList: [],
+      careplan: null,
       survey: null,
       surveyOptions: {},
       patientId: 0,
@@ -137,14 +141,23 @@ export default {
     };
   },
   methods: {
+    onAuthSessionStarted() {
+      LogHelper.writeToLog(
+        "info",
+        ["authSessionStarted"],
+        this.getDefaultLogObject(),
+        { ...this.getDefaultLogMessageObject(), text: "auth session started" }
+      );
+    },
     init() {
-      if (this.error || !this.patient) false;
+      if (this.error || !this.patient) return false;
       //console.log("state ", this.client.getState("tokenResponse.id_token"));
-      console.log("client state ", this.client.getState());
+      //console.log("client state ", this.client.getState());
       this.sessionKey = this.client.getState().key;
       console.log("environment variables ", getEnvs());
       this.patientId = this.patient.id;
       this.patientBundle.entry.unshift({ resource: this.patient });
+      this.setCarePlan().then(() => this.onAuthSessionStarted());
       this.initializeInstrument()
         .then(() => {
           if (this.error) return; // error getting instrument, abort
@@ -193,10 +206,33 @@ export default {
           console.log("Error loading Questionnaire ", e);
         });
     },
+    async setCarePlan() {
+      const carePlan = await getPatientCarePlan(
+        this.client,
+        this.patient.id
+      ).catch((e) => console.log("Get care plan error ", e));
+      if (carePlan && carePlan.entry && carePlan.entry.length) {
+        this.careplan = carePlan.entry.map((item) => item.resource)[0];
+      }
+    },
+    // top level log params
+    getDefaultLogObject() {
+      return {
+        subject: `Patient/${this.patientId}`,
+        projectID: this.projectID,
+      };
+    },
+    // params in log message body
+    getDefaultLogMessageObject() {
+      return {
+        authSessionID: this.sessionKey,
+        careplanID: this.careplan ? this.careplan.id : null,
+      };
+    },
     isDevelopment() {
       return (
         String(getEnv("NODE_ENV")).toLowerCase() === "development" ||
-        String(getEnv("VUE_APP_SYSTEM_TYPE")).toLowerCase() === "development"
+        String(this.systemType).toLowerCase() === "development"
       );
     },
     getTheme() {
@@ -388,6 +424,12 @@ export default {
       //add validation to question
       this.survey.onValidateQuestion.add(this.getSurveyQuestionValidator());
 
+      this.survey.onAfterRenderPage.add(
+        function (sender, options) {
+          this.handleOnAfterRenderPage(sender, options);
+        }.bind(this)
+      );
+
       this.survey.onCurrentPageChanged.add(
         function (sender) {
           this.handleOnCurrentPageChanged(sender);
@@ -426,6 +468,19 @@ export default {
           if (inputType !== "hidden") break;
         }
       }
+    },
+    handleOnAfterRenderPage(sender, options) {
+      console.log("sender object on page rendered ", sender);
+      // write to log
+      LogHelper.writeLogOnSurveyPageRendered(
+        options,
+        this.getDefaultLogObject(),
+        {
+          questionnaireId: this.questionnaire.id,
+          ...this.getDefaultLogMessageObject(),
+          text: "page rendered"
+        }
+      );
     },
     handleOnCurrentPageChanged(sender) {
       console.log("sender page number on page changed ", sender.currentPageNo);
@@ -480,6 +535,19 @@ export default {
             ],
           };
         }
+        // write to log
+        LogHelper.writeLogOnSurveyQuestionValueChange(
+          options,
+          this.getDefaultLogObject(),
+          {
+            questionnaireId: this.questionnaire.id,
+            questionText: questionText,
+            answerType: responseValue.type,
+            answerValue: responseValue.value,
+            text: "answer value changed",
+            ...this.getDefaultLogMessageObject(),
+          }
+        );
       } // end check if value is null
       else {
         // if answer item is null, e.g. due to user hitting clear button
@@ -499,6 +567,13 @@ export default {
 
       // Mark the QuestionnaireResponse as completed
       this.questionnaireResponse.status = "completed";
+
+      // write log
+      LogHelper.writeLogOnSurveySubmit(this.getDefaultLogObject(), {
+        questionnaireId: this.questionnaire.id,
+        text: "submit questionnaire",
+        ...this.getDefaultLogMessageObject(),
+      });
 
       // Write back to EHR only if `VUE_APP_WRITE_BACK_MODE` is set to 'smart'
       if (getEnv("VUE_APP_WRITE_BACK_MODE").toLowerCase() == "smart") {
