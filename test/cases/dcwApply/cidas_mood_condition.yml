@@ -1,25 +1,9 @@
 ---
-name: DCW Cog Level 2 (MINICOG score 4) (with partner)
+name: Should not present C-IDAS with just mood condition
 externalData:
-- minicog_reusable_resources
+- reusable_resources
 data:
 - *patientResource
-- <<: *questionnaireResource
-  item: 
-  - *question1
-  - *question2
-- <<: *questionnaireResponses
-  item:
-  -
-    linkId: *q1LinkId
-    answer:
-    -
-      valueDecimal: 2
-  -
-    linkId: *q2LinkId
-    answer:
-    -
-      valueDecimal: 2
 -
   resourceType: Questionnaire
   id: CIRG-DCW-CarePartner
@@ -62,7 +46,11 @@ data:
             -
               url: http://hl7.org/fhir/StructureDefinition/ordinalValue
               valueDecimal: 1
+-
+  resourceType: Condition # mood condition
+  code:
+    coding:
+      -
+        code: F32.A
 results:
-  dcw_cog_level_2: false
-  PresentQnr_CIRG_SLUMS: null
-  IsCarePartnerPresent: true
+  PresentQnr_CIRG_C_IDAS: null

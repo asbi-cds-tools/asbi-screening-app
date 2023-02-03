@@ -68,4 +68,3 @@ results:
   PresentQnr_CIRG_SLUMS: $should exist
   CarePartner_Questionnaire: $should exist
   IsCarePartnerPresent: true
-  PresentQnr_CIRG_ADL_IADL: $should exist

@@ -1,0 +1,20 @@
+---
+name: Present C-IDAS with mood condition and dementia condtions (without partner)
+externalData:
+- reusable_resources
+data:
+- *patientResource
+-
+  resourceType: Condition # dementia condition
+  code:
+    coding:
+      -
+        code: F03.9
+-
+  resourceType: Condition # mood condition
+  code:
+    coding:
+      -
+        code: F32.A
+results:
+  PresentQnr_CIRG_C_IDAS: null

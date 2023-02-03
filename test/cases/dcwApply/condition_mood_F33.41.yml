@@ -1,0 +1,16 @@
+# test mood condition code = F33.41
+---
+name: DWC Test Mood Condtion F33.41
+externalData:
+- reusable_resources
+data:
+- *patientResource
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F33.41
+results:
+  HasMoodConditions: true
+  dcw_mood_level_2: true

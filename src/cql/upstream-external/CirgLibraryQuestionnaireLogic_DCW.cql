@@ -134,14 +134,17 @@ define dcw_mood_level_2:
 //     union ["Condition": "Frontotemporal dementia"]
 //     union ["Condition": "Parkinson's disease"]
 //     union ["Condition": "Unspecified dementia, with behavioral disturbance"]
+// G30.9 Alzheimer's disease, unspecified
+// G31.0 Frontotemporal dementia
 
 define DementiaConditions:
   (["Condition"] C where (
-    C.code.coding[0].code.value = 'F03.9' or
     C.code.coding[0].code.value = 'F01.5' or
-    C.code.coding[0].code.value = 'G31.0' or
+    C.code.coding[0].code.value = 'F03.9' or
+    C.code.coding[0].code.value = 'F03.91' or
     C.code.coding[0].code.value = 'G20' or
-    C.code.coding[0].code.value = 'F03.91'
+    C.code.coding[0].code.value = 'G30.9' or
+    C.code.coding[0].code.value = 'G31.0'
   ))
 
 define HasDementia:
@@ -160,10 +163,11 @@ define MoodConditions:
   //   depression condition ("F32.A - Depression, unspecified" and "F33.1 - Major Depressive Disorder, Recurrent, Moderate")
   //   and/or 
   //   anxiety condition ("F41.1 - Generalized Anxiety Disorder" - not present in our 3 test patients...)
-
+  //   F33.41, Major depressive disorder, recurrent, in partial remission
   ["Condition"] C where (
     C.code.coding[0].code.value = 'F32.A' or
     C.code.coding[0].code.value = 'F33.1' or
+    C.code.coding[0].code.value = 'F33.41' or
     C.code.coding[0].code.value = 'F41.1'
   )
 
@@ -305,8 +309,8 @@ define CIRG_C_IDAS_Responses_Today:
 
 
 define PresentQnr_CIRG_DCW_CarePartner:
-  if // check if the questionnaire has been administered today
-    Length(CarePartner_Response_Today) >= 1 then null
+  // check if there are already questionnaire responses for today
+  if Length(CarePartner_Response_Today) >= 1 then null
   else
     {
       questionnaireId: 'CIRG-DCW-CarePartner',
@@ -316,6 +320,7 @@ define PresentQnr_CIRG_DCW_CarePartner:
 
 // Naming pattern: "CIRG_MINICOG" is Questionnaire.id
 define PresentQnr_CIRG_MINICOG:
+  // check if there are already questionnaire responses for today
   if Length(MINICOG_Responses_Today) >=1 then null
   else if dcw_cog_level_1 is true then {
     questionnaireId: 'CIRG-MINICOG',
@@ -324,6 +329,7 @@ define PresentQnr_CIRG_MINICOG:
   } else null
 
 define PresentQnr_CIRG_ECOG12:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_ECOG12_Responses_Today) >= 1 then null
   else if dcw_cog_level_1 is true then {
     questionnaireId: 'CIRG-ECOG12',
@@ -333,6 +339,7 @@ define PresentQnr_CIRG_ECOG12:
   else null
 
 define PresentQnr_CIRG_CP_ECOG:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_CP_ECOG_Responses_Today) >= 1 then null
   else if dcw_cog_level_1 is true and dcw_care_partner_present is true then {
     questionnaireId: 'CIRG-CP-ECOG',
@@ -341,6 +348,7 @@ define PresentQnr_CIRG_CP_ECOG:
   } else null
 
 define PresentQnr_CIRG_SLUMS:
+  // check if there are already questionnaire responses for today
   if Length(SLUMS_Responses_Today) >= 1 then null
   else if dcw_cog_level_2 is true then {
     questionnaireId: 'CIRG-SLUMS',
@@ -349,14 +357,16 @@ define PresentQnr_CIRG_SLUMS:
   } else null
 
 define PresentQnr_CIRG_ADL_IADL:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_ADL_IADL_Responses_Today) >= 1 then null
-  else if dcw_cog_level_2 is true and dcw_care_partner_present is true then {
+  else if dcw_cog_level_1 is true then {
     questionnaireId: 'CIRG-ADL-IADL',
     scheduledTiming: Scheduled_Timing,
     status: 'scheduled'
   } else null
 
 define PresentQnr_CIRG_BEHAV5:
+  // check if there are already questionnaire responses for today
   if Length(BEHAV5_Responses_Today) >= 1 then null
   else if dcw_mood_level_1 is true then {
     questionnaireId: 'CIRG-BEHAV5',
@@ -365,6 +375,7 @@ define PresentQnr_CIRG_BEHAV5:
   } else null
 
 define PresentQnr_CIRG_GAD7:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_GAD7_Responses_Today) >= 1 then null
   // dcw_mood_level_2 is true and
   // CIRG-SLUMS score is Normal or Mild Neurocognitive Disorder
@@ -375,6 +386,7 @@ define PresentQnr_CIRG_GAD7:
   } else null
 
 define PresentQnr_CIRG_GDS:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_GDS_Responses_Today) >= 1 then null
   // CIRG-SLUMS score is Normal or Mild Neurocognitive Disorder
   else if dcw_mood_level_2 is true and (HasNormalSLUMSScore is true or HasMildNeuroCognitiveDisorderSLUMSScore is true) then {
@@ -384,14 +396,14 @@ define PresentQnr_CIRG_GDS:
   } else null
 
 define PresentQnr_CIRG_C_IDAS:
+  // check if there are already questionnaire responses for today
   if Length(CIRG_C_IDAS_Responses_Today) >= 1 then null
-  // CIRG-SLUMS score indicates dementia 
-  else if dcw_mood_level_2 is true and 
-     dcw_care_partner_present is true and 
-     HasSLUMSDementiaScore is true
+  else if (
+    dcw_mood_level_2 is true and 
+    dcw_care_partner_present is true and 
+    (HasDementia or HasSLUMSDementiaScore is true)) // dementia diagnosis/condition or CIRG-SLUMS score indicates dementia 
   then {
     questionnaireId: 'CIRG-C-IDAS',
     scheduledTiming: Scheduled_Timing,
     status: 'scheduled'
   } else null
-

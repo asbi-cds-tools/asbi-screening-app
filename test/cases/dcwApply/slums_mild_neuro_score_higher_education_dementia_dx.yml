@@ -1,0 +1,34 @@
+---
+name: DCW SLUMS mild neurcognitive disorder score (higher education) - with mood & dementia condition condition
+externalData:
+- slums_reusable_resources
+data:
+- *patientResource
+- <<: *questionnaireResource
+  item: 
+  - *question1
+- <<: *questionnaireResponses
+  item:
+  -
+    linkId: *q1LinkId
+    answer:
+    -
+      valueDecimal: 21
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: F32.A
+-
+  resourceType: Condition
+  code:
+    coding:
+      -
+        code: G30.9
+results:
+  HasNormalSLUMSScore: false
+  HasMildNeuroCognitiveDisorderSLUMSScore: true
+  PresentQnr_CIRG_GAD7: $should exist
+  PresentQnr_CIRG_GDS: $should exist
+  PresentQnr_CIRG_C_IDAS: null

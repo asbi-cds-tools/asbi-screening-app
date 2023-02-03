@@ -1,6 +1,6 @@
-# test dementia condition code = F03.9
+# test dementia condition code = G31.0
 ---
-name: DWC Test Dementia Condtion F03.9
+name: DWC Test Dementia Condtion G31.0
 externalData:
 - reusable_resources
 data:
@@ -10,7 +10,7 @@ data:
   code:
     coding:
       -
-        code: F03.9
+        code: G30.9
 results:
   HasDementia: true
   dcw_cog_level_1: false
