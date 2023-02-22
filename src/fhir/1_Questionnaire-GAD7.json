@@ -38,12 +38,12 @@
       "code": [
         {
           "code": "69725-0",
-          "display": "Feeling nervous, anxious or on edge"
+          "display": "Over the past 2 weeks, how often have you been bothered by feeling nervous, anxious or on edge?"
         }
       ],
       "required": false,
       "linkId": "/69725-0",
-      "text": "Feeling nervous, anxious or on edge",
+      "text": "Over the past 2 weeks, how often have you been bothered by feeling nervous, anxious or on edge?",
       "answerOption": [
         {
           "extension": [
@@ -116,12 +116,12 @@
       "code": [
         {
           "code": "68509-9",
-          "display": "Over the past 2 weeks have you not been able to stop or control worrying"
+          "display": "Over the past 2 weeks, how often have you been bothered by not being able to stop or control worrying?"
         }
       ],
       "required": false,
       "linkId": "/68509-9",
-      "text": "Over the past 2 weeks have you not been able to stop or control worrying",
+      "text": "Over the past 2 weeks, how often have you been bothered by not being able to stop or control worrying?",
       "answerOption": [
         {
           "extension": [
@@ -194,12 +194,12 @@
       "code": [
         {
           "code": "69733-4",
-          "display": "Worrying too much about different things"
+          "display": "Over the past 2 weeks, how often have you been bothered by worrying too much about different things?"
         }
       ],
       "required": false,
       "linkId": "/69733-4",
-      "text": "Worrying too much about different things",
+      "text": "Over the past 2 weeks, how often have you been bothered by worrying too much about different things?",
       "answerOption": [
         {
           "extension": [
@@ -272,12 +272,12 @@
       "code": [
         {
           "code": "69734-2",
-          "display": "Trouble relaxing"
+          "display": "Over the past 2 weeks, how often have you been bothered by trouble relaxing?"
         }
       ],
       "required": false,
       "linkId": "/69734-2",
-      "text": "Trouble relaxing",
+      "text": "Over the past 2 weeks, how often have you been bothered by trouble relaxing?",
       "answerOption": [
         {
           "extension": [
@@ -350,12 +350,12 @@
       "code": [
         {
           "code": "69735-9",
-          "display": "Being so restless that it is hard to sit still"
+          "display": "Over the past 2 weeks, how often have you been bothered by being so restless that it is hard to sit still?"
         }
       ],
       "required": false,
       "linkId": "/69735-9",
-      "text": "Being so restless that it is hard to sit still",
+      "text": "Over the past 2 weeks, how often have you been bothered by being so restless that it is hard to sit still?",
       "answerOption": [
         {
           "extension": [
@@ -428,12 +428,12 @@
       "code": [
         {
           "code": "69689-8",
-          "display": "Becoming easily annoyed or irritable."
+          "display": "Over the past 2 weeks, how often have you been bothered by becoming easily annoyed or irritable?"
         }
       ],
       "required": false,
       "linkId": "/69689-8",
-      "text": "Becoming easily annoyed or irritable.",
+      "text": "Over the past 2 weeks, how often have you been bothered by becoming easily annoyed or irritable?",
       "answerOption": [
         {
           "extension": [
@@ -506,12 +506,12 @@
       "code": [
         {
           "code": "69736-7",
-          "display": "Feeling afraid as if something awful might happen"
+          "display": "Over the past 2 weeks, how often have you been bothered by feeling afraid as if something awful might happen?"
         }
       ],
       "required": false,
       "linkId": "/69736-7",
-      "text": "Feeling afraid as if something awful might happen",
+      "text": "Over the past 2 weeks, how often have you been bothered by feeling afraid as if something awful might happen?",
       "answerOption": [
         {
           "extension": [
