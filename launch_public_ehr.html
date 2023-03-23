@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+    <script>
+      FHIR.oauth2.authorize({
+        "clientId": "dummy-client-id",
+        "scope": "patient/*.read launch/patient",
+        "completeInTarget": true
+      });
+    </script>
+  </head>
+  <body>Loading...</body>
+</html>
